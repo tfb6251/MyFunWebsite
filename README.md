@@ -3,6 +3,14 @@
 
 An online U-Fund system built in Java 17=> and ___ _replace with other platform requirements_ ___
   
+## How to install
+- Download from https://git-scm.com/ for git
+- If git command is not found in your powershell 
+    - https://phoenixnap.com/kb/windows-set-environment-variable#ftoc-heading-5
+- 
+
+
+
 ## Team
 
 - MEMBER1
