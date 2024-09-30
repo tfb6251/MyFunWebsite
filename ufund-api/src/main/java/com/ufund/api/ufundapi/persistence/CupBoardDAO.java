@@ -1,13 +1,14 @@
 package com.ufund.api.ufundapi.persistence;
-
 import java.io.IOException;
 import com.ufund.api.ufundapi.model.Needs;
 
 public interface CupBoardDAO {
 
-    Needs[] getNeedsArray();
-    Needs[] findNeeds(String containsText) throws IOException;
-    Needs[] createNeeds();
-    Needs[] updatNeeds();
-    Needs[] deleteNeeds();
+    Needs[] getNeedsArray() throws IOException;
+    Needs getNeed(String name) throws IOException;
+    Needs[] findNeeds(String name) throws IOException;
+    Needs createNeeds(Needs need) throws IOException;
+    Needs updatNeeds(Needs need)throws IOException;
+    boolean deleteNeeds(String name) throws IOException;
+    
 }
