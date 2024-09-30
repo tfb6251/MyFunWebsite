@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ufund.api.ufundapi.persistence.CupBoardDAO;
+
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +22,15 @@ import java.util.logging.Logger;
 //import com.heroes.api.heroesapi.persistence.HeroDAO;
 //import com.heroes.api.heroesapi.model.Hero;
 
+@RestController
+@RequestMapping("Computer")
 public class ComputerController {
+    private static final Logger LOG = Logger.getLogger(ComputerController.class.getName());
+    private CupBoardDAO ComputerDao;
+
+    public ComputerController(CupBoardDAO ComputerDao) {
+        this.ComputerDao = ComputerDao;
+    }
+
     
 }
