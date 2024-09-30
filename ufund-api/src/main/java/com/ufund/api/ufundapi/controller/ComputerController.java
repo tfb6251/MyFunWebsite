@@ -75,7 +75,6 @@ public class ComputerController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-<<<<<<< HEAD
 
     /**
      * Creates a {@linkplain Needs need} with the provided need object
@@ -99,8 +98,27 @@ public class ComputerController {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
+    @PutMapping("")
+    public ResponseEntity<Needs> updateHero(@RequestBody Needs need) {
+        LOG.info("PUT /computer " + need);
+
+        // Replace below with your implementation
+        try {
+            Hero updateNeed = ComputerDao.updateHero(need);
+            if (updateNeed != null) {
+                return new ResponseEntity<Hero>(updateNeed, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+
+
     
 
-=======
->>>>>>> 1abc4a9ce3f6f66c5bd11dacc5d6a55288a3ab40
 }
