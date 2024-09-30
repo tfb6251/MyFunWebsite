@@ -20,8 +20,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.ufund.api.ufundapi.model.Needs;
-
 @RestController
 @RequestMapping("Computer")
 public class ComputerController {
@@ -147,24 +145,15 @@ public class ComputerController {
         }
     }
 
-
-
-
-
-    
-
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-    }
-
     @PutMapping("")
-    public ResponseEntity<Needs> updateHero(@RequestBody Needs need) {
+    public ResponseEntity<Needs> updateNeeds(@RequestBody Needs need) {
         LOG.info("PUT /computer " + need);
 
         // Replace below with your implementation
         try {
-            Hero updateNeed = ComputerDao.updateHero(need);
+            Needs updateNeed = ComputerDao.updatNeeds(need);
             if (updateNeed != null) {
-                return new ResponseEntity<Hero>(updateNeed, HttpStatus.OK);
+                return new ResponseEntity<Needs>(updateNeed, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
