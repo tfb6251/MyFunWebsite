@@ -27,25 +27,6 @@ import java.util.logging.Logger;
 @RestController
 @RequestMapping("Computer")
 public class ComputerController {
-<<<<<<< HEAD
-    /**
-     * Creates a {@linkplain Hero hero} with the provided hero object
-     * 
-     * @param hero - The {@link Hero hero} to create
-     * 
-     * @return ResponseEntity with created {@link Hero hero} object and HTTP status of CREATED<br>
-     * ResponseEntity with HTTP status of CONFLICT if {@link Hero hero} object already exists<br>
-     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
-     */
-    /* 
-    @PostMapping("")
-    public ResponseEntity<Needs> createNeeds(@RequestBody Needs hero) {
-        LOG.info("POST /heroes " + hero);
-
-        // Replace below with your implementation
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-    }*/
-=======
     private static final Logger LOG = Logger.getLogger(ComputerController.class.getName());
     private CupBoardDAO ComputerDao;
 
@@ -79,6 +60,29 @@ public class ComputerController {
         }
     }
 
->>>>>>> 5a5faa6fc5f037e87fe9e72a810a7efb47035c45
+    /**
+     * Creates a {@linkplain Needs need} with the provided need object
+     * 
+     * @param need - The {@link Needs needs} to create
+     * 
+     * @return ResponseEntity with created {@link Needs need} object and HTTP status of CREATED<br>
+     * ResponseEntity with HTTP status of CONFLICT if {@link Needs needs} object already exists<br>
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @PostMapping("")
+    public ResponseEntity<Needs> createHero(@RequestBody Needs need) {
+        LOG.info("POST /heroes " + need);
+
+        try{
+            Needs newNeed = new Needs()
+        }
+
+
+        // Replace below with your implementation
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+    
+
 }
 
