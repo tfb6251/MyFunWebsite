@@ -36,9 +36,37 @@ public class ComputerController {
     public ResponseEntity<Needs> getNeed(@PathVariable String name) {
         LOG.info("GET /Computer/" + name);
         try {
-        Needs need = ComputerDao.getNeed(name);
+            Needs need = ComputerDao.getNeed(name);
             if (need != null)
-                return new ResponseEntity<Needs>(need,HttpStatus.OK);
+                return new ResponseEntity<Needs>(need, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+        /**
+     * Responds to the GET request for all {@linkplain Needs needs} whose name contains
+     * the text in name
+     * 
+     * @param name The name parameter which contains the text used to find the {@link Needs needs}
+     * 
+     * @return ResponseEntity with array of {@link Needs needs} objects (may be empty) and
+     * HTTP status of OK<br>
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     * <p>
+     * Example: Find all needs that contain the text "ma"
+     * GET http://localhost:8080/needs/?name=ma
+     */
+    @GetMapping("/")
+    public ResponseEntity<Needs[]> searchNeeds(@RequestParam String name) {
+        LOG.info("GET /heroes/?name="+name);
+        try {
+        Needs[] needs = ComputerDao.findNeeds(name);
+            if (needs != null)
+                return new ResponseEntity<Needs[]>(needs,HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
