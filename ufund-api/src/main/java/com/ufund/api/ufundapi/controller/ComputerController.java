@@ -20,9 +20,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-//import com.heroes.api.heroesapi.persistence.HeroDAO;
-
-//import com.heroes.api.heroesapi.model.Hero;
+import com.ufund.api.ufundapi.model.Needs;
 
 @RestController
 @RequestMapping("Computer")
@@ -34,6 +32,21 @@ public class ComputerController {
         this.ComputerDao = ComputerDao;
     }
 
+    @GetMapping("/{name}")
+    public ResponseEntity<Needs> getNeed(@PathVariable String name) {
+        LOG.info("GET /Computer/" + name);
+        try {
+            Needs need = ComputerDao.getNeed(name);
+            if (need != null)
+                return new ResponseEntity<Needs>(need, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
         /**
      * Responds to the GET request for all {@linkplain Needs needs} whose name contains
      * the text in name
@@ -48,17 +61,21 @@ public class ComputerController {
      * GET http://localhost:8080/needs/?name=ma
      */
     @GetMapping("/")
-    public ResponseEntity<Needs[]> searchHeroes(@RequestParam String name) {
-        LOG.info("GET /heroes/?name="+name);
+    public ResponseEntity<Needs[]> searchNeeds(@RequestParam String name) {
+        LOG.info("GET /needs/?name="+name);
         try {
-            Needs [] needsArray = ComputerDao.findNeeds(name);
-            return new ResponseEntity<Needs[]>(needsArray,HttpStatus.OK);
+        Needs[] needs = ComputerDao.findNeeds(name);
+            if (needs != null)
+                return new ResponseEntity<Needs[]>(needs,HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        catch(IOException e){
+        catch(IOException e) {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+<<<<<<< HEAD
 
     /**
      * Creates a {@linkplain Needs need} with the provided need object
@@ -84,5 +101,6 @@ public class ComputerController {
 
     
 
+=======
+>>>>>>> 1abc4a9ce3f6f66c5bd11dacc5d6a55288a3ab40
 }
-
