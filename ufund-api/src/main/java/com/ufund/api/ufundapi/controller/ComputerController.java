@@ -47,7 +47,7 @@ public class ComputerController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-        /**
+    /**
      * Responds to the GET request for all {@linkplain Needs needs} whose name contains
      * the text in name
      * 
@@ -75,7 +75,6 @@ public class ComputerController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-<<<<<<< HEAD
 
     /**
      * Creates a {@linkplain Needs need} with the provided need object
@@ -87,20 +86,71 @@ public class ComputerController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @PostMapping("")
-    public ResponseEntity<Needs> createHero(@RequestBody Needs need) {
-        LOG.info("POST /heroes " + need);
+    public ResponseEntity<Needs> createNeeds(@RequestBody Needs needs) {
+        LOG.info("POST /Computer " + needs);
 
-        try{
-            Needs newNeed = new Needs()
+        try {
+            Needs need = new Needs(null, 0, 0, null);
+            Needs createdNeed = ComputerDao.createNeeds(need);
+
+            if (createdNeed != null)
+                return new ResponseEntity<>(createdNeed, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
 
+
+    /**
+     * Deletes a {@linkplain Needs need} with the given id
+     * 
+     * @param name The id of the {@link Needs need} to deleted
+     * 
+     * @return ResponseEntity HTTP status of OK if deleted<br>
+     * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     */
+    @DeleteMapping("/{name}")
+    public ResponseEntity<Needs> deleteHero(@PathVariable String name) {
+        LOG.info("DELETE /Computer" + name);
+        try {
+            boolean isDeleted = ComputerDao.deleteNeeds(name);
+            if (isDeleted) {
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+
+    @GetMapping("")
+    public ResponseEntity<Needs[]> getNeedsArray() {
+        LOG.info("GET /Computers");
 
         // Replace below with your implementation
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        try {
+            Needs[] needs = ComputerDao.getNeedsArray();
+            if (needs != null)
+                return new ResponseEntity<Needs[]>(needs, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE, e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
+
+
+
 
     
 
-=======
->>>>>>> 1abc4a9ce3f6f66c5bd11dacc5d6a55288a3ab40
 }
