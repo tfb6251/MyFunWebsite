@@ -27,7 +27,6 @@ import java.util.logging.Logger;
 @RestController
 @RequestMapping("Computer")
 public class ComputerController {
-<<<<<<< HEAD
     /**
      * Creates a {@linkplain Hero hero} with the provided hero object
      * 
@@ -45,7 +44,6 @@ public class ComputerController {
         // Replace below with your implementation
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }*/
-=======
     private static final Logger LOG = Logger.getLogger(ComputerController.class.getName());
     private CupBoardDAO ComputerDao;
 
@@ -79,6 +77,5 @@ public class ComputerController {
         }
     }
 
->>>>>>> 5a5faa6fc5f037e87fe9e72a810a7efb47035c45
 }
 
