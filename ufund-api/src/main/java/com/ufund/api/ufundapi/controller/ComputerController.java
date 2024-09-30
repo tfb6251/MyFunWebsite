@@ -19,8 +19,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-//import com.heroes.api.heroesapi.persistence.HeroDAO;
-//import com.heroes.api.heroesapi.model.Hero;
+import com.ufund.api.ufundapi.model.Needs;
 
 @RestController
 @RequestMapping("Computer")
@@ -32,5 +31,19 @@ public class ComputerController {
         this.ComputerDao = ComputerDao;
     }
 
-    
+    @GetMapping("/{name}")
+    public ResponseEntity<Needs> getNeed(@PathVariable String name) {
+        LOG.info("GET /Computer/" + name);
+        try {
+        Needs need = ComputerDao.getNeed(name);
+            if (need != null)
+                return new ResponseEntity<Needs>(need,HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
