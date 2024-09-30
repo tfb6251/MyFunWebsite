@@ -62,7 +62,7 @@ public class ComputerController {
      */
     @GetMapping("/")
     public ResponseEntity<Needs[]> searchNeeds(@RequestParam String name) {
-        LOG.info("GET /heroes/?name="+name);
+        LOG.info("GET /needs/?name="+name);
         try {
         Needs[] needs = ComputerDao.findNeeds(name);
             if (needs != null)
