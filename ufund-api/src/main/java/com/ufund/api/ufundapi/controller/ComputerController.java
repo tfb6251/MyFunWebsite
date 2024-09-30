@@ -114,7 +114,7 @@ public class ComputerController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @DeleteMapping("/{name}")
-    public ResponseEntity<Needs> deleteHero(@PathVariable String name) {
+    public ResponseEntity<Needs> deleteNeeds(@PathVariable String name) {
         LOG.info("DELETE /Computer" + name);
         try {
             boolean isDeleted = ComputerDao.deleteNeeds(name);
