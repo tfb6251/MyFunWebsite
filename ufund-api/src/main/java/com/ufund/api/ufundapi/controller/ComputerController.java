@@ -47,7 +47,7 @@ public class ComputerController {
      * GET http://localhost:8080/needs/?name=ma
      */
     @GetMapping("/")
-    public ResponseEntity<Needs[]> searchHeroes(@RequestParam String name) {
+    public ResponseEntity<Needs[]> searchNeeds(@RequestParam String name) {
         LOG.info("GET /heroes/?name="+name);
         try {
             Needs [] needsArray = ComputerDao.findNeeds(name);
