@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ufund.api.ufundapi.model.Needs;
 import com.ufund.api.ufundapi.persistence.CupBoardDAO;
 
 import java.io.IOException;
@@ -32,5 +33,30 @@ public class ComputerController {
         this.ComputerDao = ComputerDao;
     }
 
-    
+        /**
+     * Responds to the GET request for all {@linkplain Needs needs} whose name contains
+     * the text in name
+     * 
+     * @param name The name parameter which contains the text used to find the {@link Needs needs}
+     * 
+     * @return ResponseEntity with array of {@link Needs needs} objects (may be empty) and
+     * HTTP status of OK<br>
+     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
+     * <p>
+     * Example: Find all needs that contain the text "ma"
+     * GET http://localhost:8080/needs/?name=ma
+     */
+    @GetMapping("/")
+    public ResponseEntity<Needs[]> searchHeroes(@RequestParam String name) {
+        LOG.info("GET /heroes/?name="+name);
+        try {
+            Needs [] needsArray = ComputerDao.findNeeds(name);
+            return new ResponseEntity<Needs[]>(needsArray,HttpStatus.OK);
+        }
+        catch(IOException e){
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
