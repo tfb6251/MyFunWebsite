@@ -1,4 +1,4 @@
-package com.ufund.api.ufundapi.controller;
+package com.ufund.api.ufundapi.model;
 
 
 import org.springframework.http.HttpStatus;
@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ufund.api.ufundapi.model.Needs;
-import com.ufund.api.ufundapi.persistence.CupBoardDAO;
+import com.ufund.api.ufundapi.model.persistence.CupBoardDAO;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -23,26 +22,6 @@ import java.util.logging.Logger;
 @RestController
 @RequestMapping("Computer")
 public class ComputerController {
-<<<<<<< HEAD
-    /**
-     * Creates a {@linkplain Hero hero} with the provided hero object
-     * 
-     * @param hero - The {@link Hero hero} to create
-     * 
-     * @return ResponseEntity with created {@link Hero hero} object and HTTP status of CREATED<br>
-     * ResponseEntity with HTTP status of CONFLICT if {@link Hero hero} object already exists<br>
-     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
-     */
-    /* 
-    @PostMapping("")
-    public ResponseEntity<Needs> createNeeds(@RequestBody Needs hero) {
-        LOG.info("POST /heroes " + hero);
-
-        // Replace below with your implementation
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-    }*/
-=======
->>>>>>> abe3571b6c483c531aca03c7b779c7a7d44740cf
     private static final Logger LOG = Logger.getLogger(ComputerController.class.getName());
     private CupBoardDAO ComputerDao;
 
@@ -94,9 +73,6 @@ public class ComputerController {
         }
     }
 
-<<<<<<< HEAD
-}
-=======
     /**
      * Creates a {@linkplain Needs need} with the provided need object
      * 
@@ -109,7 +85,6 @@ public class ComputerController {
     @PostMapping("")
     public ResponseEntity<Needs> createNeeds(@RequestBody Needs needs) {
         LOG.info("POST /Computer " + needs);
->>>>>>> abe3571b6c483c531aca03c7b779c7a7d44740cf
 
         try {
             Needs need = new Needs(null, 0, 0, null);
@@ -187,9 +162,4 @@ public class ComputerController {
         }
 
     }
-
-
-
-    
-
 }
