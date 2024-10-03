@@ -61,7 +61,7 @@ public class ComputerController {
      */
     @GetMapping("/")
     public ResponseEntity<Needs[]> searchNeeds(@RequestParam String name) {
-        LOG.info("GET /needs/?name=" + name);
+        LOG.info("GET /computer/?name=" + name);
         try {
             Needs[] needs = ComputerDao.findNeeds(name);
             if (needs != null)
@@ -86,17 +86,15 @@ public class ComputerController {
      *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @PostMapping("")
-    public ResponseEntity<Needs> createNeeds(@RequestBody Needs needs) {
-        LOG.info("POST /computer " + needs);
+    public ResponseEntity<Needs> createNeeds(@RequestBody Needs need) {
+        LOG.info("POST /computer " + need);
 
         try {
-            Needs need = new Needs(null, 0, 0, null);
-            Needs createdNeed = ComputerDao.createNeeds(need);
-
-            if (createdNeed != null)
-                return new ResponseEntity<>(createdNeed, HttpStatus.OK);
+            Needs newNeed = ComputerDao.createNeeds(need);
+            if (newNeed != null)
+                return new ResponseEntity<>(newNeed, HttpStatus.OK);
             else
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);
         } catch (IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -114,7 +112,7 @@ public class ComputerController {
      */
     @DeleteMapping("/{name}")
     public ResponseEntity<Needs> deleteNeeds(@PathVariable String name) {
-        LOG.info("DELETE /computer" + name);
+        LOG.info("DELETE /computer/" + name);
         try {
             boolean isDeleted = ComputerDao.deleteNeeds(name);
             if (isDeleted) {

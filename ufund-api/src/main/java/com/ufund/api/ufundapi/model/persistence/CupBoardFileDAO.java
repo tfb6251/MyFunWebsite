@@ -20,8 +20,9 @@ public class CupBoardFileDAO implements CupBoardDAO {
 
     public CupBoardFileDAO(@Value("${computer.file}") String filename, ObjectMapper objectMapper)
             throws IOException {
-        this.objectMapper = objectMapper;
         this.filename = filename;
+        this.objectMapper = objectMapper;
+        
         load();
     }
 
