@@ -1,4 +1,4 @@
-package com.ufund.api.ufundapi.model;
+package com.ufund.api.ufundapi.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ufund.api.ufundapi.model.persistence.CupBoardDAO;
+import com.ufund.api.ufundapi.model.Needs;
+import com.ufund.api.ufundapi.persistence.CupBoardDAO;
+//import com.ufund.api.ufundapi.controller.ComputerService;
 
 import java.io.IOException;
 import java.util.logging.Level;

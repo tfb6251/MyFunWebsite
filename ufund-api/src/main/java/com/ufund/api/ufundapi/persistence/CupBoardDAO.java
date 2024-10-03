@@ -1,4 +1,4 @@
-package com.ufund.api.ufundapi.model.persistence;
+package com.ufund.api.ufundapi.persistence;
 import java.io.IOException;
 import com.ufund.api.ufundapi.model.Needs;
 
