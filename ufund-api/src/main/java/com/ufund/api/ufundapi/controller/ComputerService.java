@@ -1,35 +1,45 @@
 package com.ufund.api.ufundapi.controller;
 
-import com.ufund.api.ufundapi.persistence.CupBoardDAO;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.ufund.api.ufundapi.model.Needs;
+import com.ufund.api.ufundapi.persistence.CupBoardDAO;
+
 
 import java.io.IOException;
+/*
+ * Computer Service class for data transfer to and from the model/persistance.
+ * 
+ */
 
-public class ComputerService {
+
+
+@RestController
+public class ComputerService  {
     private CupBoardDAO ComputerDao;
 
     public ComputerService(CupBoardDAO ComputerDao) {
         this.ComputerDao = ComputerDao;
     }
     Needs[] getNeedsArray(String containText) throws IOException {
-        return getNeedsArray(containText);
+        return ComputerDao.getNeedsArray(containText);
     }
     Needs[] getNeedsArray() throws IOException {
-        return getNeedsArray();
+        return ComputerDao.getNeedsArray();
     }
     Needs getNeed(String name) throws IOException {
         return ComputerDao.getNeed(name);
     }
     Needs[] findNeeds(String name) throws IOException {
-        return findNeeds(name);
+        return ComputerDao.findNeeds(name);
     }
     Needs createNeeds(Needs need) throws IOException {
-        return createNeeds(need);
+        return ComputerDao.createNeeds(need);
     }
     Needs updateNeeds(Needs need)throws IOException {
-        return updateNeeds(need);
+        return ComputerDao.updateNeeds(need);
     }
     boolean deleteNeeds(String name) throws IOException {
-        return deleteNeeds(name);
+        return ComputerDao.deleteNeeds(name);
     }  
 }

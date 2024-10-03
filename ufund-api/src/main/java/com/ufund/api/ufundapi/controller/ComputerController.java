@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ufund.api.ufundapi.model.Needs;
-import com.ufund.api.ufundapi.persistence.CupBoardDAO;
-//import com.ufund.api.ufundapi.controller.ComputerService;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -24,17 +22,17 @@ import java.util.logging.Logger;
 @RequestMapping("computer")
 public class ComputerController {
     private static final Logger LOG = Logger.getLogger(ComputerController.class.getName());
-    private CupBoardDAO ComputerDao;
+    private ComputerService Service;
 
-    public ComputerController(CupBoardDAO ComputerDao) {
-        this.ComputerDao = ComputerDao;
+    public ComputerController(ComputerService Service) {
+        this.Service = Service;
     }
 
     @GetMapping("/{name}")
     public ResponseEntity<Needs> getNeed(@PathVariable String name) {
         LOG.info("GET /computer/" + name);
         try {
-            Needs need = ComputerDao.getNeed(name);
+            Needs need = Service.getNeed(name);
             if (need != null)
                 return new ResponseEntity<Needs>(need, HttpStatus.OK);
             else
@@ -65,7 +63,7 @@ public class ComputerController {
     public ResponseEntity<Needs[]> searchNeeds(@RequestParam String name) {
         LOG.info("GET /computer/?name=" + name);
         try {
-            Needs[] needs = ComputerDao.findNeeds(name);
+            Needs[] needs = Service.findNeeds(name);
             if (needs != null)
                 return new ResponseEntity<Needs[]>(needs, HttpStatus.OK);
             else
@@ -92,7 +90,7 @@ public class ComputerController {
         LOG.info("POST /computer " + need);
 
         try {
-            Needs newNeed = ComputerDao.createNeeds(need);
+            Needs newNeed = Service.createNeeds(need);
             if (newNeed != null)
                 return new ResponseEntity<>(newNeed, HttpStatus.OK);
             else
@@ -116,7 +114,7 @@ public class ComputerController {
     public ResponseEntity<Needs> deleteNeeds(@PathVariable String name) {
         LOG.info("DELETE /computer/" + name);
         try {
-            boolean isDeleted = ComputerDao.deleteNeeds(name);
+            boolean isDeleted = Service.deleteNeeds(name);
             if (isDeleted) {
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {
@@ -134,7 +132,7 @@ public class ComputerController {
 
         // Replace below with your implementation
         try {
-            Needs[] needs = ComputerDao.getNeedsArray();
+            Needs[] needs = Service.getNeedsArray();
             if (needs != null)
                 return new ResponseEntity<Needs[]>(needs, HttpStatus.OK);
             else
@@ -151,7 +149,7 @@ public class ComputerController {
 
         // Replace below with your implementation
         try {
-            Needs updateNeed = ComputerDao.updateNeeds(need);
+            Needs updateNeed = Service.updateNeeds(need);
             if (updateNeed != null) {
                 return new ResponseEntity<Needs>(updateNeed, HttpStatus.OK);
             } else {
