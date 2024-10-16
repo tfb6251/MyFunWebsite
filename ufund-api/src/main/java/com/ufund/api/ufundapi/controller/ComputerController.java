@@ -57,7 +57,7 @@ public class ComputerController {
      *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      *         <p>
      *         Example: Find all needs that contain the text "ma"
-     *         GET http://localhost:8080/needs/?name=ma
+     *         GET http://localhost:8080/computer/?name=
      */
     @GetMapping("/")
     public ResponseEntity<Needs[]> searchNeeds(@RequestParam String name) {
