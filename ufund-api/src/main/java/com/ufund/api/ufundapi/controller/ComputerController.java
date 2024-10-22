@@ -92,9 +92,9 @@ public class ComputerController {
         try {
             Needs newNeed = Service.createNeeds(need);
             if (newNeed != null)
-                return new ResponseEntity<>(newNeed, HttpStatus.OK);
+                return new ResponseEntity<>(newNeed, HttpStatus.CREATED);
             else
-                return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
         } catch (IOException e) {
             LOG.log(Level.SEVERE, e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

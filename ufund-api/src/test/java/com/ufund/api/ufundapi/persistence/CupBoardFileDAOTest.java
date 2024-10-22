@@ -60,8 +60,8 @@ public class CupBoardFileDAOTest {
 
 
         assertEquals(heroes.length,2);
-        assertEquals(heroes[0],testNeeds[1]);
-        assertEquals(heroes[1],testNeeds[2]);
+        assertEquals(heroes[0],testNeeds[0]);
+        assertEquals(heroes[1],testNeeds[1]);
     }
 
     @Test //3
