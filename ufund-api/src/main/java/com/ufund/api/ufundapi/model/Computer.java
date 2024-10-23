@@ -2,7 +2,7 @@ package com.ufund.api.ufundapi.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Needs {
+public class Computer {
     @JsonProperty("name")
     private String name;
 
@@ -15,7 +15,7 @@ public class Needs {
     @JsonProperty("brand")
     private String brand;
 
-    public Needs(@JsonProperty("name") String name, @JsonProperty("cost") int cost, 
+    public Computer(@JsonProperty("name") String name, @JsonProperty("cost") int cost, 
     @JsonProperty("quantity") int quantity,   @JsonProperty("brand") String brand)
     {
         this.name = name;

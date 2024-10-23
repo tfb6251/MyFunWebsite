@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ufund.api.ufundapi.model.Needs;
+import com.ufund.api.ufundapi.model.Computer;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -29,12 +29,12 @@ public class ComputerController {
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<Needs> getNeed(@PathVariable String name) {
+    public ResponseEntity<Computer> getComputer(@PathVariable String name) {
         LOG.info("GET /computer/" + name);
         try {
-            Needs need = Service.getNeed(name);
-            if (need != null)
-                return new ResponseEntity<Needs>(need, HttpStatus.OK);
+            Computer computer = Service.getComputer(name);
+            if (computer != null)
+                return new ResponseEntity<Computer>(computer, HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (IOException e) {
@@ -44,14 +44,14 @@ public class ComputerController {
     }
 
     /**
-     * Responds to the GET request for all {@linkplain Needs needs} whose name
+     * Responds to the GET request for all {@linkplain Computer needs} whose name
      * contains
      * the text in name
      * 
      * @param name The name parameter which contains the text used to find the
-     *             {@link Needs needs}
+     *             {@link Computer needs}
      * 
-     * @return ResponseEntity with array of {@link Needs needs} objects (may be
+     * @return ResponseEntity with array of {@link Computer needs} objects (may be
      *         empty) and
      *         HTTP status of OK<br>
      *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
@@ -60,12 +60,12 @@ public class ComputerController {
      *         GET http://localhost:8080/computer/?name=
      */
     @GetMapping("/")
-    public ResponseEntity<Needs[]> searchNeeds(@RequestParam String name) {
+    public ResponseEntity<Computer[]> searchNeeds(@RequestParam String name) {
         LOG.info("GET /computer/?name=" + name);
         try {
-            Needs[] needs = Service.findNeeds(name);
+            Computer[] needs = Service.findComputers(name);
             if (needs != null)
-                return new ResponseEntity<Needs[]>(needs, HttpStatus.OK);
+                return new ResponseEntity<Computer[]>(needs, HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (IOException e) {
@@ -75,22 +75,22 @@ public class ComputerController {
     }
 
     /**
-     * Creates a {@linkplain Needs need} with the provided need object
+     * Creates a {@linkplain Computer computer} with the provided computer object
      * 
-     * @param need - The {@link Needs needs} to create
+     * @param computer - The {@link Computer needs} to create
      * 
-     * @return ResponseEntity with created {@link Needs need} object and HTTP status
+     * @return ResponseEntity with created {@link Computer computer} object and HTTP status
      *         of CREATED<br>
-     *         ResponseEntity with HTTP status of CONFLICT if {@link Needs needs}
+     *         ResponseEntity with HTTP status of CONFLICT if {@link Computer needs}
      *         object already exists<br>
      *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @PostMapping("")
-    public ResponseEntity<Needs> createNeeds(@RequestBody Needs need) {
-        LOG.info("POST /computer " + need);
+    public ResponseEntity<Computer> createComputer(@RequestBody Computer computer) {
+        LOG.info("POST /computer " + computer);
 
         try {
-            Needs newNeed = Service.createNeeds(need);
+            Computer newNeed = Service.createComputer(computer);
             if (newNeed != null)
                 return new ResponseEntity<>(newNeed, HttpStatus.CREATED);
             else
@@ -102,19 +102,19 @@ public class ComputerController {
     }
 
     /**
-     * Deletes a {@linkplain Needs need} with the given id
+     * Deletes a {@linkplain Computer computer} with the given id
      * 
-     * @param name The id of the {@link Needs need} to deleted
+     * @param name The id of the {@link Computer computer} to deleted
      * 
      * @return ResponseEntity HTTP status of OK if deleted<br>
      *         ResponseEntity with HTTP status of NOT_FOUND if not found<br>
      *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @DeleteMapping("/{name}")
-    public ResponseEntity<Needs> deleteNeeds(@PathVariable String name) {
+    public ResponseEntity<Computer> deleteComputer(@PathVariable String name) {
         LOG.info("DELETE /computer/" + name);
         try {
-            boolean isDeleted = Service.deleteNeeds(name);
+            boolean isDeleted = Service.deleteComputer(name);
             if (isDeleted) {
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {
@@ -127,14 +127,14 @@ public class ComputerController {
     }
 
     @GetMapping("")
-    public ResponseEntity<Needs[]> getNeedsArray() {
+    public ResponseEntity<Computer[]> findComputers() {
         LOG.info("GET /computer");
 
         // Replace below with your implementation
         try {
-            Needs[] needs = Service.getNeedsArray();
+            Computer[] needs = Service.findComputers();
             if (needs != null)
-                return new ResponseEntity<Needs[]>(needs, HttpStatus.OK);
+                return new ResponseEntity<Computer[]>(needs, HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (IOException e) {
@@ -144,14 +144,14 @@ public class ComputerController {
     }
 
     @PutMapping("")
-    public ResponseEntity<Needs> updateNeeds(@RequestBody Needs need) {
-        LOG.info("PUT /computer " + need);
+    public ResponseEntity<Computer> updateComputer(@RequestBody Computer computer) {
+        LOG.info("PUT /computer " + computer);
 
         // Replace below with your implementation
         try {
-            Needs updateNeed = Service.updateNeeds(need);
+            Computer updateNeed = Service.updateComputer(computer);
             if (updateNeed != null) {
-                return new ResponseEntity<Needs>(updateNeed, HttpStatus.OK);
+                return new ResponseEntity<Computer>(updateNeed, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }

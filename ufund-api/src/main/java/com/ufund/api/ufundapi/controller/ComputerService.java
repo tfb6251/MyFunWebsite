@@ -2,8 +2,8 @@ package com.ufund.api.ufundapi.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ufund.api.ufundapi.model.Needs;
-import com.ufund.api.ufundapi.persistence.CupBoardDAO;
+import com.ufund.api.ufundapi.model.Computer;
+import com.ufund.api.ufundapi.persistence.ComputerDAO;
 
 
 import java.io.IOException;
@@ -16,30 +16,27 @@ import java.io.IOException;
 
 @RestController
 public class ComputerService  {
-    private CupBoardDAO ComputerDao;
+    private ComputerDAO ComputerDao;
 
-    public ComputerService(CupBoardDAO ComputerDao) {
+    public ComputerService(ComputerDAO ComputerDao) {
         this.ComputerDao = ComputerDao;
     }
-    Needs[] getNeedsArray(String containText) throws IOException {
-        return ComputerDao.getNeedsArray(containText);
+    Computer[] findComputers() throws IOException {
+        return ComputerDao.findComputers();
     }
-    Needs[] getNeedsArray() throws IOException {
-        return ComputerDao.getNeedsArray();
+    Computer getComputer(String name) throws IOException {
+        return ComputerDao.getComputer(name);
     }
-    Needs getNeed(String name) throws IOException {
-        return ComputerDao.getNeed(name);
+    Computer[] findComputers(String name) throws IOException {
+        return ComputerDao.findComputers(name);
     }
-    Needs[] findNeeds(String name) throws IOException {
-        return ComputerDao.findNeeds(name);
+    Computer createComputer(Computer computer) throws IOException {
+        return ComputerDao.createComputer(computer);
     }
-    Needs createNeeds(Needs need) throws IOException {
-        return ComputerDao.createNeeds(need);
+    Computer updateComputer(Computer computer)throws IOException {
+        return ComputerDao.updateComputer(computer);
     }
-    Needs updateNeeds(Needs need)throws IOException {
-        return ComputerDao.updateNeeds(need);
-    }
-    boolean deleteNeeds(String name) throws IOException {
-        return ComputerDao.deleteNeeds(name);
+    boolean deleteComputer(String name) throws IOException {
+        return ComputerDao.deleteComputer(name);
     }  
 }
