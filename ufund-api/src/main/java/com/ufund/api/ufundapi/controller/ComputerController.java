@@ -128,7 +128,7 @@ public class ComputerController {
 
     @GetMapping("")
     public ResponseEntity<Computer[]> findComputers() {
-        LOG.info("GET /computer");
+        LOG.info("GET /computers");
 
         // Replace below with your implementation
         try {
