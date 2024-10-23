@@ -18,7 +18,7 @@ public class ComputerFileDAO implements ComputerDAO {
     private ObjectMapper objectMapper;
     private String filename;
 
-    public ComputerFileDAO(@Value("${computerMap.file}") String filename, ObjectMapper objectMapper)
+    public ComputerFileDAO(@Value("${computer.file}") String filename, ObjectMapper objectMapper)
             throws IOException {
         this.filename = filename;
         this.objectMapper = objectMapper;
