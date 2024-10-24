@@ -11,7 +11,7 @@ import { MessageService } from './message.service';
   providedIn: 'root'
 })
 export class ComputerService {
-  private computersUrl = 'http://localhost:8080/computers';
+  private computersUrl = 'http://localhost:8080/computer';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
