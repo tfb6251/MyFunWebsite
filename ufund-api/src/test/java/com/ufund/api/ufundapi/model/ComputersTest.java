@@ -1,89 +1,76 @@
 package com.ufund.api.ufundapi.model;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
-public class ComputersTest {
+public class ComputerTest {
 
-    @Mock
-    private Computer mockNeeds;
+    private Computer computer;
 
+    /**
+     * Before each test, create a new Computer object
+     */
     @BeforeEach
-    public void setup() {
-        MockitoAnnotations.openMocks(this);
-        mockNeeds = mock(Computer.class);
+    public void setupComputer() {
+        computer = new Computer("Laptop", 1200, 2, "Dell");
     }
 
     @Test
-    
     public void testConstructorAndGetters() {
-        when(mockNeeds.getName()).thenReturn("Laptop");
-        when(mockNeeds.getCost()).thenReturn(1200);
-        when(mockNeeds.getQuantity()).thenReturn(2);
-        when(mockNeeds.getBrand()).thenReturn("Dell");
-
-        assertAll(
-            () -> assertEquals("Laptop", mockNeeds.getName(), "Name should match the expected value"),
-            () -> assertEquals(1200, mockNeeds.getCost(), "Cost should match the expected value"),
-            () -> assertEquals(2, mockNeeds.getQuantity(), "Quantity should match the expected value"),
-            () -> assertEquals("Dell", mockNeeds.getBrand(), "Brand should match the expected value")
-        );
+        assertEquals("Laptop", computer.getName());
+        assertEquals(1200, computer.getCost());
+        assertEquals(2, computer.getQuantity());
+        assertEquals("Dell", computer.getBrand());
     }
 
     @Test
-    
-    public void testSetters() {
-        mockNeeds.setName("Tablet");
-        mockNeeds.setCost(600);
-        mockNeeds.setQuantity(3);
-        mockNeeds.setBrand("Samsung");
-
-        verify(mockNeeds).setName("Tablet");
-        verify(mockNeeds).setCost(600);
-        verify(mockNeeds).setQuantity(3);
-        verify(mockNeeds).setBrand("Samsung");
+    public void testSetName() {
+        computer.setName("Tablet");
+        assertEquals("Tablet", computer.getName());
     }
 
     @Test
-    
+    public void testSetCost() {
+        computer.setCost(600);
+        assertEquals(600, computer.getCost());
+    }
+
+    @Test
+    public void testSetQuantity() {
+        computer.setQuantity(3);
+        assertEquals(3, computer.getQuantity());
+    }
+
+    @Test
+    public void testSetBrand() {
+        computer.setBrand("Samsung");
+        assertEquals("Samsung", computer.getBrand());
+    }
+
+    @Test
     public void testToString() {
-        when(mockNeeds.toString()).thenReturn("Name: HeadphonesCost: $100Quantity: 1 Brand: Sony");
-        String expectedString = "Name: HeadphonesCost: $100Quantity: 1 Brand: Sony";
-        assertEquals(expectedString, mockNeeds.toString(), "toString() should return the expected string");
+        String expectedString = "Name: LaptopCost: $1200Quantity: 2 Brand: Dell";
+        assertEquals(expectedString, computer.toString());
     }
 
     @Test
-    
     public void testEquality() {
-        Computer needs1 = new Computer("Monitor", 300, 2, "LG");
-        Computer needs2 = new Computer("Monitor", 300, 2, "LG");
-        assertAll(
-            () -> assertEquals(needs1.getName(), needs2.getName(), "Names should be equal"),
-            () -> assertEquals(needs1.getCost(), needs2.getCost(), "Costs should be equal"),
-            () -> assertEquals(needs1.getQuantity(), needs2.getQuantity(), "Quantities should be equal"),
-            () -> assertEquals(needs1.getBrand(), needs2.getBrand(), "Brands should be equal")
-        );
+        Computer anotherComputer = new Computer("Laptop", 1200, 2, "Dell");
+        assertEquals(computer.getName(), anotherComputer.getName());
+        assertEquals(computer.getCost(), anotherComputer.getCost());
+        assertEquals(computer.getQuantity(), anotherComputer.getQuantity());
+        assertEquals(computer.getBrand(), anotherComputer.getBrand());
     }
 
     @Test
-    
     public void testDefaultValues() {
-        when(mockNeeds.getName()).thenReturn("Item");
-        when(mockNeeds.getCost()).thenReturn(0);
-        when(mockNeeds.getQuantity()).thenReturn(0);
-        when(mockNeeds.getBrand()).thenReturn("");
-
-        assertAll(
-            () -> assertNotNull(mockNeeds.getName(), "Name should not be null"),
-            () -> assertEquals(0, mockNeeds.getCost(), "Default cost should be 0"),
-            () -> assertEquals(0, mockNeeds.getQuantity(), "Default quantity should be 0"),
-            () -> assertNotNull(mockNeeds.getBrand(), "Brand should not be null")
-        );
+        Computer defaultComputer = new Computer("Item", 0, 0, "");
+        assertEquals("Item", defaultComputer.getName());
+        assertEquals(0, defaultComputer.getCost());
+        assertEquals(0, defaultComputer.getQuantity());
+        assertEquals("", defaultComputer.getBrand());
     }
 }
