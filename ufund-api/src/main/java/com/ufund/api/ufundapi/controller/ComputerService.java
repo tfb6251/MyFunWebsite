@@ -21,11 +21,11 @@ public class ComputerService  {
     public ComputerService(ComputerDAO ComputerDao) {
         this.ComputerDao = ComputerDao;
     }
-    Computer[] findComputers() throws IOException {
-        return ComputerDao.findComputers();
+    Computer[] getComputers() throws IOException {
+        return ComputerDao.getComputers();
     }
-    Computer getComputer(String name) throws IOException {
-        return ComputerDao.getComputer(name);
+    Computer getComputer(int id) throws IOException {
+        return ComputerDao.getComputer(id);
     }
     Computer[] findComputers(String name) throws IOException {
         return ComputerDao.findComputers(name);
@@ -36,7 +36,7 @@ public class ComputerService  {
     Computer updateComputer(Computer computer)throws IOException {
         return ComputerDao.updateComputer(computer);
     }
-    boolean deleteComputer(String name) throws IOException {
-        return ComputerDao.deleteComputer(name);
+    boolean deleteComputer(int id) throws IOException {
+        return ComputerDao.deleteComputer(id);
     }  
 }

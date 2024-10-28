@@ -1,4 +1,5 @@
-export interface Computer {    
+export interface Computer {   
+    id : number; 
     name: string;
     cost : number;
     quantity : number;
