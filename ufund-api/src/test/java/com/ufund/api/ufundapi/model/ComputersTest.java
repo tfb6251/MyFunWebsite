@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 @Tag("unit")
-public class ComputerTest {
+public class ComputersTest {
 
     private Computer computer;
 
