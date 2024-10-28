@@ -6,66 +6,71 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-@Tag("unit")
 public class ComputerTest {
 
     private Computer computer;
 
+    /**
+     * Before each test, create a new Computer object
+     */
     @BeforeEach
-    public void setup() {
+    public void setupComputer() {
         computer = new Computer("Laptop", 1200, 2, "Dell");
     }
 
     @Test
     public void testConstructorAndGetters() {
-        assertAll(
-            () -> assertEquals("Laptop", computer.getName(), "Name should match the expected value"),
-            () -> assertEquals(1200, computer.getCost(), "Cost should match the expected value"),
-            () -> assertEquals(2, computer.getQuantity(), "Quantity should match the expected value"),
-            () -> assertEquals("Dell", computer.getBrand(), "Brand should match the expected value")
-        );
+        assertEquals("Laptop", computer.getName());
+        assertEquals(1200, computer.getCost());
+        assertEquals(2, computer.getQuantity());
+        assertEquals("Dell", computer.getBrand());
     }
 
     @Test
-    public void testSetters() {
+    public void testSetName() {
         computer.setName("Tablet");
-        computer.setCost(600);
-        computer.setQuantity(3);
-        computer.setBrand("Samsung");
+        assertEquals("Tablet", computer.getName());
+    }
 
-        assertAll(
-            () -> assertEquals("Tablet", computer.getName(), "Name should match the updated value"),
-            () -> assertEquals(600, computer.getCost(), "Cost should match the updated value"),
-            () -> assertEquals(3, computer.getQuantity(), "Quantity should match the updated value"),
-            () -> assertEquals("Samsung", computer.getBrand(), "Brand should match the updated value")
-        );
+    @Test
+    public void testSetCost() {
+        computer.setCost(600);
+        assertEquals(600, computer.getCost());
+    }
+
+    @Test
+    public void testSetQuantity() {
+        computer.setQuantity(3);
+        assertEquals(3, computer.getQuantity());
+    }
+
+    @Test
+    public void testSetBrand() {
+        computer.setBrand("Samsung");
+        assertEquals("Samsung", computer.getBrand());
     }
 
     @Test
     public void testToString() {
         String expectedString = "Name: LaptopCost: $1200Quantity: 2 Brand: Dell";
-        assertEquals(expectedString, computer.toString(), "toString() should return the expected string");
+        assertEquals(expectedString, computer.toString());
     }
 
     @Test
     public void testEquality() {
-        Computer computer2 = new Computer("Laptop", 1200, 2, "Dell");
-        assertAll(
-            () -> assertEquals(computer.getName(), computer2.getName(), "Names should be equal"),
-            () -> assertEquals(computer.getCost(), computer2.getCost(), "Costs should be equal"),
-            () -> assertEquals(computer.getQuantity(), computer2.getQuantity(), "Quantities should be equal"),
-            () -> assertEquals(computer.getBrand(), computer2.getBrand(), "Brands should be equal")
-        );
+        Computer anotherComputer = new Computer("Laptop", 1200, 2, "Dell");
+        assertEquals(computer.getName(), anotherComputer.getName());
+        assertEquals(computer.getCost(), anotherComputer.getCost());
+        assertEquals(computer.getQuantity(), anotherComputer.getQuantity());
+        assertEquals(computer.getBrand(), anotherComputer.getBrand());
     }
 
     @Test
     public void testDefaultValues() {
         Computer defaultComputer = new Computer("Item", 0, 0, "");
-        assertAll(
-            () -> assertEquals("Item", defaultComputer.getName(), "Name should match the default value"),
-            () -> assertEquals(0, defaultComputer.getCost(), "Cost should match the default value"),
-            () -> assertEquals(0, defaultComputer.getQuantity(), "Quantity should match the default value"),
-            () -> assertEquals("", defaultComputer.getBrand(), "Brand should match the default value")
-        );
+        assertEquals("Item", defaultComputer.getName());
+        assertEquals(0, defaultComputer.getCost());
+        assertEquals(0, defaultComputer.getQuantity());
+        assertEquals("", defaultComputer.getBrand());
     }
 }
