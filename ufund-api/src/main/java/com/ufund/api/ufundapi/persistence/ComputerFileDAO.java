@@ -123,6 +123,9 @@ public class ComputerFileDAO implements ComputerDAO {
         synchronized (computerMap) {
             if (computerMap.containsKey(id)) {
                 computerMap.remove(id);
+                if (id+1 == nextId) {
+                    nextId--;
+                }
                 return save();
             } else {
                 return false;

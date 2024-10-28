@@ -1,8 +1,13 @@
 <h2>Top Computers</h2>
 <div>
-  <a *ngFor="let computer of computers"
+  <button *ngFor="let computer of computers"
       routerLink="/info/{{computer.id}}">
       {{computer.name}}
-  </a>
+  </button>
+</div>
+<div>
+  <button routerLink="/info/new">
+    New Computer
+  </button>
 </div>
 

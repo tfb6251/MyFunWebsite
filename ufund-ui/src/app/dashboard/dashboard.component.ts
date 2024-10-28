@@ -18,6 +18,6 @@ export class DashboardComponent implements OnInit {
 
   getComputers(): void {
     this.computerService.getComputers()
-      .subscribe(computers => this.computers = computers.slice(1, 5));
+      .subscribe(computers => this.computers = computers.slice(0, 4));
   }
 }

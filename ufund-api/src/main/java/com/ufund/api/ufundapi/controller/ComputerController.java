@@ -87,7 +87,7 @@ public class ComputerController {
      */
     @PostMapping("")
     public ResponseEntity<Computer> createComputer(@RequestBody Computer computer) {
-        LOG.info("POST /computer " + computer);
+        LOG.info("POST /computer/" + computer);
 
         try {
             Computer newNeed = Service.createComputer(computer);
@@ -128,7 +128,7 @@ public class ComputerController {
 
     @GetMapping("")
     public ResponseEntity<Computer[]> findComputers() {
-        LOG.info("GET /computers");
+        LOG.info("GET /computers/");
 
         // Replace below with your implementation
         try {
@@ -145,7 +145,7 @@ public class ComputerController {
 
     @PutMapping("")
     public ResponseEntity<Computer> updateComputer(@RequestBody Computer computer) {
-        LOG.info("PUT /computer " + computer);
+        LOG.info("PUT /computer/ " + computer);
 
         // Replace below with your implementation
         try {
