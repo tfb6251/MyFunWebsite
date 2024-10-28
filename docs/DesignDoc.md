@@ -11,23 +11,29 @@ geometry: margin=1in
 ## Team Information
 * Team name: TEAMNAME
 * Team members
-  * MEMBER1
-  * MEMBER2
-  * MEMBER3
-  * MEMBER4
+  * Maxwell Falk
+  * Tony Butler
+  * George Verkhovsky
+  * [REDACTED]
 
 ## Executive Summary
 
-This is a summary of the project.
+Makes a host to run a website, has ui, does something relevant to input detected within the ui, updates the ui accordingly.
 
 ### Purpose
->  _**[Sprint 2 & 4]** Provide a very brief statement about the project and the most
-> important user group and user goals._
+Our project is a charity page for businesses to allocate funding for their needs, assuming their needs are computers,
+because that was our idea of charity. This needs to be done in a somewhat user-friendly manner, with a basic login
+page, and simple, accessible systems elsewise to promote some ease of use in tracking and maintaining certain business
+expenditures.
 
 ### Glossary and Acronyms
 > _**[Sprint 2 & 4]** Provide a table of terms and acronyms._
 
 | Term | Definition |
+  
+  Need: a unit of charity, tracking the name, quantity, cost, brand, and other metadata to mediate business effectively.
+
+  
 |------|------------|
 | SPA | Single Page |
 
@@ -42,6 +48,7 @@ This section describes the features of the application.
 
 ### Definition of MVP
 > _**[Sprint 2 & 4]** Provide a simple description of the Minimum Viable Product._
+Has ui, basic functions GET POST PUT DELETE etc, can run without crashing, solid code coverage from unit tests.
 
 ### MVP Features
 >  _**[Sprint 4]** Provide a list of top-level Epics and/or Stories of the MVP._
@@ -54,11 +61,13 @@ This section describes the features of the application.
 
 This section describes the application domain.
 
-![Domain Model](domain-model-placeholder.png)
+![Domain Model](Domain_Mode.drawio.png)
 
 > _**[Sprint 2 & 4]** Provide a high-level overview of the domain for this application. You
 > can discuss the more important domain entities and their relationship
 > to each other._
+
+Model-view-viewmodel type architecture, ui interacts with the model via the viewmodel, based around GET, POST, etc interactions in the model, basic unit is the Need, has users and ufund managers, both of which use the browser, dependent on user login, edits the need cupboard, uses the helper to edit other resources such as the funding basket, does not however see the basket directly.
 
 
 ## Architecture and Design
@@ -71,7 +80,7 @@ The following Tiers/Layers model shows a high-level view of the webapp's archite
 **NOTE**: detailed diagrams are required in later sections of this document.
 > _**[Sprint 1]** (Augment this diagram with your **own** rendition and representations of sample system classes, placing them into the appropriate M/V/VM (orange rectangle) tier section. Focus on what is currently required to support **Sprint 1 - Demo requirements**. Make sure to describe your design choices in the corresponding _**Tier Section**_ and also in the _**OO Design Principles**_ section below.)_
 
-![The Tiers & Layers of the Architecture](architecture-tiers-and-layers.png)
+![The Tiers & Layers of the Architecture](thething.png)
 
 The web application, is built using the Model–View–ViewModel (MVVM) architecture pattern. 
 
@@ -120,20 +129,32 @@ This section describes the web interface flow; this is how the user views and in
 ![Replace with your ViewModel Tier class diagram 1, etc.](model-placeholder.png)
 
 ### Model Tier
-> _**[Sprint 1]** List the classes supporting this tier and provide a description of there purpose._
+
+getComputer - attempts to retrieve a need according to input, returns an appropriate response entity upon completion
+searchNeeds - attempts to retrieve several needs according to input, returns an appropriate response entity upon completion
+createComputer - attempts to create a new need according to input, returns an appropriate response entity upon completion
+deleteComputer - attempts to remove a current need according to input, returns an appropriate response entity upon completion
+findComputers - attempts to retrieve all needs, returns an appropriate response entity upon completion
+updateComputer - attempts to rewrite a need according to input or create a new one, returns an appropriate response entity upon completion
 
 > _**[Sprint 2, 3 & 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
 > Tier above._
 
+Contains all the basic functions and implementations needed for the api of the project, allowing for interactions with
+values displayed in the view.
+
 > _At appropriate places as part of this narrative provide **one** or more updated and **properly labeled**
 > static models (UML class diagrams) with some details such as associations (connections) between classes, and critical attributes and methods. (**Be sure** to revisit the Static **UML Review Sheet** to ensure your class diagrams are using correct format and syntax.)_
 > 
-![Replace with your Model Tier class diagram 1, etc.](model-placeholder.png)
+![Replace with your Model Tier class diagram 1, etc.](Domain_Mode.drawio.png)
 
 ## OO Design Principles
 
 > _**[Sprint 1]** Name and describe the initial OO Principles that your team has considered in support of your design (and implementation) for this first Sprint._
+
+We focused on low coupling and simplifying the functions of methods, reducing overreliance of any classes on any others,
+and keeping the scope of classes within the initial and intended purpose of the file.
 
 > _**[Sprint 2, 3 & 4]** Will eventually address upto **4 key OO Principles** in your final design. Follow guidance in augmenting those completed in previous Sprints as indicated to you by instructor. Be sure to include any diagrams (or clearly refer to ones elsewhere in your Tier sections above) to support your claims._
 
@@ -157,6 +178,8 @@ This section describes the web interface flow; this is how the user views and in
 > criteria tests failing, and the number of user stories that
 > have not had any testing yet. Highlight the issues found during
 > acceptance testing and if there are any concerns._
+
+
 
 ### Unit Testing and Code Coverage
 > _**[Sprint 4]** Discuss your unit testing strategy. Report on the code coverage
