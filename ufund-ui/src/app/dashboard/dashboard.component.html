@@ -1,5 +1,8 @@
-<h2>Top Heroes</h2>
-<div class="heroes-menu">
-    <h1> no it does not</h1>
+<h2>Top Computers</h2>
+<div>
+  <a *ngFor="let computer of computers"
+      routerLink="/info/{{computer.id}}">
+      {{computer.name}}
+  </a>
 </div>
-<router-outlet></router-outlet>
+

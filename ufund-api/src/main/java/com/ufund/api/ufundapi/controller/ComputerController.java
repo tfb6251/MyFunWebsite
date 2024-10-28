@@ -28,11 +28,11 @@ public class ComputerController {
         this.Service = Service;
     }
 
-    @GetMapping("/{name}")
-    public ResponseEntity<Computer> getComputer(@PathVariable String name) {
-        LOG.info("GET /computer/" + name);
+    @GetMapping("/{id}")
+    public ResponseEntity<Computer> getComputer(@PathVariable int id) {
+        LOG.info("GET /computer/" + id);
         try {
-            Computer computer = Service.getComputer(name);
+            Computer computer = Service.getComputer(id);
             if (computer != null)
                 return new ResponseEntity<Computer>(computer, HttpStatus.OK);
             else
@@ -110,11 +110,11 @@ public class ComputerController {
      *         ResponseEntity with HTTP status of NOT_FOUND if not found<br>
      *         ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    @DeleteMapping("/{name}")
-    public ResponseEntity<Computer> deleteComputer(@PathVariable String name) {
-        LOG.info("DELETE /computer/" + name);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Computer> deleteComputer(@PathVariable int id) {
+        LOG.info("DELETE /computer/" + id);
         try {
-            boolean isDeleted = Service.deleteComputer(name);
+            boolean isDeleted = Service.deleteComputer(id);
             if (isDeleted) {
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {
@@ -132,7 +132,7 @@ public class ComputerController {
 
         // Replace below with your implementation
         try {
-            Computer[] needs = Service.findComputers();
+            Computer[] needs = Service.getComputers();
             if (needs != null)
                 return new ResponseEntity<Computer[]>(needs, HttpStatus.OK);
             else

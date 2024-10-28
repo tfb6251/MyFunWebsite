@@ -3,6 +3,9 @@ package com.ufund.api.ufundapi.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Computer {
+    @JsonProperty("id")
+    private int id;
+
     @JsonProperty("name")
     private String name;
 
@@ -15,29 +18,34 @@ public class Computer {
     @JsonProperty("brand")
     private String brand;
 
-    public Computer(@JsonProperty("name") String name, @JsonProperty("cost") int cost, 
+    public Computer(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("cost") int cost, 
     @JsonProperty("quantity") int quantity,   @JsonProperty("brand") String brand)
     {
+        this.id = id;
         this.name = name;
-        this.brand = brand;
-        this.quantity = quantity;
         this.cost = cost;
+        this.quantity = quantity;
+        this.brand = brand;
+    }
+
+    public int getId() {
+        return this.id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public int getCost() {
-        return cost;
+        return this.cost;
     }
 
     public int getQuantity() {
-        return quantity;
+        return this.quantity;
     }
 
     public String getBrand() {
-        return brand;
+        return this.brand;
     }
 
     public void setName(String name) {

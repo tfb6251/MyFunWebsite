@@ -1,0 +1,10 @@
+<div *ngIf="computer">
+    <h2>{{computer.name | uppercase}} INFOMATION </h2>
+    <div><span>Name: </span>{{computer.name}}</div>
+    <div>
+      <label for="computer-name">Hero name: </label>
+      <input id="commputer-name" [(ngModel)]="computer.name" placeholder="Computer name"/>
+    </div>
+    <button type="button" (click)="goBack()">go back</button>
+    <button type="button" (click)="save()">save</button>
+  </div>

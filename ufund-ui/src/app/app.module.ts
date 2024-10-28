@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MessagesComponent } from './messages/messages.component';
+import { ComputerInfoComponent } from './computer-info/computer-info.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -15,6 +16,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     DashboardComponent,
     MessagesComponent,
     LoginComponent,
+    ComputerInfoComponent
   ],
   imports: [
     BrowserModule,
