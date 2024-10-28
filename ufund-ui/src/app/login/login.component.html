@@ -4,11 +4,5 @@
     <label for="username">Username:</label>
     <input type="text" id="username" required [(ngModel)]="username" name="username">
   </div>
-  <div>
-    <label for="password">Password:</label>
-    <input type="password" id="password" required [(ngModel)]="password" name="password">
-  </div>
   <button type="submit">Login</button>
 </form>
-
-<div *ngIf="message">{{ message }}</div>
