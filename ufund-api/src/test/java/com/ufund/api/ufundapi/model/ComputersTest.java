@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-public class ComputerTest {
+public class ComputersTest {
 
     private Computer computer;
 
@@ -15,7 +15,7 @@ public class ComputerTest {
      */
     @BeforeEach
     public void setupComputer() {
-        computer = new Computer("Laptop", 1200, 2, "Dell");
+        computer = new Computer(10, "Laptop", 1200, 2, "Dell");
     }
 
     @Test
@@ -58,7 +58,7 @@ public class ComputerTest {
 
     @Test
     public void testEquality() {
-        Computer anotherComputer = new Computer("Laptop", 1200, 2, "Dell");
+        Computer anotherComputer = new Computer(10, "Laptop", 1200, 2, "Dell");
         assertEquals(computer.getName(), anotherComputer.getName());
         assertEquals(computer.getCost(), anotherComputer.getCost());
         assertEquals(computer.getQuantity(), anotherComputer.getQuantity());
@@ -67,7 +67,7 @@ public class ComputerTest {
 
     @Test
     public void testDefaultValues() {
-        Computer defaultComputer = new Computer("Item", 0, 0, "");
+        Computer defaultComputer = new Computer(0, "Item", 0, 0, "");
         assertEquals("Item", defaultComputer.getName());
         assertEquals(0, defaultComputer.getCost());
         assertEquals(0, defaultComputer.getQuantity());

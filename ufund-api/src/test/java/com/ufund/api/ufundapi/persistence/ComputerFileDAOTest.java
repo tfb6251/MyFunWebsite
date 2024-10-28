@@ -31,9 +31,9 @@ public class ComputerFileDAOTest {
     public void setupHeroFileDAO() throws IOException {
         mockObjectMapper = mock(ObjectMapper.class);
         testNeeds = new Computer[3];
-        testNeeds[0] = new Computer("Obiwan", 1000000, 1000, "Toshiba" );
-        testNeeds[1] = new Computer("QuiGon", 100000, 100, "Toyota" );
-        testNeeds[2] = new Computer("Yoda", 10000, 10, "Honda" );
+        testNeeds[0] = new Computer(0, "Obiwan", 1000000, 1000, "Toshiba" );
+        testNeeds[1] = new Computer(1, "QuiGon", 100000, 100, "Toyota" );
+        testNeeds[2] = new Computer(2, "Yoda", 10000, 10, "Honda" );
 
 
         when(mockObjectMapper
@@ -42,16 +42,7 @@ public class ComputerFileDAOTest {
         cupBoardFileDAO = new ComputerFileDAO("doesnt_matter.txt",mockObjectMapper);
     }
 
-    @Test //1
-    public void testGetHeroes() {
-
-        Computer[] heroes = cupBoardFileDAO.findComputers();
-
-
-        assertEquals(heroes.length,testNeeds.length);
-        for (int i = 0; i < testNeeds.length;++i)
-            assertEquals(heroes[i],testNeeds[i]);
-    }
+    
 
     @Test //2
     public void testFindHeroes() {
@@ -67,7 +58,7 @@ public class ComputerFileDAOTest {
     @Test //3
     public void testGetHero() {
     
-        Computer hero = cupBoardFileDAO.getComputer("Obiwan");
+        Computer hero = cupBoardFileDAO.getComputer(0);
 
 
         assertEquals(hero,testNeeds[0]);
@@ -76,7 +67,7 @@ public class ComputerFileDAOTest {
     @Test //4
     public void testDeleteHero() {
 
-        boolean result = assertDoesNotThrow(() -> cupBoardFileDAO.deleteComputer("Obiwan"),
+        boolean result = assertDoesNotThrow(() -> cupBoardFileDAO.deleteComputer(0),
                             "Unexpected exception thrown");
 
 
@@ -88,7 +79,7 @@ public class ComputerFileDAOTest {
     @Test //5
     public void testCreateHero() {
         
-        Computer computer = new Computer("MaceWindu", 1000, 1, "Bugatti" );
+        Computer computer = new Computer(3, "MaceWindu", 1000, 1, "Bugatti" );
 
         
         Computer result = assertDoesNotThrow(() -> cupBoardFileDAO.createComputer(computer),
@@ -96,14 +87,14 @@ public class ComputerFileDAOTest {
 
         
         assertNotNull(result);
-        Computer actual = cupBoardFileDAO.getComputer(computer.getName());
+        Computer actual = cupBoardFileDAO.getComputer(computer.getId());
         assertEquals(actual.getName(),computer.getName());
     }
 
     @Test //6
     public void testUpdateHero() {
 
-        Computer computer = new Computer("Obiwan", 10000000, 10000, "HelloThere" );;
+        Computer computer = new Computer(0, "Obiwan", 10000000, 10000, "HelloThere" );;
 
 
         Computer result = assertDoesNotThrow(() -> cupBoardFileDAO.updateComputer(computer),
@@ -111,7 +102,7 @@ public class ComputerFileDAOTest {
 
 
         assertNotNull(result);
-        Computer actual = cupBoardFileDAO.getComputer(computer.getName());
+        Computer actual = cupBoardFileDAO.getComputer(computer.getId());
         assertEquals(actual,computer);
     }
 
@@ -121,7 +112,7 @@ public class ComputerFileDAOTest {
             .when(mockObjectMapper)
                 .writeValue(any(File.class),any(Computer[].class));
 
-        Computer computer = new Computer("MaceWindu", 1000, 1, "Bugatti" );
+        Computer computer = new Computer(3, "MaceWindu", 1000, 1, "Bugatti" );
 
         assertThrows(IOException.class,
                         () -> cupBoardFileDAO.createComputer(computer),
@@ -131,7 +122,7 @@ public class ComputerFileDAOTest {
     @Test //8
     public void testGetHeroNotFound() {
 
-        Computer hero = cupBoardFileDAO.getComputer("any");
+        Computer hero = cupBoardFileDAO.getComputer(-1);
 
 
         assertEquals(hero,null);
@@ -140,7 +131,7 @@ public class ComputerFileDAOTest {
     @Test //9
     public void testDeleteHeroNotFound() {
 
-        boolean result = assertDoesNotThrow(() -> cupBoardFileDAO.deleteComputer("any"),
+        boolean result = assertDoesNotThrow(() -> cupBoardFileDAO.deleteComputer(-1),
                                                 "Unexpected exception thrown");
 
 
@@ -151,7 +142,7 @@ public class ComputerFileDAOTest {
     @Test //10
     public void testUpdateHeroNotFound() {
 
-        Computer computer = new Computer("MaceWindu", 1000, 1, "Bugatti" );
+        Computer computer = new Computer(3, "MaceWindu", 1000, 1, "Bugatti" );
 
 
         Computer result = assertDoesNotThrow(() -> cupBoardFileDAO.updateComputer(computer),

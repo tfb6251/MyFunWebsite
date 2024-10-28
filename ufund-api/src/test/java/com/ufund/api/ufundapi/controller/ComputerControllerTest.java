@@ -33,10 +33,10 @@ public class ComputerControllerTest {
     @Test
     public void testGetNeed() throws IOException {
         
-        Computer needs = new Computer("Galactic Agent", 2, 99,"Galacticorsomeshitidontfuckingknowfuckyou");
-        when(mockComputerService.getComputer(needs.getName())).thenReturn(needs);
+        Computer needs = new Computer(0, "Galactic Agent", 2, 99,"Galacticorsomeshitidontfuckingknowfuckyou");
+        when(mockComputerService.getComputer(needs.getId())).thenReturn(needs);
 
-        ResponseEntity<Computer> response = ComputerController.getComputer(needs.getName());
+        ResponseEntity<Computer> response = ComputerController.getComputer(needs.getId());
 
         assertEquals(HttpStatus.OK,response.getStatusCode());
         assertEquals(needs,response.getBody());
@@ -44,20 +44,20 @@ public class ComputerControllerTest {
 
     @Test
     public void testGetNeedNotFound() throws Exception {
-        String needName = "Galactic Agent";
-        when(mockComputerService.getComputer(needName)).thenReturn(null);
+        int needNum = 0;
+        when(mockComputerService.getComputer(needNum)).thenReturn(null);
 
-        ResponseEntity<Computer> response = ComputerController.getComputer(needName);
+        ResponseEntity<Computer> response = ComputerController.getComputer(needNum);
 
         assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
     }
 
     @Test
     public void testGetNeedHandleException() throws Exception {
-        String needName = "Galactic Agent";
-        doThrow(new IOException()).when(mockComputerService).getComputer(needName);
+        int needNum = 0;
+        doThrow(new IOException()).when(mockComputerService).getComputer(needNum);
 
-        ResponseEntity<Computer> response = ComputerController.getComputer(needName);
+        ResponseEntity<Computer> response = ComputerController.getComputer(needNum);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }
@@ -65,7 +65,7 @@ public class ComputerControllerTest {
 
     @Test
     public void testCreateNeeds() throws IOException { 
-        Computer computer = new Computer("OUI", 3, 99,"Wi-Fire");
+        Computer computer = new Computer(2, "OUI", 3, 99,"Wi-Fire");
         when(mockComputerService.createComputer(computer)).thenReturn(computer);
 
         ResponseEntity<Computer> response = ComputerController.createComputer(computer);
@@ -76,7 +76,7 @@ public class ComputerControllerTest {
 
     @Test
     public void testCreateNeedsFailed() throws IOException {
-        Computer computer = new Computer("fuck", 99, 99,"Bolt");
+        Computer computer = new Computer(3, "fuck", 99, 99,"Bolt");
         when(mockComputerService.createComputer(computer)).thenReturn(null);
 
         ResponseEntity<Computer> response = ComputerController.createComputer(computer);
@@ -86,7 +86,7 @@ public class ComputerControllerTest {
 
     @Test
     public void testCreateNeedsHandleException() throws IOException { 
-        Computer computer = new Computer("AAAGGHH", 0, 99,"Ice Gladiator");
+        Computer computer = new Computer(4, "AAAGGHH", 0, 99,"Ice Gladiator");
 
         doThrow(new IOException()).when(mockComputerService).createComputer(computer);
 
@@ -97,7 +97,7 @@ public class ComputerControllerTest {
 
     @Test
     public void testUpdateNeeds() throws IOException {
-        Computer computer = new Computer("pspspsps", 1, 99,"Wi-Fire");
+        Computer computer = new Computer(5, "pspspsps", 1, 99,"Wi-Fire");
         when(mockComputerService.updateComputer(computer)).thenReturn(computer);
         ResponseEntity<Computer> response = ComputerController.updateComputer(computer);
         computer.setName("Bolt");
@@ -110,7 +110,7 @@ public class ComputerControllerTest {
 
     @Test
     public void testUpdateNeedsFailed() throws IOException {
-        Computer computer = new Computer("e", 2010101010, 99,"Galactic Agent");
+        Computer computer = new Computer(6, "e", 2010101010, 99,"Galactic Agent");
         when(mockComputerService.updateComputer(computer)).thenReturn(null);
 
         ResponseEntity<Computer> response = ComputerController.updateComputer(computer);
@@ -120,7 +120,7 @@ public class ComputerControllerTest {
 
     @Test
     public void testUpdateNeedsHandleException() throws IOException { 
-        Computer computer = new Computer("whytf", 10, 99,"Galactic Agent");
+        Computer computer = new Computer(7, "whytf", 10, 99,"Galactic Agent");
         doThrow(new IOException()).when(mockComputerService).updateComputer(computer);
 
         ResponseEntity<Computer> response = ComputerController.updateComputer(computer);
@@ -131,9 +131,9 @@ public class ComputerControllerTest {
     @Test
     public void testGetNeeds() throws IOException { 
         Computer[] needs = new Computer[2];
-        needs[0] = new Computer("nuts1", 21, 99,"Bolt");
-        needs[1] = new Computer("nuts2", 12, 100,"The Great Iguana");
-        when(mockComputerService.findComputers()).thenReturn(needs);
+        needs[0] = new Computer(8, "nuts1", 21, 99,"Bolt");
+        needs[1] = new Computer(9, "nuts2", 12, 100,"The Great Iguana");
+        when(mockComputerService.findComputers("")).thenReturn(needs);
 
         ResponseEntity<Computer[]> response = ComputerController.findComputers();
 
@@ -143,7 +143,7 @@ public class ComputerControllerTest {
 
     @Test
     public void testGetNeedsHandleException() throws IOException {
-        doThrow(new IOException()).when(mockComputerService).findComputers();
+        doThrow(new IOException()).when(mockComputerService).findComputers("");
 
         ResponseEntity<Computer[]> response = ComputerController.findComputers();
 
@@ -154,8 +154,8 @@ public class ComputerControllerTest {
     public void testSearcNeeds() throws IOException { 
         String searchString = "la";
         Computer[] needs = new Computer[2];
-        needs[0] = new Computer("naalalallalalalala", 5, 99,"Galactic Agent");
-        needs[1] = new Computer("nononononononolaALALALLallalaal", 21, 100,"Ice Gladiator");
+        needs[0] = new Computer(1, "naalalallalalalala", 5, 99,"Galactic Agent");
+        needs[1] = new Computer(2, "nononononononolaALALALLallalaal", 21, 100,"Ice Gladiator");
         
         when(mockComputerService.findComputers(searchString)).thenReturn(needs);
 
@@ -177,31 +177,31 @@ public class ComputerControllerTest {
 
     @Test
     public void testDeleteNeeds() throws IOException { 
-        String needName = "bitchass";
-        when(mockComputerService.deleteComputer(needName)).thenReturn(true);
+        int needNum = 0;
+        when(mockComputerService.deleteComputer(needNum)).thenReturn(true);
 
 
-        ResponseEntity<Computer> response = ComputerController.deleteComputer(needName);
+        ResponseEntity<Computer> response = ComputerController.deleteComputer(needNum);
 
         assertEquals(HttpStatus.OK,response.getStatusCode());
     }
 
     @Test
     public void testDeleteNeedsNotFound() throws IOException { 
-        String needName = "bitchass";
-        when(mockComputerService.deleteComputer(needName)).thenReturn(false);
+        int needNum = 0;
+        when(mockComputerService.deleteComputer(needNum)).thenReturn(false);
 
-        ResponseEntity<Computer> response = ComputerController.deleteComputer(needName);
+        ResponseEntity<Computer> response = ComputerController.deleteComputer(needNum);
 
         assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
     }
 
     @Test
     public void testDeleteNeedsHandleException() throws IOException { 
-        String needName = "bitchass";
-        doThrow(new IOException()).when(mockComputerService).deleteComputer(needName);
+        int needNum = 0;
+        doThrow(new IOException()).when(mockComputerService).deleteComputer(needNum);
 
-        ResponseEntity<Computer> response = ComputerController.deleteComputer(needName);
+        ResponseEntity<Computer> response = ComputerController.deleteComputer(needNum);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }

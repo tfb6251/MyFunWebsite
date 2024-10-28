@@ -48,6 +48,7 @@ This section describes the features of the application.
 
 ### Definition of MVP
 > _**[Sprint 2 & 4]** Provide a simple description of the Minimum Viable Product._
+
 Has ui, basic functions GET POST PUT DELETE etc, can run without crashing, solid code coverage from unit tests.
 
 ### MVP Features
@@ -119,6 +120,13 @@ This section describes the web interface flow; this is how the user views and in
 ### ViewModel Tier
 > _**[Sprint 1]** List the classes supporting this tier and provide a description of there purpose._
 
+getComputer - attempts to retrieve a need according to input, returns an appropriate response entity upon completion
+searchNeeds - attempts to retrieve several needs according to input, returns an appropriate response entity upon completion
+createComputer - attempts to create a new need according to input, returns an appropriate response entity upon completion
+deleteComputer - attempts to remove a current need according to input, returns an appropriate response entity upon completion
+findComputers - attempts to retrieve all needs, returns an appropriate response entity upon completion
+updateComputer - attempts to rewrite a need according to input or create a new one, returns an appropriate response entity upon completion
+
 > _**[Sprint 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
 > Tier above._
@@ -130,12 +138,11 @@ This section describes the web interface flow; this is how the user views and in
 
 ### Model Tier
 
-getComputer - attempts to retrieve a need according to input, returns an appropriate response entity upon completion
-searchNeeds - attempts to retrieve several needs according to input, returns an appropriate response entity upon completion
-createComputer - attempts to create a new need according to input, returns an appropriate response entity upon completion
-deleteComputer - attempts to remove a current need according to input, returns an appropriate response entity upon completion
-findComputers - attempts to retrieve all needs, returns an appropriate response entity upon completion
-updateComputer - attempts to rewrite a need according to input or create a new one, returns an appropriate response entity upon completion
+    setName - update the name of a need according to input
+    setCost - update the cost of a need according to input
+    setQuantity - update the quantity of a need according to input
+    setBrand - update the brand of a need according to input
+    toString - translate a need of some value to an appropriate string
 
 > _**[Sprint 2, 3 & 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
@@ -147,7 +154,7 @@ values displayed in the view.
 > _At appropriate places as part of this narrative provide **one** or more updated and **properly labeled**
 > static models (UML class diagrams) with some details such as associations (connections) between classes, and critical attributes and methods. (**Be sure** to revisit the Static **UML Review Sheet** to ensure your class diagrams are using correct format and syntax.)_
 > 
-![Replace with your Model Tier class diagram 1, etc.](Domain_Mode.drawio.png)
+![Replace with your Model Tier class diagram 1, etc.](modelstuff.png)
 
 ## OO Design Principles
 
@@ -157,6 +164,8 @@ We focused on low coupling and simplifying the functions of methods, reducing ov
 and keeping the scope of classes within the initial and intended purpose of the file.
 
 > _**[Sprint 2, 3 & 4]** Will eventually address upto **4 key OO Principles** in your final design. Follow guidance in augmenting those completed in previous Sprints as indicated to you by instructor. Be sure to include any diagrams (or clearly refer to ones elsewhere in your Tier sections above) to support your claims._
+
+Our project exemplifies dependency inversion and the law of demeter. In terms of dependency inversion, the functional code in the viewmodel uses a service class as the basis of its methods rather than directly using the model, reducing overreliance on lower-level classes. Another example is the computerDAO file, which only exists to reduce the burden on the computerFileDAO by being made use of in operations by higher-level classes. In terms of the law of demeter, the files only ever interact with their neighbors, or more specifically, there exists no code that skips steps according to the domain model of the project. For example, only the controller is allowed to impact the view, so any code that would have the same intent must do so via accessing the controller.
 
 > _**[Sprint 3 & 4]** OO Design Principles should span across **all tiers.**_
 
@@ -179,7 +188,9 @@ and keeping the scope of classes within the initial and intended purpose of the 
 > have not had any testing yet. Highlight the issues found during
 > acceptance testing and if there are any concerns._
 
-
+3 stories, unit testing, angular, and login, have complete acceptance testing
+4 stories, the helper, the ufund manager, the basket and the cupboard are not completely accepted yet.
+No concerns, just work to do.
 
 ### Unit Testing and Code Coverage
 > _**[Sprint 4]** Discuss your unit testing strategy. Report on the code coverage
@@ -189,6 +200,11 @@ and keeping the scope of classes within the initial and intended purpose of the 
 
 >_**[Sprint 2, 3 & 4]** **Include images of your code coverage report.** If there are any anomalies, discuss
 > those._
+
+![ufund total coverage](testa.png) ignore the ufund folder, is not relevent to testable code
+![controller coverage](testb.png) ignore the service file, just an intermediary for tested code
+![persistence coverage](testc.png)
+![model coverage](testd.png)
 
 ## Ongoing Rationale
 >_**[Sprint 1, 2, 3 & 4]** Throughout the project, provide a time stamp **(yyyy/mm/dd): Sprint # and description** of any _**mayor**_ team decisions or design milestones/changes and corresponding justification._
