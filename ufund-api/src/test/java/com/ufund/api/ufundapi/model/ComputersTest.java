@@ -1,76 +1,98 @@
 package com.ufund.api.ufundapi.model;
 
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
-
-public class ComputersTest {
-
-    private Computer computer;
-
-    /**
-     * Before each test, create a new Computer object
-     */
-    @BeforeEach
-    public void setupComputer() {
-        computer = new Computer(10, "Laptop", 1200, 2, "Dell");
-    }
+public class ComputerTest {
 
     @Test
     public void testConstructorAndGetters() {
-        assertEquals("Laptop", computer.getName());
-        assertEquals(1200, computer.getCost());
-        assertEquals(2, computer.getQuantity());
-        assertEquals("Dell", computer.getBrand());
+        // Arrange
+        int expectedId = 1;
+        String expectedName = "Gaming PC";
+        int expectedCost = 1500;
+        int expectedQuantity = 10;
+        String expectedBrand = "Alienware";
+
+        // Act
+        Computer computer = new Computer(expectedId, expectedName, expectedCost, expectedQuantity, expectedBrand);
+
+        // Assert
+        assertEquals(expectedId, computer.getId(), "Computer ID should match the expected value.");
+        assertEquals(expectedName, computer.getName(), "Computer name should match the expected value.");
+        assertEquals(expectedCost, computer.getCost(), "Computer cost should match the expected value.");
+        assertEquals(expectedQuantity, computer.getQuantity(), "Computer quantity should match the expected value.");
+        assertEquals(expectedBrand, computer.getBrand(), "Computer brand should match the expected value.");
     }
 
     @Test
-    public void testSetName() {
-        computer.setName("Tablet");
-        assertEquals("Tablet", computer.getName());
-    }
+    public void testSetters() {
+        // Arrange
+        Computer computer = new Computer(2, "Office PC", 800, 5, "Dell");
+        String newName = "Workstation";
+        int newCost = 1200;
+        int newQuantity = 7;
+        String newBrand = "HP";
 
-    @Test
-    public void testSetCost() {
-        computer.setCost(600);
-        assertEquals(600, computer.getCost());
-    }
+        // Act
+        computer.setName(newName);
+        computer.setCost(newCost);
+        computer.setQuantity(newQuantity);
+        computer.setBrand(newBrand);
 
-    @Test
-    public void testSetQuantity() {
-        computer.setQuantity(3);
-        assertEquals(3, computer.getQuantity());
-    }
-
-    @Test
-    public void testSetBrand() {
-        computer.setBrand("Samsung");
-        assertEquals("Samsung", computer.getBrand());
+        // Assert
+        assertEquals(newName, computer.getName(), "Computer name should be updated to the new value.");
+        assertEquals(newCost, computer.getCost(), "Computer cost should be updated to the new value.");
+        assertEquals(newQuantity, computer.getQuantity(), "Computer quantity should be updated to the new value.");
+        assertEquals(newBrand, computer.getBrand(), "Computer brand should be updated to the new value.");
     }
 
     @Test
     public void testToString() {
-        String expectedString = "Name: LaptopCost: $1200Quantity: 2 Brand: Dell";
-        assertEquals(expectedString, computer.toString());
+        // Arrange
+        int id = 3;
+        String name = "Server";
+        int cost = 5000;
+        int quantity = 2;
+        String brand = "IBM";
+        Computer computer = new Computer(id, name, cost, quantity, brand);
+        String expectedString = "Id: " + id + "Name: " + name + "Cost: $" + cost + "Quantity: " + quantity + " Brand: " + brand;
+
+        // Act
+        String actualString = computer.toString();
+
+        // Assert
+        assertEquals(expectedString, actualString, "Computer's toString() method should return the correct string.");
     }
 
     @Test
-    public void testEquality() {
-        Computer anotherComputer = new Computer(10, "Laptop", 1200, 2, "Dell");
-        assertEquals(computer.getName(), anotherComputer.getName());
-        assertEquals(computer.getCost(), anotherComputer.getCost());
-        assertEquals(computer.getQuantity(), anotherComputer.getQuantity());
-        assertEquals(computer.getBrand(), anotherComputer.getBrand());
-    }
+    public void testJsonPropertyAnnotations() {
+        // Arrange
+        int id = 4;
+        String name = "Laptop";
+        int cost = 1000;
+        int quantity = 15;
+        String brand = "Apple";
+        Computer computer = new Computer(id, name, cost, quantity, brand);
 
-    @Test
-    public void testDefaultValues() {
-        Computer defaultComputer = new Computer(0, "Item", 0, 0, "");
-        assertEquals("Item", defaultComputer.getName());
-        assertEquals(0, defaultComputer.getCost());
-        assertEquals(0, defaultComputer.getQuantity());
-        assertEquals("", defaultComputer.getBrand());
+        // Act & Assert
+        com.fasterxml.jackson.databind.ObjectMapper objectMapper = new com.fasterxml.jackson.databind.ObjectMapper();
+
+        try {
+            // Serialize Computer to JSON
+            String jsonString = objectMapper.writeValueAsString(computer);
+            String expectedJson = "{\"id\":4,\"name\":\"Laptop\",\"cost\":1000,\"quantity\":15,\"brand\":\"Apple\"}";
+            assertEquals(expectedJson, jsonString, "Serialized JSON should match the expected JSON string.");
+
+            // Deserialize JSON to Computer
+            Computer deserializedComputer = objectMapper.readValue(jsonString, Computer.class);
+            assertEquals(id, deserializedComputer.getId(), "Deserialized Computer ID should match the original ID.");
+            assertEquals(name, deserializedComputer.getName(), "Deserialized Computer name should match the original name.");
+            assertEquals(cost, deserializedComputer.getCost(), "Deserialized Computer cost should match the original cost.");
+            assertEquals(quantity, deserializedComputer.getQuantity(), "Deserialized Computer quantity should match the original quantity.");
+            assertEquals(brand, deserializedComputer.getBrand(), "Deserialized Computer brand should match the original brand.");
+        } catch (Exception e) {
+            fail("Serialization/deserialization failed with exception: " + e.getMessage());
+        }
     }
 }
