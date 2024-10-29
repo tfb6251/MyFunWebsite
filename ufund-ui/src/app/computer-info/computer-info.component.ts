@@ -22,7 +22,6 @@ export class ComputerInfoComponent implements OnInit{
 
   ngOnInit(): void {
     this.getComputer();
-
   }
 
   getComputer(): void {

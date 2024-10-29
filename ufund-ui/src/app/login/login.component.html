@@ -6,3 +6,8 @@
   </div>
   <button type="submit">Login</button>
 </form>
+<div id="hello"></div>
+<button *ngFor="let user of users"
+routerLink="/info/{{user.id}}">
+{{user.name}}
+</button>

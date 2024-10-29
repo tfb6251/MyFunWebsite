@@ -11,20 +11,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ufund.api.ufundapi.model.Computer;
+import com.ufund.api.ufundapi.model.User;
 
 @Component
-public class ComputerFileDAO implements ComputerDAO {
-    Map<Integer, Computer> computerMap;
+public class UserFileDAO implements UserDAO {
+    Map<Integer, User> userMap;
     private ObjectMapper objectMapper;
     private String filename;
     private static int nextId;
 
-    public ComputerFileDAO(@Value("${computer.file}") String filename, ObjectMapper objectMapper)
+    public UserFileDAO(@Value("${user.file}") String filename, ObjectMapper objectMapper)
         throws IOException {
         this.filename = filename;
         this.objectMapper = objectMapper;
-        if (!new File(filename).exists() || new File(filename).length() == 0) {
+        if (!new File(filename).exists()) {
             new File(filename).getParentFile().mkdirs();  // Create parent directories if they don’t exist
             new File(filename).createNewFile();           // Create the new file
             try (FileWriter writer = new FileWriter(filename)) {
@@ -46,7 +46,7 @@ public class ComputerFileDAO implements ComputerDAO {
     }
 
     private boolean save() throws IOException {
-        Computer[] needsArray = getComputers();
+        User[] needsArray = getUsers();
         
         // Serializes the Java Objects to JSON objects into the file
         // writeValue will thrown an IOException if there is an issue
@@ -56,13 +56,13 @@ public class ComputerFileDAO implements ComputerDAO {
     }
     
     private boolean load() throws IOException {
-        computerMap = new TreeMap<>();
+        userMap = new TreeMap<>();
         nextId = 0;
         
-        Computer[] needsArray = objectMapper.readValue(new File(filename), Computer[].class);
+        User[] needsArray = objectMapper.readValue(new File(filename), User[].class);
         
-        for (Computer need : needsArray) {
-            computerMap.put(need.getId(), need);
+        for (User need : needsArray) {
+            userMap.put(need.getId(), need);
             if (need.getId() > nextId)
                 nextId = need.getId();
         }
@@ -71,65 +71,74 @@ public class ComputerFileDAO implements ComputerDAO {
     }
 
     @Override
-    public Computer getComputer(int id) {
-        synchronized (computerMap) {
-            if (computerMap.containsKey(id))
-                return computerMap.get(id);
+    public User getUser(int id) {
+        synchronized (userMap) {
+            if (userMap.containsKey(id))
+                return userMap.get(id);
+            else
+                return null;
+        }
+    }
+
+    @Override
+    public User getUserN(String name) {
+        synchronized (userMap) {
+            if (userMap.containsKey(name))
+                return userMap.get(name);
             else
                 return null;
         }
     }
     
     @Override
-    public Computer[] getComputers() {
-        return findComputers(null);
+    public User[] getUsers() {
+        return findUsers(null);
     }
 
-    public Computer[] findComputers(String containsText) {
-        synchronized (computerMap) {
-            ArrayList<Computer> computerList = new ArrayList<>();
-            for (Computer computerMap : computerMap.values()) {
-                if (containsText == null || computerMap.getName().contains(containsText)) {
-                    computerList.add(computerMap);
+    public User[] findUsers(String containsText) {
+        synchronized (userMap) {
+            ArrayList<User> userList = new ArrayList<>();
+            for (User userMap : userMap.values()) {
+                if (containsText == null || userMap.getName().contains(containsText)) {
+                    userList.add(userMap);
                 }
             }
     
-            Computer[] needsarray = new Computer[computerList.size()];
-            computerList.toArray(needsarray);
+            User[] needsarray = new User[userList.size()];
+            userList.toArray(needsarray);
             return needsarray;
         }
     }
 
-    public Computer createComputer(Computer computer) throws IOException {
-        synchronized (computerMap) {
-            Computer newComputer = new Computer(nextId(), computer.getName(), computer.getCost(),
-            computer.getQuantity(), computer.getBrand());
+    public User createUser(User user) throws IOException {
+        synchronized (userMap) {
+            User newUser = new User(nextId(), user.getName());
             
-            computerMap.put(newComputer.getId(),newComputer);
+            userMap.put(newUser.getId(),newUser);
             save(); 
 
-            return newComputer;
+            return newUser;
         }
     }
 
-    public Computer updateComputer(Computer computer) throws IOException {
-        synchronized (computerMap) {
+    public User updateUser(User user) throws IOException {
+        synchronized (userMap) {
 
-            int key = computer.getId();
-            if (computerMap.containsKey(key) == false) {
+            int key = user.getId();
+            if (userMap.containsKey(key) == false) {
                 return null;
             }
-            computerMap.put(key, computer);
+            userMap.put(key, user);
             save();
-            return computer;
+            return user;
         }
 
     }
 
-    public boolean deleteComputer(int id) throws IOException {
-        synchronized (computerMap) {
-            if (computerMap.containsKey(id)) {
-                computerMap.remove(id);
+    public boolean deleteUser(int id) throws IOException {
+        synchronized (userMap) {
+            if (userMap.containsKey(id)) {
+                userMap.remove(id);
                 if (id+1 == nextId) {
                     nextId--;
                 }
