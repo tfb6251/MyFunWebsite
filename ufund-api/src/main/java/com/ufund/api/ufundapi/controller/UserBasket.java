@@ -61,7 +61,7 @@ public class UserBasket{
      *         GET http://localhost:8080/user/?name=
      */
     @GetMapping("/")
-    public ResponseEntity<User[]> searchNeeds(@RequestParam String name) {
+    public ResponseEntity<User[]> searchUsers(@RequestParam String name) {
         LOG.info("GET /user/?name=" + name);
         try {
             User[] needs = Service.findUsers(name);

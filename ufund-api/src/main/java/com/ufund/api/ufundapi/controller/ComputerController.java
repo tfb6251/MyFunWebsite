@@ -60,7 +60,7 @@ public class ComputerController {
      *         GET http://localhost:8080/computer/?name=
      */
     @GetMapping("/")
-    public ResponseEntity<Computer[]> searchNeeds(@RequestParam String name) {
+    public ResponseEntity<Computer[]> searchComputers(@RequestParam String name) {
         LOG.info("GET /computer/?name=" + name);
         try {
             Computer[] needs = Service.findComputers(name);
