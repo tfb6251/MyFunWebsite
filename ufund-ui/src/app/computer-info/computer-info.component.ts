@@ -27,10 +27,10 @@ export class ComputerInfoComponent implements OnInit{
   getComputer(): void {
     if(this.router.url.includes('/new')) {
         const newComputer: Computer = {      
-          id: 0,
+          id: undefined,
           name: "",
-          cost: 0,
-          quantity: 0,
+          cost: undefined,
+          quantity: undefined,
           brand: ""
         };
         this.computerService.addComputer(newComputer)
@@ -43,10 +43,12 @@ export class ComputerInfoComponent implements OnInit{
   }
 
   delete(): void {
-    if(this.computer) {
+    if(this.computer?.id) {
       this.computerService.deleteComputer(this.computer.id)
-        .subscribe(computer => this.computer = computer);
+      .subscribe(computer => {
+        this.computer = computer;
         this.location.back();  
+      });    
     }
   }
 

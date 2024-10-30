@@ -46,8 +46,10 @@ export class UserInfoComponent {
   delete(): void {
     if(this.user) {
       this.userService.deleteUser(this.user.id)
-        .subscribe(user => this.user = user);
-        this.location.back();  
+      .subscribe(user => {
+        this.user = user;
+        this.location.back(); 
+      }); 
     }
   }
 

@@ -9,6 +9,7 @@ import { ComputerService } from '../computer.service';
 })
 export class DashboardComponent implements OnInit {
   computers: Computer[] = [];
+  searchTerm: string = "";
 
   constructor(private computerService: ComputerService) { }
 
@@ -18,6 +19,18 @@ export class DashboardComponent implements OnInit {
 
   getComputers(): void {
     this.computerService.getComputers()
-      .subscribe(computers => this.computers = computers.slice(0, 4));
+      .subscribe(computers => this.computers = computers.slice(0, 7));
+  }
+
+  filterComputers(searchTerm: string): void {
+    if(searchTerm == "") {
+      this.computerService.getComputers().subscribe(computers => {
+        this.computers = computers.slice(0, 7);
+      });
+    } else {
+      this.computerService.searchComputers(searchTerm).subscribe(computers => {
+        this.computers = computers.slice(0, 7);
+      });
+    }
   }
 }

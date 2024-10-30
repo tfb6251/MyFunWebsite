@@ -1,13 +1,23 @@
-<h2>Top Computers</h2>
-<div>
-  <button *ngFor="let computer of computers"
-      routerLink="/info/{{computer.id}}">
-      {{computer.name}}
-  </button>
-</div>
-<div>
-  <button routerLink="/info/new">
-    New Computer
-  </button>
-</div>
 
+<h2 id="result">Computer Cupboard</h2>
+<div>
+  <span>
+    <input type="text" placeholder="Search Computers..." 
+    [(ngModel)]="searchTerm" (input)="filterComputers(searchTerm)"/>
+  </span>
+  <section>
+      <button *ngFor="let computer of computers"
+      routerLink="/info/{{computer.id}}">
+        {{computer.name}}
+      </button>
+  </section> 
+</div>
+<div>
+  <section>
+    <button routerLink="/info/new">
+      New Computer
+    </button>
+    <button type="button" routerLink="/login">Logout</button>
+  </section>
+</div>
+<a

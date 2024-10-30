@@ -1,7 +1,7 @@
 export interface Computer {   
-    id : number; 
+    id : number | undefined; 
     name: string;
-    cost : number;
-    quantity : number;
+    cost : number | undefined;
+    quantity : number | undefined;
     brand : string;
 }
