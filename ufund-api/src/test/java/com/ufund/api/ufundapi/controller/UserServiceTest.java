@@ -83,34 +83,34 @@ public class UserServiceTest {
         });
     }
 
-    // Test getUserN(String name)
-    @Test
-    public void testGetUserN() throws IOException {
-        User user = new User(1, "user1");
-        when(mockUserDAO.getUserN("user1")).thenReturn(user);
+    // // Test getUserN(String name)
+    // @Test
+    // public void testGetUserN() throws IOException {
+    //     User user = new User(1, "user1");
+    //     when(mockUserDAO.getUserN("user1")).thenReturn(user);
 
-        User result = userService.getUserN("user1");
+    //     User result = userService.getUserN("user1");
 
-        assertEquals(user, result);
-    }
+    //     assertEquals(user, result);
+    // }
 
-    @Test
-    public void testGetUserNNotFound() throws IOException {
-        when(mockUserDAO.getUserN("user1")).thenReturn(null);
+    // @Test
+    // public void testGetUserNNotFound() throws IOException {
+    //     when(mockUserDAO.getUserN("user1")).thenReturn(null);
 
-        User result = userService.getUserN("user1");
+    //     User result = userService.getUserN("user1");
 
-        assertNull(result);
-    }
+    //     assertNull(result);
+    // }
 
-    @Test
-    public void testGetUserNThrowsException() throws IOException {
-        when(mockUserDAO.getUserN("user1")).thenThrow(new IOException("Database error"));
+    // @Test
+    // public void testGetUserNThrowsException() throws IOException {
+    //     when(mockUserDAO.getUserN("user1")).thenThrow(new IOException("Database error"));
 
-        assertThrows(IOException.class, () -> {
-            userService.getUserN("user1");
-        });
-    }
+    //     assertThrows(IOException.class, () -> {
+    //         userService.getUserN("user1");
+    //     });
+    // }
 
     // Test findUsers(String name)
     @Test

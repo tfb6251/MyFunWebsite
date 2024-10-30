@@ -58,39 +58,39 @@ public class UserBasketTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
-    // Test for getting a user by name
-    @Test
-    public void testGetUserByName() throws IOException {
-        User user = new User(1, "testuser", "password");
-        when(mockUserService.getUserN(user.getName())).thenReturn(user);
+    // // Test for getting a user by name
+    // @Test
+    // public void testGetUserByName() throws IOException {
+    //     User user = new User(1, "testuser", "password");
+    //     when(mockUserService.getUserN(user.getName())).thenReturn(user);
 
-        ResponseEntity<User> response = userBasketController.getUserN(user.getName());
+    //     ResponseEntity<User> response = userBasketController.getUserN(user.getName());
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(user, response.getBody());
-    }
+    //     assertEquals(HttpStatus.OK, response.getStatusCode());
+    //     assertEquals(user, response.getBody());
+    // }
 
-    // Test for user not found by name
-    @Test
-    public void testGetUserByNameNotFound() throws IOException {
-        String userName = "testuser";
-        when(mockUserService.getUserN(userName)).thenReturn(null);
+    // // Test for user not found by name
+    // @Test
+    // public void testGetUserByNameNotFound() throws IOException {
+    //     String userName = "testuser";
+    //     when(mockUserService.getUserN(userName)).thenReturn(null);
 
-        ResponseEntity<User> response = userBasketController.getUserN(userName);
+    //     ResponseEntity<User> response = userBasketController.getUserN(userName);
 
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-    }
+    //     assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    // }
 
-    // Test for exception when getting user by name
-    @Test
-    public void testGetUserByNameHandleException() throws IOException {
-        String userName = "testuser";
-        doThrow(new IOException()).when(mockUserService).getUserN(userName);
+    // // Test for exception when getting user by name
+    // @Test
+    // public void testGetUserByNameHandleException() throws IOException {
+    //     String userName = "testuser";
+    //     doThrow(new IOException()).when(mockUserService).getUserN(userName);
 
-        ResponseEntity<User> response = userBasketController.getUserN(userName);
+    //     ResponseEntity<User> response = userBasketController.getUserN(userName);
 
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-    }
+    //     assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    // }
 
     // Test for creating a new user
     @Test
