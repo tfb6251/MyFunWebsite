@@ -21,29 +21,30 @@ export class LoginComponent {
   username: string | undefined;
   password: string | undefined;
   users: User[] = [];
+  
 
   onSubmit() {
     if (this.username && this.password) {
-      this.userService.searchUsers(this.username).subscribe(users => {this.users = users});
-      if (this.username == 'admin' && this.password == "admin") {
-        this.router.navigate(['/dashboard']);
-      } else if (this.users.length >= 1) {
-        for(let i = 0; this.users.length > i ; i++) {
-          if(this.users[i].name == this.username &&
-             this.users[i].password == this.password) {
-            this.router.navigate(['/user/'+this.users[i].id]);
+      this.userService.searchUsers(this.username).subscribe(users => {
+        this.users = users
+        if (this.username == 'admin' && this.password == "admin") {
+          this.router.navigate(['/dashboard']);
+        } else if (this.users.length >= 1) {
+          for(let i = 0; this.users.length > i ; i++) {
+            if(this.users[i].name == this.username &&
+              this.users[i].password == this.password) {
+              this.router.navigate(['/user/'+this.users[i].id]);
+            }
           }
-        }
-        const text = "Wrong Username or Password";
-        const div = this.el.nativeElement.querySelector('#result');
-        this.renderer.setProperty(div, 'textContent', text);
-
-      } else {
-        const text = "Wrong User Name or Password";
-        const div = this.el.nativeElement.querySelector('#result');
-        this.renderer.setProperty(div, 'textContent', text);
-      }     
-       
+          const text = "Please Enter Valid Username and Password";
+          const div = this.el.nativeElement.querySelector('#result');
+          this.renderer.setProperty(div, 'textContent', text);
+        } else {
+          const text = "Please Enter Valid Username and Password";
+          const div = this.el.nativeElement.querySelector('#result');
+          this.renderer.setProperty(div, 'textContent', text);
+        }   
+      });
     } else {
       const text = "Please Enter Name and Password";
       const div = this.el.nativeElement.querySelector('#result');
