@@ -1,1 +1,1 @@
-[{"id":1,"name":"Obiwan"},{"id":2,"name":"MaceWindu"},{"id":3,"name":"QuiGon"}]
+[{"id":1,"name":"Tony","password":"","basket":[]},{"id":2,"name":"Tony","password":"","basket":[]},{"id":3,"name":"Tony","password":"Butler","basket":[{"id":6,"name":"","cost":0,"quantity":0,"brand":""},{"id":7,"name":"Obiwan","cost":0,"quantity":0,"brand":""},{"id":7,"name":"Obiwan","cost":0,"quantity":0,"brand":""}]},{"id":4,"name":"","password":"","basket":[]},{"id":5,"name":"","password":"","basket":[]}]

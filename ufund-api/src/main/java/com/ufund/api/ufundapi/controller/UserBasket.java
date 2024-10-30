@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ufund.api.ufundapi.model.User;
-import com.ufund.api.ufundapi.model.User;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -28,21 +27,6 @@ public class UserBasket{
 
     public UserBasket(UserService Service) {
         this.Service = Service;
-    }
-
-    @GetMapping("/{name}")
-    public ResponseEntity<User> getUserN(@RequestParam String name) {
-        LOG.info("GET /user/" + name);
-        try {
-            User user = Service.getUserN(name);
-            if (user != null)
-                return new ResponseEntity<User>(user, HttpStatus.OK);
-            else
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } catch (IOException e) {
-            LOG.log(Level.SEVERE, e.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
     @GetMapping("/{id}")

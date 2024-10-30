@@ -27,9 +27,6 @@ public class UserService  {
     User getUser(int id) throws IOException {
         return UserDao.getUser(id);
     }
-    User getUserN(String name) throws IOException {
-        return UserDao.getUserN(name);
-    }
     User[] findUsers(String name) throws IOException {
         return UserDao.findUsers(name);
     }

@@ -1,13 +1,14 @@
+
 <h2>Login</h2>
 <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-  <div>
     <label for="username">Username:</label>
     <input type="text" id="username" required [(ngModel)]="username" name="username">
+    
+    <label for="password">Password:</label>
+    <input type="password" id="password" required [(ngModel)]="password" name="password">
+  <h6 id="result">    </h6>
+  <div>
+    <button type="submit">Login</button>
+    <button routerLink="/user/new">New User</button>
   </div>
-  <button type="submit">Login</button>
 </form>
-<div id="hello"></div>
-<button *ngFor="let user of users"
-routerLink="/info/{{user.id}}">
-{{user.name}}
-</button>

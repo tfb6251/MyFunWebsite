@@ -19,35 +19,35 @@ export class LoginComponent {
   ) {}
 
   username: string | undefined;
-  name: string | undefined;
-  user: User | undefined;
+  password: string | undefined;
   users: User[] = [];
 
-  ngOnInit(): void {
-    this.getUsers();
-  }
-
-  getUsers(): void {
-    this.userService.getUsers()
-      .subscribe(users => this.users = users.slice(0, 4));
-  } 
-
   onSubmit() {
-    if (this.username) {
-      this.userService.getUserN(this.username).subscribe(user => {this.user = user});
-
-        if (this.username == 'admin') {
-          this.router.navigate(['/dashboard']);
-        } else if (this.username.toString() == this.user?.name.toString()) {
-          this.router.navigate(['/dashboard']);
-        } else {
-          this.userService.getUser(1).subscribe(user => {this.name = user.name;
-          const text = this.name + "Ping";
-          const div = this.el.nativeElement.querySelector('#hello');
-
-          this.renderer.setProperty(div, 'textContent', text);
-          });
+    if (this.username && this.password) {
+      this.userService.searchUsers(this.username).subscribe(users => {this.users = users});
+      if (this.username == 'admin' && this.password == "admin") {
+        this.router.navigate(['/dashboard']);
+      } else if (this.users.length >= 1) {
+        for(let i = 0; this.users.length > i ; i++) {
+          if(this.users[i].name == this.username &&
+             this.users[i].password == this.password) {
+            this.router.navigate(['/user/'+this.users[i].id]);
+          }
         }
+        const text = "Wrong Username or Password";
+        const div = this.el.nativeElement.querySelector('#result');
+        this.renderer.setProperty(div, 'textContent', text);
+
+      } else {
+        const text = "Wrong User Name or Password";
+        const div = this.el.nativeElement.querySelector('#result');
+        this.renderer.setProperty(div, 'textContent', text);
+      }     
+       
+    } else {
+      const text = "Please Enter Name and Password";
+      const div = this.el.nativeElement.querySelector('#result');
+      this.renderer.setProperty(div, 'textContent', text);
     }
   }
 }

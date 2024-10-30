@@ -1,0 +1,18 @@
+<div *ngIf="user">
+    <h2>{{user.name}}'s Information </h2>
+    <div>
+      <label id="user-id">ID: {{ user.id }}</label>
+    </div>
+    <div>
+      <label for="user-name">User Name: </label>
+      <input id="user-name" [(ngModel)]="user.name" placeholder="User Name"/>
+    </div>
+    <div>
+        <label for="user-password">User Password: </label>
+        <input id="user-password" [(ngModel)]="user.password" placeholder="User Password"/>
+      </div>
+    
+    <button type="button" (click)="goBack()">go back</button>
+    <button type="button" (click)="save()">save</button>
+    <button type="button" (click)="delete()">delete</button>
+  </div>

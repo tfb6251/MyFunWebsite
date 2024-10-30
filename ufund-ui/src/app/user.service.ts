@@ -54,14 +54,6 @@ export class UserService {
     );
   }
 
-  getUserN(name: string): Observable<User> {
-    const url = `${this.usersUrl}/${name}`;
-    return this.http.get<User>(url).pipe(
-      tap(_ => this.log(`fetched user id=${name}`)),
-      catchError(this.handleError<User>(`getUser id=${name}`))
-    );
-  }
-
   /* GET users whose name contains search term */
   searchUsers(term: string): Observable<User[]> {
     if (!term.trim()) {

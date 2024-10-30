@@ -9,6 +9,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MessagesComponent } from './messages/messages.component';
 import { ComputerInfoComponent } from './computer-info/computer-info.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { UserInfoComponent } from './user-info/user-info.component';
+import { ComputerBasketComponent } from './computer-basket/computer-basket.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     DashboardComponent,
     MessagesComponent,
     LoginComponent,
-    ComputerInfoComponent
+    ComputerInfoComponent,
+    UserInfoComponent,
+    ComputerBasketComponent
   ],
   imports: [
     BrowserModule,

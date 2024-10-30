@@ -79,16 +79,6 @@ public class UserFileDAO implements UserDAO {
                 return null;
         }
     }
-
-    @Override
-    public User getUserN(String name) {
-        synchronized (userMap) {
-            if (userMap.containsKey(name))
-                return userMap.get(name);
-            else
-                return null;
-        }
-    }
     
     @Override
     public User[] getUsers() {
@@ -112,7 +102,8 @@ public class UserFileDAO implements UserDAO {
 
     public User createUser(User user) throws IOException {
         synchronized (userMap) {
-            User newUser = new User(nextId(), user.getName());
+            User newUser = new User(nextId(), user.getName(),
+             user.getPassword(), user.getBasket());
             
             userMap.put(newUser.getId(),newUser);
             save(); 
