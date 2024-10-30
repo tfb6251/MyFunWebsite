@@ -26,25 +26,6 @@ public class User {
         this.basket = (basket != null) ? basket : new Computer[0];
     }
 
-    public User(@JsonProperty("id") int id, @JsonProperty("name") String name)
-    {
-        this.id = id;
-        this.name = (name != null) ? name : "";
-        this.password = (password != null) ? password : "";
-        this.basket = (basket != null) ? basket : new Computer[0];
-    }
-
-    public User(@JsonProperty("id") int id, @JsonProperty("name") String name,
-     @JsonProperty("password") String password)
-    {
-        this.id = id;
-        this.name = (name != null) ? name : "";
-        this.password = (password != null) ? password : "";
-        this.basket = (basket != null) ? basket : new Computer[0];
-    }
-
-
-
     public int getId() {
         return this.id;
     }

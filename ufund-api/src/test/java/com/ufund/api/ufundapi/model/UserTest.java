@@ -10,34 +10,67 @@ public class UserTest {
         // Arrange
         int expectedId = 1;
         String expectedName = "Alice";
+        String expectedPassword = "password123";
+        Computer[] expectedBasket = new Computer[] {
+            new Computer(101, "Laptop", 1000, 2, "BrandA"),
+            new Computer(102, "Desktop", 1500, 1, "BrandB")
+        };
 
         // Act
-        User user = new User(expectedId, expectedName);
+        User user = new User(expectedId, expectedName, expectedPassword, expectedBasket);
 
         // Assert
         assertEquals(expectedId, user.getId(), "User ID should match the expected value.");
         assertEquals(expectedName, user.getName(), "User name should match the expected value.");
+        assertEquals(expectedPassword, user.getPassword(), "User password should match the expected value.");
+        assertArrayEquals(expectedBasket, user.getBasket(), "User basket should match the expected value.");
     }
 
     @Test
-    public void testSetName() {
+    public void testConstructorWithNullValues() {
         // Arrange
-        User user = new User(2, "Bob");
+        int expectedId = 2;
+        String expectedName = "";
+        String expectedPassword = "";
+        Computer[] expectedBasket = new Computer[0];
+
+        // Act
+        User user = new User(expectedId, null, null, null);
+
+        // Assert
+        assertEquals(expectedId, user.getId(), "User ID should match the expected value.");
+        assertEquals(expectedName, user.getName(), "User name should default to an empty string.");
+        assertEquals(expectedPassword, user.getPassword(), "User password should default to an empty string.");
+        assertArrayEquals(expectedBasket, user.getBasket(), "User basket should default to an empty array.");
+    }
+
+    @Test
+    public void testSetters() {
+        // Arrange
+        User user = new User(3, "Bob", "oldPass", null);
         String newName = "Charlie";
+        String newPassword = "newPass";
+        Computer[] newBasket = new Computer[] {
+            new Computer(103, "Tablet", 500, 5, "BrandC")
+        };
 
         // Act
         user.setName(newName);
+        user.setPassword(newPassword);
+        user.setBasket(newBasket);
 
         // Assert
         assertEquals(newName, user.getName(), "User name should be updated to the new value.");
+        assertEquals(newPassword, user.getPassword(), "User password should be updated to the new value.");
+        assertArrayEquals(newBasket, user.getBasket(), "User basket should be updated to the new value.");
     }
 
     @Test
     public void testToString() {
         // Arrange
-        int id = 3;
+        int id = 4;
         String name = "Diana";
-        User user = new User(id, name);
+        User user = new User(id, name, "pass", null);
         String expectedString = "Id: " + id + "Name: " + name;
 
         // Act
@@ -50,24 +83,29 @@ public class UserTest {
     @Test
     public void testJsonPropertyAnnotations() {
         // Arrange
-        int id = 4;
+        int id = 5;
         String name = "Eve";
-        User user = new User(id, name);
+        String password = "secret";
+        Computer[] basket = new Computer[] {
+            new Computer(104, "Monitor", 200, 3, "BrandD")
+        };
+        User user = new User(id, name, password, basket);
 
         // Act & Assert
-        // Use Jackson's ObjectMapper to test serialization and deserialization
         com.fasterxml.jackson.databind.ObjectMapper objectMapper = new com.fasterxml.jackson.databind.ObjectMapper();
 
         try {
             // Serialize User to JSON
             String jsonString = objectMapper.writeValueAsString(user);
-            String expectedJson = "{\"id\":4,\"name\":\"Eve\"}";
+            String expectedJson = "{\"id\":5,\"name\":\"Eve\",\"password\":\"secret\",\"basket\":[{\"id\":104,\"name\":\"Monitor\",\"cost\":200,\"quantity\":3,\"brand\":\"BrandD\"}]}";
             assertEquals(expectedJson, jsonString, "Serialized JSON should match the expected JSON string.");
 
             // Deserialize JSON to User
             User deserializedUser = objectMapper.readValue(jsonString, User.class);
             assertEquals(id, deserializedUser.getId(), "Deserialized User ID should match the original ID.");
             assertEquals(name, deserializedUser.getName(), "Deserialized User name should match the original name.");
+            assertEquals(password, deserializedUser.getPassword(), "Deserialized User password should match the original password.");
+            assertArrayEquals(basket, deserializedUser.getBasket(), "Deserialized User basket should match the original basket.");
         } catch (Exception e) {
             fail("Serialization/deserialization failed with exception: " + e.getMessage());
         }
