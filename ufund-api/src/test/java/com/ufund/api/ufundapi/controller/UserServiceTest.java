@@ -1,6 +1,7 @@
 package com.ufund.api.ufundapi.controller;
 
 import com.ufund.api.ufundapi.model.User;
+import com.ufund.api.ufundapi.model.Computer;
 import com.ufund.api.ufundapi.persistence.UserDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,9 +25,9 @@ public class UserServiceTest {
     // Test getUsers()
     @Test
     public void testGetUsers() throws IOException {
-        User[] users = new User[]{
-                new User(1, "user1"),
-                new User(2, "user2")
+        User[] users = new User[] {
+            new User(1, "user1", "password1", null),
+            new User(2, "user2", "password2", null)
         };
         when(mockUserDAO.getUsers()).thenReturn(users);
 
@@ -57,7 +58,7 @@ public class UserServiceTest {
     // Test getUser(int id)
     @Test
     public void testGetUser() throws IOException {
-        User user = new User(1, "user1");
+        User user = new User(1, "user1", "password1", null);
         when(mockUserDAO.getUser(1)).thenReturn(user);
 
         User result = userService.getUser(1);
@@ -83,42 +84,13 @@ public class UserServiceTest {
         });
     }
 
-    // Test getUserN(String name)
-    @Test
-    public void testGetUserN() throws IOException {
-        User user = new User(1, "user1");
-        when(mockUserDAO.getUserN("user1")).thenReturn(user);
-
-        User result = userService.getUserN("user1");
-
-        assertEquals(user, result);
-    }
-
-    @Test
-    public void testGetUserNNotFound() throws IOException {
-        when(mockUserDAO.getUserN("user1")).thenReturn(null);
-
-        User result = userService.getUserN("user1");
-
-        assertNull(result);
-    }
-
-    @Test
-    public void testGetUserNThrowsException() throws IOException {
-        when(mockUserDAO.getUserN("user1")).thenThrow(new IOException("Database error"));
-
-        assertThrows(IOException.class, () -> {
-            userService.getUserN("user1");
-        });
-    }
-
     // Test findUsers(String name)
     @Test
     public void testFindUsers() throws IOException {
         String searchString = "test";
-        User[] users = new User[]{
-                new User(1, "testuser1"),
-                new User(2, "testuser2")
+        User[] users = new User[] {
+            new User(1, "testuser1", "password1", null),
+            new User(2, "testuser2", "password2", null)
         };
         when(mockUserDAO.findUsers(searchString)).thenReturn(users);
 
@@ -151,7 +123,7 @@ public class UserServiceTest {
     // Test createUser(User user)
     @Test
     public void testCreateUser() throws IOException {
-        User user = new User(3, "newuser");
+        User user = new User(3, "newuser", "password", null);
         when(mockUserDAO.createUser(user)).thenReturn(user);
 
         User result = userService.createUser(user);
@@ -161,7 +133,7 @@ public class UserServiceTest {
 
     @Test
     public void testCreateUserAlreadyExists() throws IOException {
-        User user = new User(3, "existinguser");
+        User user = new User(3, "existinguser", "password", null);
         when(mockUserDAO.createUser(user)).thenReturn(null);
 
         User result = userService.createUser(user);
@@ -171,7 +143,7 @@ public class UserServiceTest {
 
     @Test
     public void testCreateUserThrowsException() throws IOException {
-        User user = new User(3, "user");
+        User user = new User(3, "user", "password", null);
         when(mockUserDAO.createUser(user)).thenThrow(new IOException("Database error"));
 
         assertThrows(IOException.class, () -> {
@@ -182,7 +154,7 @@ public class UserServiceTest {
     // Test updateUser(User user)
     @Test
     public void testUpdateUser() throws IOException {
-        User user = new User(1, "updateduser");
+        User user = new User(1, "updateduser", "newpassword", null);
         when(mockUserDAO.updateUser(user)).thenReturn(user);
 
         User result = userService.updateUser(user);
@@ -192,7 +164,7 @@ public class UserServiceTest {
 
     @Test
     public void testUpdateUserNotFound() throws IOException {
-        User user = new User(1, "user");
+        User user = new User(1, "user", "password", null);
         when(mockUserDAO.updateUser(user)).thenReturn(null);
 
         User result = userService.updateUser(user);
@@ -202,7 +174,7 @@ public class UserServiceTest {
 
     @Test
     public void testUpdateUserThrowsException() throws IOException {
-        User user = new User(1, "user");
+        User user = new User(1, "user", "password", null);
         when(mockUserDAO.updateUser(user)).thenThrow(new IOException("Database error"));
 
         assertThrows(IOException.class, () -> {

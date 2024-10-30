@@ -33,7 +33,14 @@ expenditures.
   
   Need: a unit of charity, tracking the name, quantity, cost, brand, and other metadata to mediate business effectively.
 
-  
+  Need Basket: set of needs to be checked out by a user.
+
+  User: a class associated with the users of the site, with a username, password, id, and an array of needs called the needs basket.
+
+  Need Cupboard: full inventory of all needs currently available on the site.
+
+  Admin: developer, manager, or some otherwise character of authority that log in under the username "admin" and are allowed executive control over the whole need cupboard.
+
 |------|------------|
 | SPA | Single Page |
 
@@ -49,7 +56,7 @@ This section describes the features of the application.
 ### Definition of MVP
 > _**[Sprint 2 & 4]** Provide a simple description of the Minimum Viable Product._
 
-Has ui, basic functions GET POST PUT DELETE etc, can run without crashing, solid code coverage from unit tests.
+Has ui, basic functions GET POST PUT DELETE etc, can run without crashing, solid code coverage from unit tests, users can access the needs to put into the need basket, admin can edit the need cupboard.
 
 ### MVP Features
 >  _**[Sprint 4]** Provide a list of top-level Epics and/or Stories of the MVP._
@@ -98,6 +105,7 @@ This section describes the web interface flow; this is how the user views and in
 
 > _Provide a summary of the application's user interface.  Describe, from the user's perspective, the flow of the pages in the web application._
 
+The ui starts on a login page, from which it can be routed to a dashboard for admin, a needs basket for the users, and a sign up page for those without an account. From the admin dashboard, it can be further routed to an address each for creating and updating a need to the cupboard. The user is routed to an address where it can modify its associated needs basket. For those who created an account, their data is saved and they are routed back to the user address.
 
 ### View Tier
 > _**[Sprint 4]** Provide a summary of the View Tier UI of your architecture.
@@ -127,6 +135,13 @@ deleteComputer - attempts to remove a current need according to input, returns a
 findComputers - attempts to retrieve all needs, returns an appropriate response entity upon completion
 updateComputer - attempts to rewrite a need according to input or create a new one, returns an appropriate response entity upon completion
 
+getUsers - attempts to retrieve all users, returns an appropriate response entity upon completion
+getUser - attempts to retrieve a user according to input, returns an appropriate response entity upon completion
+findUsers - attempts to retrieve all users according to input, returns an appropriate response entity upon completion
+createUser - attempts to create a user according to input, returns an appropriate response entity upon completion
+updateUser - attempts to rewrite a user according to input or create a new one, returns an appropriate response entity upon completion
+deleteUser - attempts to remove a user according to input, returns an appropriate response entity upon completion
+
 > _**[Sprint 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
 > Tier above._
@@ -138,11 +153,25 @@ updateComputer - attempts to rewrite a need according to input or create a new o
 
 ### Model Tier
 
+    getId - return the id of the need according to input
+    getCost -  return the cost of the need according to input
+    getName - return the name of the need according to input
+    getQuantity - return the quantity of the need according to input
+    getBrand - return the brand of the need according to input
     setName - update the name of a need according to input
     setCost - update the cost of a need according to input
     setQuantity - update the quantity of a need according to input
     setBrand - update the brand of a need according to input
     toString - translate a need of some value to an appropriate string
+
+    getId - return the id of the user according to input
+    getName - return the name of the user according to input
+    getPassword - return the password of the user according to input
+    getBasket - return the basket of the user according to input
+    setName - update the name of the user according to input
+    setPassword - update the password of the user according to input
+    setBasket - update the basket of the user according to input
+    toString - translate a user of some value to an appropriate string
 
 > _**[Sprint 2, 3 & 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View

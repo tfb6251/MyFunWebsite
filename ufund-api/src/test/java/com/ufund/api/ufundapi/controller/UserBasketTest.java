@@ -1,18 +1,16 @@
 package com.ufund.api.ufundapi.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.io.IOException;
-
 import com.ufund.api.ufundapi.model.User;
-
+import com.ufund.api.ufundapi.model.Computer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class UserBasketTest {
     private UserBasket userBasketController;
@@ -27,7 +25,7 @@ public class UserBasketTest {
     // Test for getting a user by ID
     @Test
     public void testGetUserById() throws IOException {
-        User user = new User(1, "testuser", "password");
+        User user = new User(1, "testuser", "password", null);
         when(mockUserService.getUser(user.getId())).thenReturn(user);
 
         ResponseEntity<User> response = userBasketController.getUser(user.getId());
@@ -58,44 +56,10 @@ public class UserBasketTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
-    // Test for getting a user by name
-    @Test
-    public void testGetUserByName() throws IOException {
-        User user = new User(1, "testuser", "password");
-        when(mockUserService.getUserN(user.getName())).thenReturn(user);
-
-        ResponseEntity<User> response = userBasketController.getUserN(user.getName());
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(user, response.getBody());
-    }
-
-    // Test for user not found by name
-    @Test
-    public void testGetUserByNameNotFound() throws IOException {
-        String userName = "testuser";
-        when(mockUserService.getUserN(userName)).thenReturn(null);
-
-        ResponseEntity<User> response = userBasketController.getUserN(userName);
-
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-    }
-
-    // Test for exception when getting user by name
-    @Test
-    public void testGetUserByNameHandleException() throws IOException {
-        String userName = "testuser";
-        doThrow(new IOException()).when(mockUserService).getUserN(userName);
-
-        ResponseEntity<User> response = userBasketController.getUserN(userName);
-
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-    }
-
     // Test for creating a new user
     @Test
     public void testCreateUser() throws IOException {
-        User user = new User(2, "newuser", "password");
+        User user = new User(2, "newuser", "password", null);
         when(mockUserService.createUser(user)).thenReturn(user);
 
         ResponseEntity<User> response = userBasketController.createUser(user);
@@ -107,7 +71,7 @@ public class UserBasketTest {
     // Test for conflict when creating a user that already exists
     @Test
     public void testCreateUserConflict() throws IOException {
-        User user = new User(2, "existinguser", "password");
+        User user = new User(2, "existinguser", "password", null);
         when(mockUserService.createUser(user)).thenReturn(null);
 
         ResponseEntity<User> response = userBasketController.createUser(user);
@@ -118,7 +82,7 @@ public class UserBasketTest {
     // Test for exception when creating a user
     @Test
     public void testCreateUserHandleException() throws IOException {
-        User user = new User(2, "user", "password");
+        User user = new User(2, "user", "password", null);
         doThrow(new IOException()).when(mockUserService).createUser(user);
 
         ResponseEntity<User> response = userBasketController.createUser(user);
@@ -129,7 +93,7 @@ public class UserBasketTest {
     // Test for updating a user
     @Test
     public void testUpdateUser() throws IOException {
-        User user = new User(1, "updateduser", "newpassword");
+        User user = new User(1, "updateduser", "newpassword", null);
         when(mockUserService.updateUser(user)).thenReturn(user);
 
         ResponseEntity<User> response = userBasketController.updateUser(user);
@@ -141,7 +105,7 @@ public class UserBasketTest {
     // Test for user not found when updating
     @Test
     public void testUpdateUserNotFound() throws IOException {
-        User user = new User(1, "user", "password");
+        User user = new User(1, "user", "password", null);
         when(mockUserService.updateUser(user)).thenReturn(null);
 
         ResponseEntity<User> response = userBasketController.updateUser(user);
@@ -152,7 +116,7 @@ public class UserBasketTest {
     // Test for exception when updating a user
     @Test
     public void testUpdateUserHandleException() throws IOException {
-        User user = new User(1, "user", "password");
+        User user = new User(1, "user", "password", null);
         doThrow(new IOException()).when(mockUserService).updateUser(user);
 
         ResponseEntity<User> response = userBasketController.updateUser(user);
@@ -196,16 +160,17 @@ public class UserBasketTest {
     // Test for getting all users
     @Test
     public void testFindUsers() throws IOException {
-        User[] users = new User[2];
-        users[0] = new User(1, "user1", "password1");
-        users[1] = new User(2, "user2", "password2");
+        User[] users = new User[] {
+            new User(1, "user1", "password1", null),
+            new User(2, "user2", "password2", null)
+        };
 
         when(mockUserService.getUsers()).thenReturn(users);
 
         ResponseEntity<User[]> response = userBasketController.findUsers();
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(users, response.getBody());
+        assertArrayEquals(users, response.getBody());
     }
 
     // Test for exception when getting all users
@@ -222,16 +187,17 @@ public class UserBasketTest {
     @Test
     public void testSearchUsers() throws IOException {
         String searchString = "test";
-        User[] users = new User[2];
-        users[0] = new User(1, "testuser1", "password1");
-        users[1] = new User(2, "testuser2", "password2");
+        User[] users = new User[] {
+            new User(1, "testuser1", "password1", null),
+            new User(2, "testuser2", "password2", null)
+        };
 
         when(mockUserService.findUsers(searchString)).thenReturn(users);
 
         ResponseEntity<User[]> response = userBasketController.searchNeeds(searchString);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(users, response.getBody());
+        assertArrayEquals(users, response.getBody());
     }
 
     // Test for users not found when searching
