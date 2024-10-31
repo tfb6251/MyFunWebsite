@@ -1,6 +1,7 @@
 package com.ufund.api.ufundapi.model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -60,5 +61,32 @@ public class User {
         return ("Id: " + id + "Name: " + name);
     }
 
-
+    @SuppressWarnings("null")
+    @Override
+    public boolean equals(Object obj) {
+        // Check if the same object reference
+        if (this == obj || (obj == null && this == null)) 
+        return true;
+        // Check if obj is null or not the same class
+        if (getClass() != obj.getClass()) 
+        return false;
+        
+        // Cast obj to User type and compare relevant fields
+        User user = (User) obj;
+        Boolean eqBasket = true;
+        if (this.basket.length == user.basket.length) {
+            for (int i = 0; i < this.basket.length; i++) {
+                if(eqBasket == true) {
+                    Boolean eq = this.basket[i].equals(user.basket[i]);
+                    eqBasket = eq;                    
+                } else {
+                    break;
+                }
+            }
+        }
+        return id == user.id &&                    // Compare id
+               Objects.equals(this.name, user.name) &&   // Compare name
+               Objects.equals(this.password, user.password) && // Compare password
+               eqBasket; // Compare basket                
+    }
 }

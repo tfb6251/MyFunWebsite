@@ -8,10 +8,12 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Io;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ufund.api.ufundapi.model.Computer;
+import com.ufund.api.ufundapi.model.User;
 
 @Component
 public class ComputerFileDAO implements ComputerDAO {
@@ -102,13 +104,21 @@ public class ComputerFileDAO implements ComputerDAO {
 
     public Computer createComputer(Computer computer) throws IOException {
         synchronized (computerMap) {
-            Computer newComputer = new Computer(nextId(), computer.getName(), computer.getCost(),
+            int newId = nextId();
+            Computer newComputer = new Computer(newId, computer.getName(), computer.getCost(),
             computer.getQuantity(), computer.getBrand());
-            
-            computerMap.put(newComputer.getId(),newComputer);
-            save(); 
 
-            return newComputer;
+            computerMap.put(newId,newComputer);
+            try {
+                save(); 
+                return newComputer;
+            } catch (IOException e) { 
+                computerMap.remove(newId);
+                --nextId; 
+                throw e;               
+            }
+
+
         }
     }
 
@@ -119,9 +129,15 @@ public class ComputerFileDAO implements ComputerDAO {
             if (computerMap.containsKey(key) == false) {
                 return null;
             }
+            Computer upda = computerMap.get(key);
             computerMap.put(key, computer);
-            save();
-            return computer;
+            try {
+                save();
+                return computer;
+            } catch (IOException e) {
+                computerMap.put(key, upda);
+                throw e;
+            }
         }
 
     }
@@ -129,11 +145,19 @@ public class ComputerFileDAO implements ComputerDAO {
     public boolean deleteComputer(int id) throws IOException {
         synchronized (computerMap) {
             if (computerMap.containsKey(id)) {
-                computerMap.remove(id);
-                if (id+1 == nextId) {
-                    nextId--;
+                Computer remo = computerMap.remove(id);
+                try {
+                    if (id+1 == nextId) {
+                        --nextId;
+                    }
+                    return save();
+                } catch (IOException e) {
+                    if (id == nextId) {
+                        nextId();
+                    }
+                    computerMap.put(id, remo);
+                    throw e;   
                 }
-                return save();
             } else {
                 return false;
             }

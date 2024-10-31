@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ufund.api.ufundapi.model.User;
@@ -130,7 +131,7 @@ public class UserFileDAOTest {
     @Test
     public void testFindUsersWithMatch() {
         // Arrange
-        String searchText = "a"; // matches "Alice" and "Charlie"
+        String searchText = "e"; // matches "Alice" and "Charlie"
         
         // Act
         User[] foundUsers = userFileDAO.findUsers(searchText);
@@ -192,7 +193,7 @@ public class UserFileDAOTest {
         assertEquals(expectedUser.getId(), createdUser.getId(), "Created User should have the next available ID.");
         assertEquals(expectedUser.getName(), createdUser.getName(), "User name should match.");
         assertEquals(expectedUser.getPassword(), createdUser.getPassword(), "User password should match.");
-        assertEquals(expectedUser.getBasket(), createdUser.getBasket(), "User basket should match.");
+        assertTrue(Arrays.equals(expectedUser.getBasket(), createdUser.getBasket()), "User basket should match.");
         
         // Verify that writeValue was called with the updated user array
         verify(mockObjectMapper, times(1)).writeValue(eq(new File(testFilename)), any(User[].class));
@@ -395,7 +396,7 @@ public class UserFileDAOTest {
         assertEquals(expectedUser.getId(), createdUser.getId(), "Created User should have a new unique ID.");
         assertEquals(expectedUser.getName(), createdUser.getName(), "User name should match.");
         assertEquals(expectedUser.getPassword(), createdUser.getPassword(), "User password should match.");
-        assertEquals(expectedUser.getBasket(), createdUser.getBasket(), "User basket should match.");
+        assertTrue(Arrays.equals(expectedUser.getBasket(), createdUser.getBasket()), "User basket should match.");
         
         // Verify that writeValue was called with the updated user array
         verify(mockObjectMapper, times(1)).writeValue(eq(new File(testFilename)), eq(expectedUsersAfterCreate));

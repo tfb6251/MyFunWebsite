@@ -102,38 +102,56 @@ public class UserFileDAO implements UserDAO {
 
     public User createUser(User user) throws IOException {
         synchronized (userMap) {
-            User newUser = new User(nextId(), user.getName(),
-             user.getPassword(), user.getBasket());
+            int newId = nextId();
+            User newUser = new User(newId, user.getName(),
+            user.getPassword(), user.getBasket());
             
-            userMap.put(newUser.getId(),newUser);
-            save(); 
-
-            return newUser;
+            userMap.put(newId,newUser);
+            try {
+                save(); 
+                return newUser;
+            } catch (IOException e) { 
+                userMap.remove(newId);
+                --nextId; 
+                throw e;               
+            }
         }
     }
 
     public User updateUser(User user) throws IOException {
         synchronized (userMap) {
-
             int key = user.getId();
             if (userMap.containsKey(key) == false) {
                 return null;
             }
+            User upda = userMap.get(key);
             userMap.put(key, user);
-            save();
-            return user;
+            try {
+                save();
+                return user;
+            } catch (IOException e) {
+                userMap.put(key, upda);
+                throw e;
+            }
         }
-
     }
 
     public boolean deleteUser(int id) throws IOException {
         synchronized (userMap) {
             if (userMap.containsKey(id)) {
-                userMap.remove(id);
-                if (id+1 == nextId) {
-                    nextId--;
+                User remo = userMap.remove(id);
+                try {
+                    if (id+1 == nextId) {
+                        nextId--;
+                    }
+                    return save();
+                } catch (IOException e) {
+                    if (id == nextId) {
+                        nextId();
+                    }
+                    userMap.put(id, remo);
+                    throw e;  
                 }
-                return save();
             } else {
                 return false;
             }

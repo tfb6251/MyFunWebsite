@@ -2,6 +2,7 @@ package com.ufund.api.ufundapi.persistence;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 import java.io.File;
@@ -287,7 +288,7 @@ public class ComputerFileDAOTest {
         }, "updateComputer should throw IOException when writeValue fails.");
         
         // Verify that the computerMap still contains the updated computer
-        assertTrue(computerFileDAO.computerMap.containsKey(updatedComputerInput.getId()), 
+        assertEquals(testComputers[1], computerFileDAO.computerMap.get(updatedComputerInput.getId()), 
             "computerMap should still contain the computer after IOException.");
     }
     

@@ -1,5 +1,7 @@
 package com.ufund.api.ufundapi.model;
 
+import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Computer {
@@ -69,5 +71,20 @@ public class Computer {
         return ("Id: " + id + "Name: " + name + "Cost: $" + cost + "Quantity: " + quantity + " Brand: " + brand);
     }
 
-
+    @SuppressWarnings("null")
+    @Override
+    public boolean equals(Object obj) {
+        // Check if the same object reference
+        if (this == obj || (obj == null && this == null)) return true;
+        // Check if obj is null or not the same class
+        if (getClass() != obj.getClass()) return false;
+        
+        // Cast obj to User type and compare relevant fields
+        Computer computer = (Computer) obj;
+        return id == computer.id &&                    // Compare id
+               Objects.equals(this.name, computer.name) &&   // Compare name
+               Objects.equals(this.cost, computer.cost) && // Compare cost
+               Objects.equals(this.quantity, computer.quantity) && // Compare quantity
+               Objects.equals(this.brand, computer.brand); // Compare brand
+    }
 }
