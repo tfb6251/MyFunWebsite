@@ -105,7 +105,25 @@ public class UserTest {
             assertEquals(id, deserializedUser.getId(), "Deserialized User ID should match the original ID.");
             assertEquals(name, deserializedUser.getName(), "Deserialized User name should match the original name.");
             assertEquals(password, deserializedUser.getPassword(), "Deserialized User password should match the original password.");
-            assertArrayEquals(basket, deserializedUser.getBasket(), "Deserialized User basket should match the original basket.");
+
+            // Compare the baskets field-by-field
+            Computer[] originalBasket = user.getBasket();
+            Computer[] deserializedBasket = deserializedUser.getBasket();
+
+            assertNotNull(deserializedBasket, "Deserialized basket should not be null");
+            assertEquals(originalBasket.length, deserializedBasket.length, "Basket sizes should match");
+
+            for (int i = 0; i < originalBasket.length; i++) {
+                Computer originalComputer = originalBasket[i];
+                Computer deserializedComputer = deserializedBasket[i];
+
+                assertEquals(originalComputer.getId(), deserializedComputer.getId(), "Computer ID should match at index " + i);
+                assertEquals(originalComputer.getName(), deserializedComputer.getName(), "Computer name should match at index " + i);
+                assertEquals(originalComputer.getCost(), deserializedComputer.getCost(), "Computer cost should match at index " + i);
+                assertEquals(originalComputer.getQuantity(), deserializedComputer.getQuantity(), "Computer quantity should match at index " + i);
+                assertEquals(originalComputer.getBrand(), deserializedComputer.getBrand(), "Computer brand should match at index " + i);
+            }
+
         } catch (Exception e) {
             fail("Serialization/deserialization failed with exception: " + e.getMessage());
         }

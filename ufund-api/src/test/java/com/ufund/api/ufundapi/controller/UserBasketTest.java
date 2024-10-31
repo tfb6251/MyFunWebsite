@@ -1,7 +1,7 @@
 package com.ufund.api.ufundapi.controller;
 
 import com.ufund.api.ufundapi.model.User;
-import com.ufund.api.ufundapi.model.Computer;
+import com.ufund.api.ufundapi.controller.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -194,7 +194,7 @@ public class UserBasketTest {
 
         when(mockUserService.findUsers(searchString)).thenReturn(users);
 
-        ResponseEntity<User[]> response = userBasketController.searchNeeds(searchString);
+        ResponseEntity<User[]> response = userBasketController.searchUsers(searchString);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertArrayEquals(users, response.getBody());
@@ -206,7 +206,7 @@ public class UserBasketTest {
         String searchString = "nonexistent";
         when(mockUserService.findUsers(searchString)).thenReturn(null);
 
-        ResponseEntity<User[]> response = userBasketController.searchNeeds(searchString);
+        ResponseEntity<User[]> response = userBasketController.searchUsers(searchString);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
@@ -217,8 +217,9 @@ public class UserBasketTest {
         String searchString = "test";
         doThrow(new IOException()).when(mockUserService).findUsers(searchString);
 
-        ResponseEntity<User[]> response = userBasketController.searchNeeds(searchString);
+        ResponseEntity<User[]> response = userBasketController.searchUsers(searchString);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 }
+
