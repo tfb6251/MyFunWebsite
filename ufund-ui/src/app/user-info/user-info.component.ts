@@ -62,7 +62,7 @@ export class UserInfoComponent {
   }
 
   save(): void {
-    if (this.user?.name != "" && this.user?.name) {      
+    if (this.user && this.user?.name != "" && this.user?.password != "") {      
       this.userService.updateUser(this.user)
       .subscribe(user => this.user = user);
       this.location.back();      
