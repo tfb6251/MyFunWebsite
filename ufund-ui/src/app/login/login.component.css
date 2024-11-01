@@ -1,0 +1,58 @@
+/* Center align text for headings and spans */
+h2, h6, span {
+  text-align: center; /* Centers text within these elements */
+}
+
+/* Style for the form */
+form {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack labels and inputs vertically */
+  align-items: center; /* Center labels and inputs horizontally */
+  border: 1px solid gray; /* Use a gray border around the form */
+  padding: 20px; /* Add padding for space inside the border */
+  max-width: 288px; /* Set a maximum width for the form */
+  margin: 20px auto; /* Center the form with auto margins */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+}
+
+/* Style for the div that contains labels and inputs */
+div {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: row; /* Stack labels and inputs horizontally */
+  align-items: center; /* Center items vertically within the div */
+  margin: 0px; /* No extra margin around the div */
+  padding: 0px; /* No extra padding inside the div */
+  border: 0px; /* No border around the div */
+}
+
+/* Style for labels */
+label {
+  font-weight: bold; /* Make labels bold for emphasis */
+  margin-bottom: 5px; /* Space between the label and input */
+  display: block; /* Ensure labels take up full width */
+  text-align: left; /* Align text to the left */
+  color: #333; /* Dark gray color for readability */
+}
+
+/* Style for buttons */
+button {
+  background-color: #6c757d; /* Gray background color */
+  color: white; /* Text color */
+  border: none; /* No border for the button */
+  border-radius: 4px; /* Slightly rounded corners for the button */
+  padding: 10px 15px; /* Padding for better click area */
+  margin: 5px; /* Space above the button */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Style for button hover state */
+button:hover {
+  background-color: #5a6268; /* Darker gray on hover for feedback */
+}
+
+/* Style for button focus state */
+button:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 0 2px rgba(108, 117, 125, 0.5); /* Add custom focus outline */
+}

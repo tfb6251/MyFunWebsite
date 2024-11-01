@@ -1,208 +1,224 @@
 package com.ufund.api.ufundapi.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.io.IOException;
-
-import com.ufund.api.ufundapi.persistence.ComputerDAO;
 import com.ufund.api.ufundapi.model.Computer;
-
+import com.ufund.api.ufundapi.controller.ComputerService;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
 public class ComputerControllerTest {
-    private ComputerController ComputerController;
+    private ComputerController computerController;
     private ComputerService mockComputerService;
 
-    /**
-     * Before each test, create a new ComputerController object and inject
-     * a mock ComputerService
-     */
     @BeforeEach
     public void setupComputerController() {
         mockComputerService = mock(ComputerService.class);
-        ComputerController = new ComputerController(mockComputerService);
+        computerController = new ComputerController(mockComputerService);
     }
 
+    // Test for getting a computer by ID
     @Test
-    public void testGetNeed() throws IOException {
-        
-        Computer needs = new Computer("Galactic Agent", 2, 99,"Galacticorsomeshitidontfuckingknowfuckyou");
-        when(mockComputerService.getComputer(needs.getName())).thenReturn(needs);
+    public void testGetComputerById() throws IOException {
+        Computer computer = new Computer(1, "Laptop", 1000, 5, "BrandA");
+        when(mockComputerService.getComputer(computer.getId())).thenReturn(computer);
 
-        ResponseEntity<Computer> response = ComputerController.getComputer(needs.getName());
+        ResponseEntity<Computer> response = computerController.getComputer(computer.getId());
 
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(needs,response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(computer, response.getBody());
     }
 
+    // Test for computer not found by ID
     @Test
-    public void testGetNeedNotFound() throws Exception {
-        String needName = "Galactic Agent";
-        when(mockComputerService.getComputer(needName)).thenReturn(null);
+    public void testGetComputerByIdNotFound() throws IOException {
+        int computerId = 1;
+        when(mockComputerService.getComputer(computerId)).thenReturn(null);
 
-        ResponseEntity<Computer> response = ComputerController.getComputer(needName);
+        ResponseEntity<Computer> response = computerController.getComputer(computerId);
 
-        assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
+    // Test for exception when getting computer by ID
     @Test
-    public void testGetNeedHandleException() throws Exception {
-        String needName = "Galactic Agent";
-        doThrow(new IOException()).when(mockComputerService).getComputer(needName);
+    public void testGetComputerByIdHandleException() throws IOException {
+        int computerId = 1;
+        doThrow(new IOException()).when(mockComputerService).getComputer(computerId);
 
-        ResponseEntity<Computer> response = ComputerController.getComputer(needName);
+        ResponseEntity<Computer> response = computerController.getComputer(computerId);
 
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
-
+    // Test for creating a new computer
     @Test
-    public void testCreateNeeds() throws IOException { 
-        Computer computer = new Computer("OUI", 3, 99,"Wi-Fire");
+    public void testCreateComputer() throws IOException {
+        Computer computer = new Computer(2, "Desktop", 1500, 3, "BrandB");
         when(mockComputerService.createComputer(computer)).thenReturn(computer);
 
-        ResponseEntity<Computer> response = ComputerController.createComputer(computer);
+        ResponseEntity<Computer> response = computerController.createComputer(computer);
 
-        assertEquals(HttpStatus.CREATED,response.getStatusCode());
-        assertEquals(computer,response.getBody());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(computer, response.getBody());
     }
 
+    // Test for conflict when creating a computer that already exists
     @Test
-    public void testCreateNeedsFailed() throws IOException {
-        Computer computer = new Computer("fuck", 99, 99,"Bolt");
+    public void testCreateComputerConflict() throws IOException {
+        Computer computer = new Computer(2, "ExistingComputer", 1200, 4, "BrandC");
         when(mockComputerService.createComputer(computer)).thenReturn(null);
 
-        ResponseEntity<Computer> response = ComputerController.createComputer(computer);
+        ResponseEntity<Computer> response = computerController.createComputer(computer);
 
-        assertEquals(HttpStatus.CONFLICT,response.getStatusCode());
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
     }
 
+    // Test for exception when creating a computer
     @Test
-    public void testCreateNeedsHandleException() throws IOException { 
-        Computer computer = new Computer("AAAGGHH", 0, 99,"Ice Gladiator");
-
+    public void testCreateComputerHandleException() throws IOException {
+        Computer computer = new Computer(2, "Computer", 1100, 2, "BrandD");
         doThrow(new IOException()).when(mockComputerService).createComputer(computer);
 
-        ResponseEntity<Computer> response = ComputerController.createComputer(computer);
+        ResponseEntity<Computer> response = computerController.createComputer(computer);
 
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
+    // Test for updating a computer
     @Test
-    public void testUpdateNeeds() throws IOException {
-        Computer computer = new Computer("pspspsps", 1, 99,"Wi-Fire");
+    public void testUpdateComputer() throws IOException {
+        Computer computer = new Computer(1, "UpdatedComputer", 1300, 6, "BrandE");
         when(mockComputerService.updateComputer(computer)).thenReturn(computer);
-        ResponseEntity<Computer> response = ComputerController.updateComputer(computer);
-        computer.setName("Bolt");
 
-        response = ComputerController.updateComputer(computer);
+        ResponseEntity<Computer> response = computerController.updateComputer(computer);
 
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(computer,response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(computer, response.getBody());
     }
 
+    // Test for computer not found when updating
     @Test
-    public void testUpdateNeedsFailed() throws IOException {
-        Computer computer = new Computer("e", 2010101010, 99,"Galactic Agent");
+    public void testUpdateComputerNotFound() throws IOException {
+        Computer computer = new Computer(1, "Computer", 1000, 5, "BrandF");
         when(mockComputerService.updateComputer(computer)).thenReturn(null);
 
-        ResponseEntity<Computer> response = ComputerController.updateComputer(computer);
+        ResponseEntity<Computer> response = computerController.updateComputer(computer);
 
-        assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
+    // Test for exception when updating a computer
     @Test
-    public void testUpdateNeedsHandleException() throws IOException { 
-        Computer computer = new Computer("whytf", 10, 99,"Galactic Agent");
+    public void testUpdateComputerHandleException() throws IOException {
+        Computer computer = new Computer(1, "Computer", 1000, 5, "BrandG");
         doThrow(new IOException()).when(mockComputerService).updateComputer(computer);
 
-        ResponseEntity<Computer> response = ComputerController.updateComputer(computer);
+        ResponseEntity<Computer> response = computerController.updateComputer(computer);
 
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
+    // Test for deleting a computer
     @Test
-    public void testGetNeeds() throws IOException { 
-        Computer[] needs = new Computer[2];
-        needs[0] = new Computer("nuts1", 21, 99,"Bolt");
-        needs[1] = new Computer("nuts2", 12, 100,"The Great Iguana");
-        when(mockComputerService.findComputers()).thenReturn(needs);
+    public void testDeleteComputer() throws IOException {
+        int computerId = 1;
+        when(mockComputerService.deleteComputer(computerId)).thenReturn(true);
 
-        ResponseEntity<Computer[]> response = ComputerController.findComputers();
+        ResponseEntity<Computer> response = computerController.deleteComputer(computerId);
 
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(needs,response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
+    // Test for computer not found when deleting
     @Test
-    public void testGetNeedsHandleException() throws IOException {
-        doThrow(new IOException()).when(mockComputerService).findComputers();
+    public void testDeleteComputerNotFound() throws IOException {
+        int computerId = 1;
+        when(mockComputerService.deleteComputer(computerId)).thenReturn(false);
 
-        ResponseEntity<Computer[]> response = ComputerController.findComputers();
+        ResponseEntity<Computer> response = computerController.deleteComputer(computerId);
 
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
+    // Test for exception when deleting a computer
     @Test
-    public void testSearcNeeds() throws IOException { 
-        String searchString = "la";
-        Computer[] needs = new Computer[2];
-        needs[0] = new Computer("naalalallalalalala", 5, 99,"Galactic Agent");
-        needs[1] = new Computer("nononononononolaALALALLallalaal", 21, 100,"Ice Gladiator");
-        
-        when(mockComputerService.findComputers(searchString)).thenReturn(needs);
+    public void testDeleteComputerHandleException() throws IOException {
+        int computerId = 1;
+        doThrow(new IOException()).when(mockComputerService).deleteComputer(computerId);
 
-        ResponseEntity<Computer[]> response = ComputerController.searchNeeds(searchString);
+        ResponseEntity<Computer> response = computerController.deleteComputer(computerId);
 
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(needs,response.getBody());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
+    // Test for getting all computers
     @Test
-    public void testSearchNeedsHandleException() throws IOException { 
-        String searchString = "an";
+    public void testFindComputers() throws IOException {
+        Computer[] computers = new Computer[] {
+            new Computer(1, "Laptop", 1000, 5, "BrandA"),
+            new Computer(2, "Desktop", 1500, 3, "BrandB")
+        };
+
+        when(mockComputerService.getComputers()).thenReturn(computers);
+
+        ResponseEntity<Computer[]> response = computerController.findComputers();
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertArrayEquals(computers, response.getBody());
+    }
+
+    // Test for exception when getting all computers
+    @Test
+    public void testFindComputersHandleException() throws IOException {
+        doThrow(new IOException()).when(mockComputerService).getComputers();
+
+        ResponseEntity<Computer[]> response = computerController.findComputers();
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    // Test for searching computers by name
+    @Test
+    public void testSearchComputers() throws IOException {
+        String searchString = "Laptop";
+        Computer[] computers = new Computer[] {
+            new Computer(1, "Gaming Laptop", 2000, 2, "BrandX"),
+            new Computer(2, "Ultrabook Laptop", 1800, 4, "BrandY")
+        };
+
+        when(mockComputerService.findComputers(searchString)).thenReturn(computers);
+
+        ResponseEntity<Computer[]> response = computerController.searchComputers(searchString);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertArrayEquals(computers, response.getBody());
+    }
+
+    // Test for computers not found when searching
+    @Test
+    public void testSearchComputersNotFound() throws IOException {
+        String searchString = "Nonexistent";
+        when(mockComputerService.findComputers(searchString)).thenReturn(null);
+
+        ResponseEntity<Computer[]> response = computerController.searchComputers(searchString);
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    // Test for exception when searching computers
+    @Test
+    public void testSearchComputersHandleException() throws IOException {
+        String searchString = "Laptop";
         doThrow(new IOException()).when(mockComputerService).findComputers(searchString);
 
-        ResponseEntity<Computer[]> response = ComputerController.searchNeeds(searchString);
+        ResponseEntity<Computer[]> response = computerController.searchComputers(searchString);
 
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
-    }
-
-    @Test
-    public void testDeleteNeeds() throws IOException { 
-        String needName = "bitchass";
-        when(mockComputerService.deleteComputer(needName)).thenReturn(true);
-
-
-        ResponseEntity<Computer> response = ComputerController.deleteComputer(needName);
-
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-    }
-
-    @Test
-    public void testDeleteNeedsNotFound() throws IOException { 
-        String needName = "bitchass";
-        when(mockComputerService.deleteComputer(needName)).thenReturn(false);
-
-        ResponseEntity<Computer> response = ComputerController.deleteComputer(needName);
-
-        assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
-    }
-
-    @Test
-    public void testDeleteNeedsHandleException() throws IOException { 
-        String needName = "bitchass";
-        doThrow(new IOException()).when(mockComputerService).deleteComputer(needName);
-
-        ResponseEntity<Computer> response = ComputerController.deleteComputer(needName);
-
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 }

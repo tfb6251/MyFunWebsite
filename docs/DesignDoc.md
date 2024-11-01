@@ -11,23 +11,36 @@ geometry: margin=1in
 ## Team Information
 * Team name: TEAMNAME
 * Team members
-  * MEMBER1
-  * MEMBER2
-  * MEMBER3
-  * MEMBER4
+  * Maxwell Falk
+  * Tony Butler
+  * George Verkhovsky
+  * [REDACTED]
 
 ## Executive Summary
 
-This is a summary of the project.
+Makes a host to run a website, has ui, does something relevant to input detected within the ui, updates the ui accordingly.
 
 ### Purpose
->  _**[Sprint 2 & 4]** Provide a very brief statement about the project and the most
-> important user group and user goals._
+Our project is a charity page for businesses to allocate funding for their needs, assuming their needs are computers,
+because that was our idea of charity. This needs to be done in a somewhat user-friendly manner, with a basic login
+page, and simple, accessible systems elsewise to promote some ease of use in tracking and maintaining certain business
+expenditures.
 
 ### Glossary and Acronyms
 > _**[Sprint 2 & 4]** Provide a table of terms and acronyms._
 
 | Term | Definition |
+  
+  Need: a unit of charity, tracking the name, quantity, cost, brand, and other metadata to mediate business effectively.
+
+  Need Basket: set of needs to be checked out by a user.
+
+  User: a class associated with the users of the site, with a username, password, id, and an array of needs called the needs basket.
+
+  Need Cupboard: full inventory of all needs currently available on the site.
+
+  Admin: developer, manager, or some otherwise character of authority that log in under the username "admin" and are allowed executive control over the whole need cupboard.
+
 |------|------------|
 | SPA | Single Page |
 
@@ -43,6 +56,8 @@ This section describes the features of the application.
 ### Definition of MVP
 > _**[Sprint 2 & 4]** Provide a simple description of the Minimum Viable Product._
 
+Has ui, basic functions GET POST PUT DELETE etc, can run without crashing, solid code coverage from unit tests, users can access the needs to put into the need basket, admin can edit the need cupboard.
+
 ### MVP Features
 >  _**[Sprint 4]** Provide a list of top-level Epics and/or Stories of the MVP._
 
@@ -54,11 +69,13 @@ This section describes the features of the application.
 
 This section describes the application domain.
 
-![Domain Model](domain-model-placeholder.png)
+![Domain Model](Domain_Mode.drawio.png)
 
 > _**[Sprint 2 & 4]** Provide a high-level overview of the domain for this application. You
 > can discuss the more important domain entities and their relationship
 > to each other._
+
+Model-view-viewmodel type architecture, ui interacts with the model via the viewmodel, based around GET, POST, etc interactions in the model, basic unit is the Need, has users and ufund managers, both of which use the browser, dependent on user login, edits the need cupboard, uses the helper to edit other resources such as the funding basket, does not however see the basket directly.
 
 
 ## Architecture and Design
@@ -71,7 +88,7 @@ The following Tiers/Layers model shows a high-level view of the webapp's archite
 **NOTE**: detailed diagrams are required in later sections of this document.
 > _**[Sprint 1]** (Augment this diagram with your **own** rendition and representations of sample system classes, placing them into the appropriate M/V/VM (orange rectangle) tier section. Focus on what is currently required to support **Sprint 1 - Demo requirements**. Make sure to describe your design choices in the corresponding _**Tier Section**_ and also in the _**OO Design Principles**_ section below.)_
 
-![The Tiers & Layers of the Architecture](architecture-tiers-and-layers.png)
+![The Tiers & Layers of the Architecture](thething.png)
 
 The web application, is built using the Model–View–ViewModel (MVVM) architecture pattern. 
 
@@ -88,6 +105,7 @@ This section describes the web interface flow; this is how the user views and in
 
 > _Provide a summary of the application's user interface.  Describe, from the user's perspective, the flow of the pages in the web application._
 
+The ui starts on a login page, from which it can be routed to a dashboard for admin, a needs basket for the users, and a sign up page for those without an account. From the admin dashboard, it can be further routed to an address each for creating and updating a need to the cupboard. The user is routed to an address where it can modify its associated needs basket. For those who created an account, their data is saved and they are routed back to the user address.
 
 ### View Tier
 > _**[Sprint 4]** Provide a summary of the View Tier UI of your architecture.
@@ -110,6 +128,20 @@ This section describes the web interface flow; this is how the user views and in
 ### ViewModel Tier
 > _**[Sprint 1]** List the classes supporting this tier and provide a description of there purpose._
 
+getComputer - attempts to retrieve a need according to input, returns an appropriate response entity upon completion
+searchNeeds - attempts to retrieve several needs according to input, returns an appropriate response entity upon completion
+createComputer - attempts to create a new need according to input, returns an appropriate response entity upon completion
+deleteComputer - attempts to remove a current need according to input, returns an appropriate response entity upon completion
+findComputers - attempts to retrieve all needs, returns an appropriate response entity upon completion
+updateComputer - attempts to rewrite a need according to input or create a new one, returns an appropriate response entity upon completion
+
+getUsers - attempts to retrieve all users, returns an appropriate response entity upon completion
+getUser - attempts to retrieve a user according to input, returns an appropriate response entity upon completion
+findUsers - attempts to retrieve all users according to input, returns an appropriate response entity upon completion
+createUser - attempts to create a user according to input, returns an appropriate response entity upon completion
+updateUser - attempts to rewrite a user according to input or create a new one, returns an appropriate response entity upon completion
+deleteUser - attempts to remove a user according to input, returns an appropriate response entity upon completion
+
 > _**[Sprint 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
 > Tier above._
@@ -120,22 +152,49 @@ This section describes the web interface flow; this is how the user views and in
 ![Replace with your ViewModel Tier class diagram 1, etc.](model-placeholder.png)
 
 ### Model Tier
-> _**[Sprint 1]** List the classes supporting this tier and provide a description of there purpose._
+
+    getId - return the id of the need according to input
+    getCost -  return the cost of the need according to input
+    getName - return the name of the need according to input
+    getQuantity - return the quantity of the need according to input
+    getBrand - return the brand of the need according to input
+    setName - update the name of a need according to input
+    setCost - update the cost of a need according to input
+    setQuantity - update the quantity of a need according to input
+    setBrand - update the brand of a need according to input
+    toString - translate a need of some value to an appropriate string
+
+    getId - return the id of the user according to input
+    getName - return the name of the user according to input
+    getPassword - return the password of the user according to input
+    getBasket - return the basket of the user according to input
+    setName - update the name of the user according to input
+    setPassword - update the password of the user according to input
+    setBasket - update the basket of the user according to input
+    toString - translate a user of some value to an appropriate string
 
 > _**[Sprint 2, 3 & 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
 > Tier above._
 
+Contains all the basic functions and implementations needed for the api of the project, allowing for interactions with
+values displayed in the view.
+
 > _At appropriate places as part of this narrative provide **one** or more updated and **properly labeled**
 > static models (UML class diagrams) with some details such as associations (connections) between classes, and critical attributes and methods. (**Be sure** to revisit the Static **UML Review Sheet** to ensure your class diagrams are using correct format and syntax.)_
 > 
-![Replace with your Model Tier class diagram 1, etc.](model-placeholder.png)
+![Replace with your Model Tier class diagram 1, etc.](modelstuff.png)
 
 ## OO Design Principles
 
 > _**[Sprint 1]** Name and describe the initial OO Principles that your team has considered in support of your design (and implementation) for this first Sprint._
 
+We focused on low coupling and simplifying the functions of methods, reducing overreliance of any classes on any others,
+and keeping the scope of classes within the initial and intended purpose of the file.
+
 > _**[Sprint 2, 3 & 4]** Will eventually address upto **4 key OO Principles** in your final design. Follow guidance in augmenting those completed in previous Sprints as indicated to you by instructor. Be sure to include any diagrams (or clearly refer to ones elsewhere in your Tier sections above) to support your claims._
+
+Our project exemplifies dependency inversion and the law of demeter. In terms of dependency inversion, the functional code in the viewmodel uses a service class as the basis of its methods rather than directly using the model, reducing overreliance on lower-level classes. Another example is the computerDAO file, which only exists to reduce the burden on the computerFileDAO by being made use of in operations by higher-level classes. In terms of the law of demeter, the files only ever interact with their neighbors, or more specifically, there exists no code that skips steps according to the domain model of the project. For example, only the controller is allowed to impact the view, so any code that would have the same intent must do so via accessing the controller.
 
 > _**[Sprint 3 & 4]** OO Design Principles should span across **all tiers.**_
 
@@ -158,6 +217,10 @@ This section describes the web interface flow; this is how the user views and in
 > have not had any testing yet. Highlight the issues found during
 > acceptance testing and if there are any concerns._
 
+3 stories, unit testing, angular, and login, have complete acceptance testing
+4 stories, the helper, the ufund manager, the basket and the cupboard are not completely accepted yet.
+No concerns, just work to do.
+
 ### Unit Testing and Code Coverage
 > _**[Sprint 4]** Discuss your unit testing strategy. Report on the code coverage
 > achieved from unit testing of the code base. Discuss the team's
@@ -166,6 +229,11 @@ This section describes the web interface flow; this is how the user views and in
 
 >_**[Sprint 2, 3 & 4]** **Include images of your code coverage report.** If there are any anomalies, discuss
 > those._
+
+![ufund total coverage](testaa.png) ignore the ufund folder, is not relevent to testable code
+![controller coverage](testbb.png) ignore the service file, just an intermediary for tested code
+![persistence coverage](testcc.png)
+![model coverage](testdd.png)
 
 ## Ongoing Rationale
 >_**[Sprint 1, 2, 3 & 4]** Throughout the project, provide a time stamp **(yyyy/mm/dd): Sprint # and description** of any _**mayor**_ team decisions or design milestones/changes and corresponding justification._

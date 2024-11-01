@@ -1,33 +1,54 @@
 package com.ufund.api.ufundapi.persistence;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Io;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ufund.api.ufundapi.model.Computer;
+import com.ufund.api.ufundapi.model.User;
 
 @Component
 public class ComputerFileDAO implements ComputerDAO {
-    Map<String, Computer> computerMap;
+    Map<Integer, Computer> computerMap;
     private ObjectMapper objectMapper;
     private String filename;
+    private static int nextId;
 
-    public ComputerFileDAO(@Value("${computerMap.file}") String filename, ObjectMapper objectMapper)
-            throws IOException {
+    public ComputerFileDAO(@Value("${computer.file}") String filename, ObjectMapper objectMapper)
+        throws IOException {
         this.filename = filename;
         this.objectMapper = objectMapper;
-        
+        if (!new File(filename).exists() || new File(filename).length() == 0) {
+            new File(filename).getParentFile().mkdirs();  // Create parent directories if they don’t exist
+            new File(filename).createNewFile();           // Create the new file
+            try (FileWriter writer = new FileWriter(filename)) {
+                writer.write("[]");             // Initialize with an empty JSON array
+            }
+        }
         load();
     }
  
+    /**
+     * Generates the next id for a new {@linkplain Hero hero}
+     * 
+     * @return The next id
+     */
+    private synchronized static int nextId() {
+        int id = nextId;
+        ++nextId;
+        return id;
+    }
+
     private boolean save() throws IOException {
-        Computer[] needsArray = findComputers();
+        Computer[] needsArray = getComputers();
         
         // Serializes the Java Objects to JSON objects into the file
         // writeValue will thrown an IOException if there is an issue
@@ -38,27 +59,31 @@ public class ComputerFileDAO implements ComputerDAO {
     
     private boolean load() throws IOException {
         computerMap = new TreeMap<>();
+        nextId = 0;
         
         Computer[] needsArray = objectMapper.readValue(new File(filename), Computer[].class);
         
-        for (Computer needs : needsArray) {
-            computerMap.put(needs.getName(), needs);
+        for (Computer need : needsArray) {
+            computerMap.put(need.getId(), need);
+            if (need.getId() > nextId)
+                nextId = need.getId();
         }
+        ++nextId;
         return true;
     }
 
     @Override
-    public Computer getComputer(String name) {
+    public Computer getComputer(int id) {
         synchronized (computerMap) {
-            if (computerMap.containsKey(name))
-                return computerMap.get(name);
+            if (computerMap.containsKey(id))
+                return computerMap.get(id);
             else
                 return null;
         }
     }
     
     @Override
-    public Computer[] findComputers() {
+    public Computer[] getComputers() {
         return findComputers(null);
     }
 
@@ -79,37 +104,60 @@ public class ComputerFileDAO implements ComputerDAO {
 
     public Computer createComputer(Computer computer) throws IOException {
         synchronized (computerMap) {
-            // We create a new hero object because the id field is immutable
-            // and we need to assign the next unique id
-            String key = computer.getName();
-            if (!(this.computerMap.containsKey(key))) {
-                this.computerMap.put(key, computer);
-                save();
-                return computer;
+            int newId = nextId();
+            Computer newComputer = new Computer(newId, computer.getName(), computer.getCost(),
+            computer.getQuantity(), computer.getBrand());
+
+            computerMap.put(newId,newComputer);
+            try {
+                save(); 
+                return newComputer;
+            } catch (IOException e) { 
+                computerMap.remove(newId);
+                --nextId; 
+                throw e;               
             }
-            return null;
+
+
         }
     }
 
     public Computer updateComputer(Computer computer) throws IOException {
         synchronized (computerMap) {
 
-            String key = computer.getName();
+            int key = computer.getId();
             if (computerMap.containsKey(key) == false) {
                 return null;
             }
+            Computer upda = computerMap.get(key);
             computerMap.put(key, computer);
-            save();
-            return computer;
+            try {
+                save();
+                return computer;
+            } catch (IOException e) {
+                computerMap.put(key, upda);
+                throw e;
+            }
         }
 
     }
 
-    public boolean deleteComputer(String name) throws IOException {
+    public boolean deleteComputer(int id) throws IOException {
         synchronized (computerMap) {
-            if (computerMap.containsKey(name)) {
-                computerMap.remove(name);
-                return save();
+            if (computerMap.containsKey(id)) {
+                Computer remo = computerMap.remove(id);
+                try {
+                    if (id+1 == nextId) {
+                        --nextId;
+                    }
+                    return save();
+                } catch (IOException e) {
+                    if (id == nextId) {
+                        nextId();
+                    }
+                    computerMap.put(id, remo);
+                    throw e;   
+                }
             } else {
                 return false;
             }

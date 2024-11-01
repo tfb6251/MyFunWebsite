@@ -1,0 +1,27 @@
+<div *ngIf="computer">
+    <h2>{{computer.name}} Information </h2>
+    <span>
+      <label id="commputer-id">ID: {{ computer.id }}</label>
+    </span>
+    <span>
+      <label for="computer-name">Computer Name: </label>
+      <input id="computer-name" [(ngModel)]="computer.name" placeholder="Computer Name"/>
+    </span>
+    <span>
+      <label for="computer-cost">Computer Cost: </label>
+      <input id="computer-cost" [(ngModel)]="computer.cost" placeholder="Computer Cost"/>
+    </span>
+    <span>
+      <label for="computer-quan">Computer Quantity: </label>
+      <input id="computer-quan" [(ngModel)]="computer.quantity" placeholder="Computer Quantity"/>
+    </span>
+    <span>      
+      <label for="computer-brand">Computer Brand: </label>
+      <input id="computer-brand" [(ngModel)]="computer.brand" placeholder="Computer Brand"/>
+    </span>
+    <span>
+      <button type="button" (click)="goBack()">go back</button>
+      <button type="button" (click)="save()">save</button>
+      <button type="button" (click)="delete()">delete</button>
+    </span>
+  </div>

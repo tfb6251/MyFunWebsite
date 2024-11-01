@@ -1,0 +1,60 @@
+/* Center align text for headings and spans */
+h2, h6, div {
+    text-align: center; /* Centers text within these elements */
+  }
+  
+
+
+  span{
+    
+    margin-bottom: 10px;
+  }
+
+
+  /* Style for the div */
+  div {
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack labels and inputs vertically */
+    align-items: center; /* Center labels and inputs horizontally */
+    justify-content: center; /* Center items horizontally */
+    border: 1px solid gray; /* Use a gray border around the form */
+    padding: 20px; /* Add padding for space inside the border */
+    max-width: 288px; /* Set a maximum width for the form */
+    margin: 20px auto; /* Center the form with auto margins */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+    flex-wrap: wrap; /* Allows items to wrap to the next row */
+  }
+  
+
+  
+  /* Style for labels */
+  input {
+    font-weight: bold; /* Make labels bold for emphasis */
+    margin-bottom: 5px; /* Space between the label and input */
+    display: block; /* Ensure labels take up full width */
+    text-align: left; /* Align text to the left */
+    color: #333; /* Dark gray color for readability */
+  }
+  
+  /* Style for buttons */
+  button {
+    background-color: #6c757d; /* Gray background color */
+    color: white; /* Text color */
+    border: none; /* No border for the button */
+    border-radius: 4px; /* Slightly rounded corners for the button */
+    padding: 10px 15px; /* Padding for better click area */
+    margin: 5px; /* Space above the button */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  }
+  
+  /* Style for button hover state */
+  button:hover {
+    background-color: #5a6268; /* Darker gray on hover for feedback */
+  }
+  
+  /* Style for button focus state */
+  button:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 2px rgba(108, 117, 125, 0.5); /* Add custom focus outline */
+  }
