@@ -11,6 +11,8 @@ import { ComputerInfoComponent } from './computer-info/computer-info.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { ComputerBasketComponent } from './computer-basket/computer-basket.component';
+import { HomeComponent } from './home/home.component';
+import { BannerComponent } from './banner/banner.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { ComputerBasketComponent } from './computer-basket/computer-basket.compo
     LoginComponent,
     ComputerInfoComponent,
     UserInfoComponent,
-    ComputerBasketComponent
+    ComputerBasketComponent,
+    HomeComponent,
+    BannerComponent
   ],
   imports: [
     BrowserModule,

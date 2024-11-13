@@ -14,14 +14,12 @@ export class UserService {
   private usersUrl = 'http://localhost:8080/user';
   private loggedInSubject = new BehaviorSubject<boolean>(false);
   private isAdminSubject = new BehaviorSubject<boolean>(false);
+  private idSubject = new BehaviorSubject<number>(NaN);
 
-  // Observable versions for components to subscribe to
-  loggedIn$ = this.loggedInSubject.asObservable();
-  isAdmin$ = this.isAdminSubject.asObservable();
-
-  login(A: boolean) {
+  login(A: boolean, id: number) {
     this.loggedInSubject.next(!A);
     this.isAdminSubject.next(A);
+    this.idSubject.next(id)
     localStorage.setItem('loggedIn', String(!A));
     localStorage.setItem('isAdmin', String(A));
   }
@@ -29,6 +27,7 @@ export class UserService {
   logout() {
     this.loggedInSubject.next(false);
     this.isAdminSubject.next(false);
+    this.idSubject.next(NaN);
     localStorage.removeItem('loggedIn');
     localStorage.removeItem('isAdmin');
   }
@@ -39,6 +38,10 @@ export class UserService {
 
   isAdmined(): boolean {
     return this.isAdminSubject.value;
+  }
+  
+  id(): number {
+    return this.idSubject.value;
   }
 
 

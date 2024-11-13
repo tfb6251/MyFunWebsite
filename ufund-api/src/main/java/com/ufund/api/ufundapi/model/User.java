@@ -22,9 +22,9 @@ public class User {
      @JsonProperty("password") String password,  @JsonProperty("basket") Computer[] basket)
     {
         this.id = id;
-        this.name = (name != null) ? name : "";
-        this.password = (password != null) ? password : "";
-        this.basket = (basket != null) ? basket : new Computer[0];
+        this.name = name;
+        this.password = password;
+        this.basket = basket;
     }
 
     public int getId() {
@@ -82,7 +82,7 @@ public class User {
             }
         }
     
-        return id == user.id &&                    // Compare id
+        return this.id == user.id &&                    // Compare id
                Objects.equals(this.name, user.name) &&   // Compare name
                Objects.equals(this.password, user.password); // Compare password
     }
