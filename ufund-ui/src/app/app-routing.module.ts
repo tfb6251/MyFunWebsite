@@ -7,7 +7,7 @@ import { UserInfoComponent } from './user-info/user-info.component';
 import { ComputerBasketComponent } from './computer-basket/computer-basket.component';
 import { ErrorComponent } from './error/error.component';
 
-const routes: Routes = [ // routes
+const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
