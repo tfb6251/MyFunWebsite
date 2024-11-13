@@ -12,7 +12,6 @@ import { Location } from '@angular/common';
   styleUrls: ['./computer-basket.component.css']
 })
 export class ComputerBasketComponent {
-
   user: User | undefined;
   computers: Computer[] = [];
   allComputers: Computer[] = [];
@@ -54,7 +53,6 @@ export class ComputerBasketComponent {
       this.computerService.getComputer(id).subscribe(computer => {
         // Ensure the quantity is valid (fallback to 0 if undefined)
         if (computer.quantity === undefined || computer.quantity <= 0) {
-          console.warn(`Computer ${computer.name} is out of stock.`);
           return;
         }
 
@@ -144,21 +142,33 @@ export class ComputerBasketComponent {
     }
   }
 
-  // Update the list of computers in the basket after any changes
-  private updateComputers(): void {
-    // Re-fetch the cupboard and basket data after each update
-    this.computerService.getComputers().subscribe(computers => {
-      this.allComputers = computers.slice(0, 7);  // Limit to first 7 computers in cupboard
-    });
-
-    if (this.user) {
-      this.userService.getUser(this.user.id).subscribe(user => {
-        this.user = user;
-        this.computers = user.basket.slice(0, 7);  // Limit to first 7 computers in basket
-      });
+  checkout(): void {
+    // Early exit if there is no user
+    if (!this.user) {
+      console.warn('User is not defined!');
+      return;
     }
+  
+    // If the basket is already empty, do nothing
+    if (this.user.basket.length === 0) {
+      console.log('The basket is already empty.');
+      return;
+    }
+  
+    // Simply clear the basket without modifying cupboard quantities
+    this.user.basket = [];  // Empty the basket
+  
+    // Now update the user's basket in the backend
+    this.userService.updateUser(this.user).subscribe(updatedUser => {
+      this.user = updatedUser;
+      this.computers = updatedUser.basket.slice(0, 7);  // Update local basket view
+      this.computerService.getComputers().subscribe(updatedComputers => {
+        this.allComputers = updatedComputers.slice(0, 7);  // Update cupboard view
+      });
+    });
   }
-
+  
+  
   filterComputers0(searchTerm: string): void {
     if (this.user) {
       if (searchTerm == "") {
