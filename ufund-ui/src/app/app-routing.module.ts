@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { ComputerInfoComponent } from './computer-info/computer-info.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { ComputerBasketComponent } from './computer-basket/computer-basket.component';
+import { ErrorComponent } from './error/error.component';
 
 const routes: Routes = [ // routes
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -13,7 +14,9 @@ const routes: Routes = [ // routes
   { path: 'info/:id', component: ComputerInfoComponent},
   { path: 'info/new', component: ComputerInfoComponent},
   { path: 'user/new', component: UserInfoComponent},
-  { path: 'user/:id', component: ComputerBasketComponent}
+  { path: 'user/:id', component: ComputerBasketComponent},
+  { path: 'error', component: ErrorComponent },
+  { path: '**', redirectTo: '/error' }
 ];
 
 @NgModule({
