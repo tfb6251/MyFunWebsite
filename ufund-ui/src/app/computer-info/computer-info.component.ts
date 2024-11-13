@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { ComputerService } from '../computer.service';
 import { Computer } from '../computer';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-computer-info',
@@ -12,15 +13,20 @@ import { Computer } from '../computer';
 })
 export class ComputerInfoComponent implements OnInit{
   computer: Computer | undefined;
+  loggedIn = false;
+  isAdmin = false;
 
   constructor(
     private route: ActivatedRoute,
+    private userService: UserService,
     private computerService: ComputerService,
     private location: Location,
     private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.loggedIn = this.userService.isLoggedIn();
+    this.isAdmin = this.userService.isAdmined();
     this.getComputer();
   }
 

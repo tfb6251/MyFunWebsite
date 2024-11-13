@@ -28,11 +28,13 @@ export class LoginComponent {
       this.userService.searchUsers(this.username).subscribe(users => {
         this.users = users
         if (this.username == 'admin' && this.password == "admin") {
+          this.userService.login(true);
           this.router.navigate(['/dashboard']);
         } else if (this.users.length >= 1) {
           for(let i = 0; this.users.length > i ; i++) {
             if(this.users[i].name == this.username &&
               this.users[i].password == this.password) {
+              this.userService.login(false);
               this.router.navigate(['/user/'+this.users[i].id]);
             }
           }
