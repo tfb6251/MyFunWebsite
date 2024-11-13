@@ -109,4 +109,65 @@ public class ComputersTest {
             fail("Serialization/deserialization failed with exception: " + e.getMessage());
         }
     }
+
+    @Test
+    public void testEqualsSameObject() {
+        Computer computer = new Computer(1, "Laptop", 999, 5, "BrandX");
+        assertTrue(computer.equals(computer), "Same object should be equal.");
+    }
+
+    @Test
+    public void testEqualsNull() {
+        Computer computer = new Computer(1, "Laptop", 999, 5, "BrandX");
+        assertFalse(computer.equals(null), "Object should not be equal to null.");
+    }
+
+    @Test
+    public void testEqualsDifferentClass() {
+        Computer computer = new Computer(1, "Laptop", 999, 5, "BrandX");
+        String differentClassObject = "Not a Computer";
+        assertFalse(computer.equals(differentClassObject), "Object should not be equal to a different class.");
+    }
+
+    @Test
+    public void testEqualsDifferentId() {
+        Computer computer1 = new Computer(1, "Laptop", 999, 5, "BrandX");
+        Computer computer2 = new Computer(2, "Laptop", 999, 5, "BrandX");
+        assertFalse(computer1.equals(computer2), "Computers with different IDs should not be equal.");
+    }
+
+    @Test
+    public void testEqualsDifferentName() {
+        Computer computer1 = new Computer(1, "Laptop", 999, 5, "BrandX");
+        Computer computer2 = new Computer(1, "Desktop", 999, 5, "BrandX");
+        assertFalse(computer1.equals(computer2), "Computers with different names should not be equal.");
+    }
+
+    @Test
+    public void testEqualsDifferentCost() {
+        Computer computer1 = new Computer(1, "Laptop", 999, 5, "BrandX");
+        Computer computer2 = new Computer(1, "Laptop", 1099, 5, "BrandX");
+        assertFalse(computer1.equals(computer2), "Computers with different costs should not be equal.");
+    }
+
+    @Test
+    public void testEqualsDifferentQuantity() {
+        Computer computer1 = new Computer(1, "Laptop", 999, 5, "BrandX");
+        Computer computer2 = new Computer(1, "Laptop", 999, 10, "BrandX");
+        assertFalse(computer1.equals(computer2), "Computers with different quantities should not be equal.");
+    }
+
+    @Test
+    public void testEqualsDifferentBrand() {
+        Computer computer1 = new Computer(1, "Laptop", 999, 5, "BrandX");
+        Computer computer2 = new Computer(1, "Laptop", 999, 5, "BrandY");
+        assertFalse(computer1.equals(computer2), "Computers with different brands should not be equal.");
+    }
+
+    @Test
+    public void testEqualsSameValues() {
+        Computer computer1 = new Computer(1, "Laptop", 999, 5, "BrandX");
+        Computer computer2 = new Computer(1, "Laptop", 999, 5, "BrandX");
+        assertTrue(computer1.equals(computer2), "Computers with the same values should be equal.");
+    }
 }

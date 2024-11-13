@@ -3,11 +3,6 @@ geometry: margin=1in
 ---
 # PROJECT Design Documentation
 
-> _The following template provides the headings for your Design
-> Documentation.  As you edit each section make sure you remove these
-> commentary 'blockquotes'; the lines that start with a > character
-> and appear in the generated PDF in italics but do so only **after** all team members agree that the requirements for that section and current Sprint have been met. **Do not** delete future Sprint expectations._
-
 ## Team Information
 * Team name: TEAMNAME
 * Team members
@@ -49,9 +44,7 @@ expenditures.
 
 This section describes the features of the application.
 
-> _In this section you do not need to be exhaustive and list every
-> story.  Focus on top-level features from the Vision document and
-> maybe Epics and critical Stories._
+So, its a website, composed of two main separatable parts, the UI and the API. Upon execution, API, which controls classes and data is initialized, containing data for users and their needs, as well as the respective functions for either class, like POST GET UPDATE etc. The needs are composite of a few values which in total result in the approximation of a computer, whereas the user is a composite of a different few values, comprising a separate class approximate to a user and their stored data. The various other files within the API, such as the controller and persistence serve to facilitate interaction between the API and the UI or view. The UI is composed of several components that are sorted and route to each other in such a way that a user might log in to their account, access their needs in a basket on another page and interact with them, and then logout as necessary. Under the name admin, one would be routed instead to a cupboard where the entire list of all needs can be edited as needed, and they also can choose to logout at any time.
 
 ### Definition of MVP
 > _**[Sprint 2 & 4]** Provide a simple description of the Minimum Viable Product._
@@ -126,7 +119,6 @@ The ui starts on a login page, from which it can be routed to a dashboard for ad
  >* _Include other details such as attributes and method signatures that you think are needed to support the level of detail in your discussion._
 
 ### ViewModel Tier
-> _**[Sprint 1]** List the classes supporting this tier and provide a description of there purpose._
 
 getComputer - attempts to retrieve a need according to input, returns an appropriate response entity upon completion
 searchNeeds - attempts to retrieve several needs according to input, returns an appropriate response entity upon completion
@@ -230,10 +222,10 @@ No concerns, just work to do.
 >_**[Sprint 2, 3 & 4]** **Include images of your code coverage report.** If there are any anomalies, discuss
 > those._
 
-![ufund total coverage](testa.png) ignore the ufund folder, is not relevent to testable code
-![controller coverage](testb.png) ignore the service file, just an intermediary for tested code
-![persistence coverage](testc.png)
-![model coverage](testd.png)
+![ufund total coverage](testaa.png) ignore the ufund folder, is not relevent to testable code
+![controller coverage](testbb.png) ignore the service file, just an intermediary for tested code
+![persistence coverage](testcc.png)
+![model coverage](testdd.png)
 
 ## Ongoing Rationale
 >_**[Sprint 1, 2, 3 & 4]** Throughout the project, provide a time stamp **(yyyy/mm/dd): Sprint # and description** of any _**mayor**_ team decisions or design milestones/changes and corresponding justification._

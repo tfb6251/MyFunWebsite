@@ -128,4 +128,65 @@ public class UserTest {
             fail("Serialization/deserialization failed with exception: " + e.getMessage());
         }
     }
+
+    @Test
+    public void testEqualsSameObject() {
+        User user = new User(1, "Alice", "password123", new Computer[]{new Computer(1, "item1", 1, 1, "brand")});
+        assertTrue(user.equals(user), "Same object should be equal.");
+    }
+
+    @Test
+    public void testEqualsNull() {
+        User user = new User(1, "Alice", "password123", new Computer[]{new Computer(1, "item1", 1, 1, "brand")});
+        assertFalse(user.equals(null), "Object should not be equal to null.");
+    }
+
+    @Test
+    public void testEqualsDifferentClass() {
+        User user = new User(1, "Alice", "password123", new Computer[]{new Computer(1, "item1", 1, 1, "brand")});
+        String differentClassObject = "Not a User";
+        assertFalse(user.equals(differentClassObject), "Object should not be equal to a different class.");
+    }
+
+    @Test
+    public void testEqualsDifferentId() {
+        User user1 = new User(1, "Alice", "password123", new Computer[]{new Computer(1, "item1", 1, 1, "brand")});
+        User user2 = new User(2, "Alice", "password123", new Computer[]{new Computer(1, "item1", 1, 1, "brand")});
+        assertFalse(user1.equals(user2), "Users with different IDs should not be equal.");
+    }
+
+    @Test
+    public void testEqualsDifferentName() {
+        User user1 = new User(1, "Alice", "password123", new Computer[]{new Computer(1, "item1", 1, 1, "brand")});
+        User user2 = new User(1, "Bob", "password123", new Computer[]{new Computer(1, "item1", 1, 1, "brand")});
+        assertFalse(user1.equals(user2), "Users with different names should not be equal.");
+    }
+
+    @Test
+    public void testEqualsDifferentPassword() {
+        User user1 = new User(1, "Alice", "password123", new Computer[]{new Computer(1, "item1", 1, 1, "brand")});
+        User user2 = new User(1, "Alice", "password456", new Computer[]{new Computer(1, "item1", 1, 1, "brand")});
+        assertFalse(user1.equals(user2), "Users with different passwords should not be equal.");
+    }
+
+    @Test
+    public void testEqualsDifferentBasketLength() {
+        User user1 = new User(1, "Alice", "password123", new Computer[]{new Computer(1, "item1", 1, 1, "brand")});
+        User user2 = new User(1, "Alice", "password123", new Computer[]{new Computer(1, "item1", 1, 1, "brand"), new Computer(2, "item2", 1, 1, "brand")});
+        assertFalse(user1.equals(user2), "Users with different basket lengths should not be equal.");
+    }
+
+    @Test
+    public void testEqualsDifferentBasketItems() {
+        User user1 = new User(1, "Alice", "password123", new Computer[]{new Computer(1, "item1", 1, 1, "brand")});
+        User user2 = new User(1, "Alice", "password123", new Computer[]{new Computer(2, "item2", 1, 1, "brand")});
+        assertFalse(user1.equals(user2), "Users with different basket items should not be equal.");
+    }
+
+    // @Test
+    // public void testEqualsSameValues() {
+    //     User user1 = new User(1, "Alice", "password123", new Computer[]{new Computer(1, "item1", 1, 1, "brand")});
+    //     User user2 = new User(1, "Alice", "password123", new Computer[]{new Computer(1, "item1", 1, 1, "brand")});
+    //     assertTrue(user1.equals(user2), "Users with the same values should be equal.");
+    // }
 }

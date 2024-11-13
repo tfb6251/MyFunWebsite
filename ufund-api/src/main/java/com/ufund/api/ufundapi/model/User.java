@@ -61,32 +61,30 @@ public class User {
         return ("Id: " + id + "Name: " + name);
     }
 
-    @SuppressWarnings("null")
     @Override
     public boolean equals(Object obj) {
         // Check if the same object reference
-        if (this == obj || (obj == null && this == null)) 
-        return true;
-        // Check if obj is null or not the same class
-        if (getClass() != obj.getClass()) 
-        return false;
-        
+        if (this == obj) return true; // Check if same reference
+        if (obj == null) return false; // Check if obj is null
+        // Check if not the same class
+        if (getClass() != obj.getClass()) return false;
+    
         // Cast obj to User type and compare relevant fields
         User user = (User) obj;
-        Boolean eqBasket = true;
-        if (this.basket.length == user.basket.length) {
-            for (int i = 0; i < this.basket.length; i++) {
-                if(eqBasket == true) {
-                    Boolean eq = this.basket[i].equals(user.basket[i]);
-                    eqBasket = eq;                    
-                } else {
-                    break;
-                }
+    
+        // Check basket length
+        if (this.basket.length != user.basket.length) return false;
+    
+        // Check if all items in the basket are equal
+        for (int i = 0; i < this.basket.length; i++) {
+            if (!this.basket[i].equals(user.basket[i])) {
+                return false;
             }
         }
+    
         return id == user.id &&                    // Compare id
                Objects.equals(this.name, user.name) &&   // Compare name
-               Objects.equals(this.password, user.password) && // Compare password
-               eqBasket; // Compare basket                
+               Objects.equals(this.password, user.password); // Compare password
     }
+    
 }
