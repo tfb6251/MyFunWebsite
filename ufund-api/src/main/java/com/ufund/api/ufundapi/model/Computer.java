@@ -20,14 +20,18 @@ public class Computer {
     @JsonProperty("brand")
     private String brand;
 
+    @JsonProperty("description")
+    private String description;
+
     public Computer(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("cost") int cost, 
-    @JsonProperty("quantity") int quantity,   @JsonProperty("brand") String brand)
+    @JsonProperty("quantity") int quantity, @JsonProperty("brand") String brand, @JsonProperty("description") String description)
     {
         this.id = id;
         this.name = name;
         this.cost = cost;
         this.quantity = quantity;
         this.brand = brand;
+        this.description = description;
     }
 
     public int getId() {
@@ -50,6 +54,10 @@ public class Computer {
         return this.brand;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -66,26 +74,31 @@ public class Computer {
         this.brand = brand;
     }
 
-    @Override
-    public String toString() {
-        return ("Id: " + id + "Name: " + name + "Cost: $" + cost + "Quantity: " + quantity + " Brand: " + brand);
+    public void setDescription(String brand) {
+        this.brand = brand;
     }
 
     @Override
-public boolean equals(Object obj) {
-    // Check if the same object reference
-    if (this == obj) return true; // Check if same reference
-    if (obj == null) return false; // Check if obj is null
-    // Check if not the same class
-    if (getClass() != obj.getClass()) return false;
+    public String toString() {
+        return ("Id: " + id + "Name: " + name + "Cost: $" + cost + "Quantity: " + quantity + " Brand: " + brand + " Description: " + description);
+    }
 
-    // Cast obj to Computer type and compare relevant fields
-    Computer computer = (Computer) obj;
-    return id == computer.id &&                    // Compare id
+    @Override
+    public boolean equals(Object obj) {
+        // Check if the same object reference
+        if (this == obj) return true; // Check if same reference
+        if (obj == null) return false; // Check if obj is null
+        // Check if not the same class
+        if (getClass() != obj.getClass()) return false;
+
+        // Cast obj to Computer type and compare relevant fields
+        Computer computer = (Computer) obj;
+        return id == computer.id &&                    // Compare id
            Objects.equals(this.name, computer.name) &&   // Compare name
            Objects.equals(this.cost, computer.cost) && // Compare cost
            Objects.equals(this.quantity, computer.quantity) && // Compare quantity
-           Objects.equals(this.brand, computer.brand); // Compare brand
-}
+           Objects.equals(this.brand, computer.brand) && // Compare brand
+           Objects.equals(this.description, computer.description);
+    }
 
 }

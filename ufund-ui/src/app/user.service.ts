@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { User } from './user';
@@ -12,6 +12,38 @@ import { MessageService } from './message.service';
 })
 export class UserService {
   private usersUrl = 'http://localhost:8080/user';
+  private loggedInSubject = new BehaviorSubject<boolean>(false);
+  private isAdminSubject = new BehaviorSubject<boolean>(false);
+  private idSubject = new BehaviorSubject<number>(NaN);
+
+  login(A: boolean, id: number) {
+    this.loggedInSubject.next(!A);
+    this.isAdminSubject.next(A);
+    this.idSubject.next(id)
+    localStorage.setItem('loggedIn', String(!A));
+    localStorage.setItem('isAdmin', String(A));
+  }
+
+  logout() {
+    this.loggedInSubject.next(false);
+    this.isAdminSubject.next(false);
+    this.idSubject.next(NaN);
+    localStorage.removeItem('loggedIn');
+    localStorage.removeItem('isAdmin');
+  }
+
+  isLoggedIn(): boolean {
+    return this.loggedInSubject.value;
+  }
+
+  isAdmined(): boolean {
+    return this.isAdminSubject.value;
+  }
+  
+  id(): number {
+    return this.idSubject.value;
+  }
+
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -20,7 +52,12 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private messageService: MessageService     
-  ) { }
+  ) { 
+    const loggedIn = localStorage.getItem('loggedIn') === 'true';
+    const isAdmin = localStorage.getItem('isAdmin') === 'true';
+    this.loggedInSubject.next(loggedIn);
+    this.isAdminSubject.next(isAdmin);
+  }
 
   /** GET users from the server */
   getUsers(): Observable<User[]> {

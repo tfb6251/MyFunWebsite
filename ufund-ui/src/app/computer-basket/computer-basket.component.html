@@ -1,34 +1,42 @@
-      <h2 *ngIf="user">{{ user.name }}'s Computer Basket</h2>
+<app-banner></app-banner>
+<body>
 
-      <!-- Only show the basket controls if user is defined -->
-      <div *ngIf="user">
-        <span>
-          <button type="button" (click)="checkout()">Checkout</button>
-        </span>
-        <span>
-          <input type="text" placeholder="Search Computers..." 
-            [(ngModel)]="searchTerm0" (input)="filterComputers0(searchTerm0)" />
-        </span>
-        <span>
-          <button *ngFor="let computer of computers" (click)="removeComputer(computer.id)">
-            {{ computer.name }}
-          </button>
-        </span>
-        <button type="button" routerLink="/login">Logout</button>
-      </div>
-      
-      <!-- Computer cupboard section -->
-      <h2 id="result">Computer Cupboard</h2>
-      <div>
-        <span>
-          <input type="text" placeholder="Search Computers..." 
-            [(ngModel)]="searchTerm1" (input)="filterComputers1(searchTerm1)" />
-        </span>
-        <span>
-          <button *ngFor="let computer of allComputers"
-            (click)="addComputer(computer.id)">
-            {{ computer.name }}
-          </button>
-        </span>
-      </div>
-      
+  <h2 *ngIf="user">{{ user.name }}'s Computer Basket</h2>
+  
+  <!-- Only show the basket controls if user is defined -->
+   <div>
+  <div *ngIf="user" class="computer">
+    <span>
+      <button type="button" (click)="checkout()">Checkout</button>
+    </span>
+    <span>
+      <input type="text" placeholder="Search Computers..." 
+      [(ngModel)]="searchTerm0" (input)="filterComputers0(searchTerm0)" />
+    </span>
+    <span>
+      <button *ngFor="let computer of computers" (click)="removeComputer(computer.id)">
+        {{ computer.name }}
+      </button>
+    </span>
+    <button type="button" routerLink="/login">Logout</button>
+  </div>
+</div>
+  
+  <!-- Computer cupboard section -->
+  <h2 id="result">Computer Cupboard</h2>
+  <div>
+
+    <div class="computer" id="noRow">
+      <span>
+        <input type="text" placeholder="Search Computers..." 
+        [(ngModel)]="searchTerm1" (input)="filterComputers1(searchTerm1)" />
+      </span>
+      <span>
+        <button *ngFor="let computer of allComputers"
+        (click)="addComputer(computer.id)">
+        {{ computer.name }}
+      </button>
+    </span>
+  </div>
+</div>
+</body>

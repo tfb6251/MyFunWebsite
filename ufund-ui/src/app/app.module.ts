@@ -13,6 +13,8 @@ import { UserInfoComponent } from './user-info/user-info.component';
 import { ComputerBasketComponent } from './computer-basket/computer-basket.component';
 import { ErrorComponent } from './error/error.component';
 import { HttpErrorInterceptor } from './http-error.interceptor';
+import { HomeComponent } from './home/home.component';
+import { BannerComponent } from './banner/banner.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { HttpErrorInterceptor } from './http-error.interceptor';
     ComputerInfoComponent,
     UserInfoComponent,
     ComputerBasketComponent,
-    ErrorComponent
+    ErrorComponent,
+    HomeComponent,
+    BannerComponent
   ],
   imports: [
     BrowserModule,

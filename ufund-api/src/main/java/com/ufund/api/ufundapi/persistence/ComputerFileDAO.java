@@ -106,7 +106,7 @@ public class ComputerFileDAO implements ComputerDAO {
         synchronized (computerMap) {
             int newId = nextId();
             Computer newComputer = new Computer(newId, computer.getName(), computer.getCost(),
-            computer.getQuantity(), computer.getBrand());
+            computer.getQuantity(), computer.getBrand(), computer.getDescription());
 
             computerMap.put(newId,newComputer);
             try {
