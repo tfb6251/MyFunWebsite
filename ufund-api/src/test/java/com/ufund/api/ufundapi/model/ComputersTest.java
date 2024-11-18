@@ -16,7 +16,7 @@ public class ComputersTest {
      */
     @BeforeEach
     public void setupComputer() {
-        computer = new Computer(10, "Laptop", 1200, 2, "Dell");
+        computer = new Computer(10, "Laptop", 1200, 2, "Dell", "");
     }
 
     @Test
@@ -29,7 +29,7 @@ public class ComputersTest {
         String expectedBrand = "Alienware";
 
         // Act
-        Computer computer = new Computer(expectedId, expectedName, expectedCost, expectedQuantity, expectedBrand);
+        Computer computer = new Computer(expectedId, expectedName, expectedCost, expectedQuantity, expectedBrand, "");
 
         // Assert
         assertEquals(expectedId, computer.getId(), "Computer ID should match the expected value.");
@@ -37,12 +37,13 @@ public class ComputersTest {
         assertEquals(expectedCost, computer.getCost(), "Computer cost should match the expected value.");
         assertEquals(expectedQuantity, computer.getQuantity(), "Computer quantity should match the expected value.");
         assertEquals(expectedBrand, computer.getBrand(), "Computer brand should match the expected value.");
+        assertEquals("", computer.getDescription(), "Computer description should be updated to the new value.");
     }
 
     @Test
     public void testSetters() {
         // Arrange
-        Computer computer = new Computer(2, "Office PC", 800, 5, "Dell");
+        Computer computer = new Computer(2, "Office PC", 800, 5, "Dell", "");
         String newName = "Workstation";
         int newCost = 1200;
         int newQuantity = 7;
@@ -53,12 +54,14 @@ public class ComputersTest {
         computer.setCost(newCost);
         computer.setQuantity(newQuantity);
         computer.setBrand(newBrand);
+        computer.setDescription("");
 
         // Assert
         assertEquals(newName, computer.getName(), "Computer name should be updated to the new value.");
         assertEquals(newCost, computer.getCost(), "Computer cost should be updated to the new value.");
         assertEquals(newQuantity, computer.getQuantity(), "Computer quantity should be updated to the new value.");
         assertEquals(newBrand, computer.getBrand(), "Computer brand should be updated to the new value.");
+        assertEquals("", computer.getDescription(), "Computer description should be updated to the new value.");
     }
 
     @Test
@@ -69,8 +72,8 @@ public class ComputersTest {
         int cost = 5000;
         int quantity = 2;
         String brand = "IBM";
-        Computer computer = new Computer(id, name, cost, quantity, brand);
-        String expectedString = "Id: " + id + "Name: " + name + "Cost: $" + cost + "Quantity: " + quantity + " Brand: " + brand;
+        Computer computer = new Computer(id, name, cost, quantity, brand, "");
+        String expectedString = "Id: " + id + "Name: " + name + "Cost: $" + cost + "Quantity: " + quantity + " Brand: " + brand + " Description: ";
 
         // Act
         String actualString = computer.toString();
@@ -87,7 +90,7 @@ public class ComputersTest {
         int cost = 1000;
         int quantity = 15;
         String brand = "Apple";
-        Computer computer = new Computer(id, name, cost, quantity, brand);
+        Computer computer = new Computer(id, name, cost, quantity, brand, "");
 
         // Act & Assert
         com.fasterxml.jackson.databind.ObjectMapper objectMapper = new com.fasterxml.jackson.databind.ObjectMapper();
@@ -95,7 +98,7 @@ public class ComputersTest {
         try {
             // Serialize Computer to JSON
             String jsonString = objectMapper.writeValueAsString(computer);
-            String expectedJson = "{\"id\":4,\"name\":\"Laptop\",\"cost\":1000,\"quantity\":15,\"brand\":\"Apple\"}";
+            String expectedJson = "{\"id\":4,\"name\":\"Laptop\",\"cost\":1000,\"quantity\":15,\"brand\":\"Apple\",\"description\":\"\"}";
             assertEquals(expectedJson, jsonString, "Serialized JSON should match the expected JSON string.");
 
             // Deserialize JSON to Computer
@@ -112,62 +115,62 @@ public class ComputersTest {
 
     @Test
     public void testEqualsSameObject() {
-        Computer computer = new Computer(1, "Laptop", 999, 5, "BrandX");
+        Computer computer = new Computer(1, "Laptop", 999, 5, "BrandX", "");
         assertTrue(computer.equals(computer), "Same object should be equal.");
     }
 
     @Test
     public void testEqualsNull() {
-        Computer computer = new Computer(1, "Laptop", 999, 5, "BrandX");
+        Computer computer = new Computer(1, "Laptop", 999, 5, "BrandX", "");
         assertFalse(computer.equals(null), "Object should not be equal to null.");
     }
 
     @Test
     public void testEqualsDifferentClass() {
-        Computer computer = new Computer(1, "Laptop", 999, 5, "BrandX");
+        Computer computer = new Computer(1, "Laptop", 999, 5, "BrandX", "");
         String differentClassObject = "Not a Computer";
         assertFalse(computer.equals(differentClassObject), "Object should not be equal to a different class.");
     }
 
     @Test
     public void testEqualsDifferentId() {
-        Computer computer1 = new Computer(1, "Laptop", 999, 5, "BrandX");
-        Computer computer2 = new Computer(2, "Laptop", 999, 5, "BrandX");
+        Computer computer1 = new Computer(1, "Laptop", 999, 5, "BrandX", "");
+        Computer computer2 = new Computer(2, "Laptop", 999, 5, "BrandX", "");
         assertFalse(computer1.equals(computer2), "Computers with different IDs should not be equal.");
     }
 
     @Test
     public void testEqualsDifferentName() {
-        Computer computer1 = new Computer(1, "Laptop", 999, 5, "BrandX");
-        Computer computer2 = new Computer(1, "Desktop", 999, 5, "BrandX");
+        Computer computer1 = new Computer(1, "Laptop", 999, 5, "BrandX", "");
+        Computer computer2 = new Computer(1, "Desktop", 999, 5, "BrandX", "");
         assertFalse(computer1.equals(computer2), "Computers with different names should not be equal.");
     }
 
     @Test
     public void testEqualsDifferentCost() {
-        Computer computer1 = new Computer(1, "Laptop", 999, 5, "BrandX");
-        Computer computer2 = new Computer(1, "Laptop", 1099, 5, "BrandX");
+        Computer computer1 = new Computer(1, "Laptop", 999, 5, "BrandX", "");
+        Computer computer2 = new Computer(1, "Laptop", 1099, 5, "BrandX", "");
         assertFalse(computer1.equals(computer2), "Computers with different costs should not be equal.");
     }
 
     @Test
     public void testEqualsDifferentQuantity() {
-        Computer computer1 = new Computer(1, "Laptop", 999, 5, "BrandX");
-        Computer computer2 = new Computer(1, "Laptop", 999, 10, "BrandX");
+        Computer computer1 = new Computer(1, "Laptop", 999, 5, "BrandX", "");
+        Computer computer2 = new Computer(1, "Laptop", 999, 10, "BrandX", "");
         assertFalse(computer1.equals(computer2), "Computers with different quantities should not be equal.");
     }
 
     @Test
     public void testEqualsDifferentBrand() {
-        Computer computer1 = new Computer(1, "Laptop", 999, 5, "BrandX");
-        Computer computer2 = new Computer(1, "Laptop", 999, 5, "BrandY");
+        Computer computer1 = new Computer(1, "Laptop", 999, 5, "BrandX", "");
+        Computer computer2 = new Computer(1, "Laptop", 999, 5, "BrandY", "");
         assertFalse(computer1.equals(computer2), "Computers with different brands should not be equal.");
     }
 
     @Test
     public void testEqualsSameValues() {
-        Computer computer1 = new Computer(1, "Laptop", 999, 5, "BrandX");
-        Computer computer2 = new Computer(1, "Laptop", 999, 5, "BrandX");
+        Computer computer1 = new Computer(1, "Laptop", 999, 5, "BrandX", "");
+        Computer computer2 = new Computer(1, "Laptop", 999, 5, "BrandX", "");
         assertTrue(computer1.equals(computer2), "Computers with the same values should be equal.");
     }
 }

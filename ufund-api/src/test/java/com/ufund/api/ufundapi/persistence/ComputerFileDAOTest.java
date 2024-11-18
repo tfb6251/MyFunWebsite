@@ -38,9 +38,9 @@ public class ComputerFileDAOTest {
         
         // Initialize test data
         testComputers = new Computer[] {
-            new Computer(0, "Obiwan", 1000000, 1000, "Toshiba"),
-            new Computer(1, "QuiGon", 100000, 100, "Toyota"),
-            new Computer(2, "Yoda", 10000, 10, "Honda")
+            new Computer(0, "Obiwan", 1000000, 1000, "Toshiba", ""),
+            new Computer(1, "QuiGon", 100000, 100, "Toyota", ""),
+            new Computer(2, "Yoda", 10000, 10, "Honda", "")
         };
         
         // Define the test filename with directory path
@@ -179,8 +179,8 @@ public class ComputerFileDAOTest {
     public void testCreateComputer() throws IOException {
         // Arrange
         // Computer with id 0, id will be assigned to 3
-        Computer newComputerInput = new Computer(0, "MaceWindu", 5000, 5, "Dell");
-        Computer expectedComputer = new Computer(3, "MaceWindu", 5000, 5, "Dell");
+        Computer newComputerInput = new Computer(0, "MaceWindu", 5000, 5, "Dell", "");
+        Computer expectedComputer = new Computer(3, "MaceWindu", 5000, 5, "Dell", "");
         
         // Mock the ObjectMapper.writeValue to do nothing (simulate successful save)
         doNothing().when(mockObjectMapper).writeValue(eq(new File(testFilename)), any(Computer[].class));
@@ -212,7 +212,7 @@ public class ComputerFileDAOTest {
     @Test
     public void testCreateComputerIOException() throws IOException {
         // Arrange
-        Computer newComputerInput = new Computer(0, "MaceWindu", 5000, 5, "Dell");
+        Computer newComputerInput = new Computer(0, "MaceWindu", 5000, 5, "Dell", "");
         
         // Mock ObjectMapper.writeValue to throw IOException
         doThrow(new IOException("Failed to write to file")).when(mockObjectMapper).writeValue(any(File.class), any(Computer[].class));
@@ -232,8 +232,8 @@ public class ComputerFileDAOTest {
     @Test
     public void testUpdateComputerExisting() throws IOException {
         // Arrange
-        Computer updatedComputerInput = new Computer(1, "QuiGon Jinn", 120000, 120, "Toyota Premium");
-        Computer updatedComputer = new Computer(1, "QuiGon Jinn", 120000, 120, "Toyota Premium");
+        Computer updatedComputerInput = new Computer(1, "QuiGon Jinn", 120000, 120, "Toyota Premium", "");
+        Computer updatedComputer = new Computer(1, "QuiGon Jinn", 120000, 120, "Toyota Premium", "");
         
         // Mock the ObjectMapper.writeValue to do nothing (simulate successful save)
         doNothing().when(mockObjectMapper).writeValue(eq(new File(testFilename)), any(Computer[].class));
@@ -259,7 +259,7 @@ public class ComputerFileDAOTest {
     @Test
     public void testUpdateComputerNonExisting() throws IOException {
         // Arrange
-        Computer nonExistingComputer = new Computer(99, "NonExistent", 1000, 1, "NonBrand");
+        Computer nonExistingComputer = new Computer(99, "NonExistent", 1000, 1, "NonBrand", "");
         
         // Act
         Computer result = computerFileDAO.updateComputer(nonExistingComputer);
@@ -277,7 +277,7 @@ public class ComputerFileDAOTest {
     @Test
     public void testUpdateComputerIOException() throws IOException {
         // Arrange
-        Computer updatedComputerInput = new Computer(1, "QuiGon Jinn", 120000, 120, "Toyota Premium");
+        Computer updatedComputerInput = new Computer(1, "QuiGon Jinn", 120000, 120, "Toyota Premium", "");
         
         // Mock ObjectMapper.writeValue to throw IOException
         doThrow(new IOException("Failed to write to file")).when(mockObjectMapper).writeValue(any(File.class), any(Computer[].class));
@@ -377,8 +377,8 @@ public class ComputerFileDAOTest {
     public void testCreateComputerDuplicateId() throws IOException {
         // Arrange
         // Computer with id 1 already exists
-        Computer newComputerInput = new Computer(1, "DuplicateIdComputer", 3000, 3, "BrandX");
-        Computer expectedComputer = new Computer(3, "DuplicateIdComputer", 3000, 3, "BrandX");
+        Computer newComputerInput = new Computer(1, "DuplicateIdComputer", 3000, 3, "BrandX", "");
+        Computer expectedComputer = new Computer(3, "DuplicateIdComputer", 3000, 3, "BrandX", "");
         Computer[] expectedComputersAfterCreate = new Computer[] {
             testComputers[0],
             testComputers[1],

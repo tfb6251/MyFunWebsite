@@ -224,10 +224,10 @@ No concerns, just work to do.
 >_**[Sprint 2, 3 & 4]** **Include images of your code coverage report.** If there are any anomalies, discuss
 > those._
 
-![ufund total coverage](testaa.png) ignore the ufund folder, is not relevent to testable code
-![controller coverage](testbb.png) ignore the service file, just an intermediary for tested code
-![persistence coverage](testcc.png)
-![model coverage](testdd.png)
+![ufund total coverage](testaaa.png) ignore the ufund folder, is not relevent to testable code
+![controller coverage](testbbb.png) ignore the service file, just an intermediary for tested code
+![persistence coverage](testccc.png)
+![model coverage](testddd.png)
 
 ## Ongoing Rationale
 >_**[Sprint 1, 2, 3 & 4]** Throughout the project, provide a time stamp **(yyyy/mm/dd): Sprint # and description** of any _**mayor**_ team decisions or design milestones/changes and corresponding justification._
