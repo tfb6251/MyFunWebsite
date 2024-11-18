@@ -38,8 +38,11 @@ export class UserInfoComponent {
         .subscribe(user => this.user = user);
     } else {
       const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
-      this.userService.getUser(id)
-        .subscribe(user => this.user = user);
+      if(this.userService.id() == id) {
+        this.userService.getUser(id).subscribe(user => this.user = user);
+      } else {    
+        this.router.navigate(['/home']);
+      }
     }
   }
 

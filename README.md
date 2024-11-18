@@ -84,3 +84,8 @@ To run tests on all the tiers in isolation do this:
 MIT License
 
 See LICENSE for details.
+
+docker run -d --name sonarqube -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 sonarqube:latest
+mvn clean test sonar:sonar -D sonar.login=admin -D sonar.password=admin
+
+add path variable for your bin directory / at the end

@@ -3,6 +3,7 @@ package com.ufund.api.ufundapi.controller;
 import com.ufund.api.ufundapi.model.User;
 import com.ufund.api.ufundapi.controller.UserService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,209 +18,257 @@ public class UserBasketTest {
     private UserService mockUserService;
 
     @BeforeEach
-    public void setupUserBasket() {
+    public void setup() {
         mockUserService = mock(UserService.class);
         userBasketController = new UserBasket(mockUserService);
     }
 
-    // Test for getting a user by ID
     @Test
-    public void testGetUserById() throws IOException {
+    @DisplayName("Get User by ID - Success")
+    public void getUserById_success() throws IOException {
+        // Arrange
         User user = new User(1, "testuser", "password", null);
         when(mockUserService.getUser(user.getId())).thenReturn(user);
 
+        // Act
         ResponseEntity<User> response = userBasketController.getUser(user.getId());
 
+        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(user, response.getBody());
     }
 
-    // Test for user not found by ID
     @Test
-    public void testGetUserByIdNotFound() throws IOException {
+    @DisplayName("Get User by ID - Not Found")
+    public void getUserById_notFound() throws IOException {
+        // Arrange
         int userId = 1;
         when(mockUserService.getUser(userId)).thenReturn(null);
 
+        // Act
         ResponseEntity<User> response = userBasketController.getUser(userId);
 
+        // Assert
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test for exception when getting user by ID
     @Test
-    public void testGetUserByIdHandleException() throws IOException {
+    @DisplayName("Get User by ID - Internal Server Error")
+    public void getUserById_exception() throws IOException {
+        // Arrange
         int userId = 1;
-        doThrow(new IOException()).when(mockUserService).getUser(userId);
+        when(mockUserService.getUser(userId)).thenThrow(new IOException());
 
+        // Act
         ResponseEntity<User> response = userBasketController.getUser(userId);
 
+        // Assert
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
-    // Test for creating a new user
     @Test
-    public void testCreateUser() throws IOException {
+    @DisplayName("Create User - Success")
+    public void createUser_success() throws IOException {
+        // Arrange
         User user = new User(2, "newuser", "password", null);
         when(mockUserService.createUser(user)).thenReturn(user);
 
+        // Act
         ResponseEntity<User> response = userBasketController.createUser(user);
 
+        // Assert
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(user, response.getBody());
     }
 
-    // Test for conflict when creating a user that already exists
     @Test
-    public void testCreateUserConflict() throws IOException {
+    @DisplayName("Create User - Conflict")
+    public void createUser_conflict() throws IOException {
+        // Arrange
         User user = new User(2, "existinguser", "password", null);
         when(mockUserService.createUser(user)).thenReturn(null);
 
+        // Act
         ResponseEntity<User> response = userBasketController.createUser(user);
 
+        // Assert
         assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
     }
 
-    // Test for exception when creating a user
     @Test
-    public void testCreateUserHandleException() throws IOException {
+    @DisplayName("Create User - Internal Server Error")
+    public void createUser_exception() throws IOException {
+        // Arrange
         User user = new User(2, "user", "password", null);
-        doThrow(new IOException()).when(mockUserService).createUser(user);
+        when(mockUserService.createUser(user)).thenThrow(new IOException());
 
+        // Act
         ResponseEntity<User> response = userBasketController.createUser(user);
 
+        // Assert
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
-    // Test for updating a user
     @Test
-    public void testUpdateUser() throws IOException {
+    @DisplayName("Update User - Success")
+    public void updateUser_success() throws IOException {
+        // Arrange
         User user = new User(1, "updateduser", "newpassword", null);
         when(mockUserService.updateUser(user)).thenReturn(user);
 
+        // Act
         ResponseEntity<User> response = userBasketController.updateUser(user);
 
+        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(user, response.getBody());
     }
 
-    // Test for user not found when updating
     @Test
-    public void testUpdateUserNotFound() throws IOException {
+    @DisplayName("Update User - Not Found")
+    public void updateUser_notFound() throws IOException {
+        // Arrange
         User user = new User(1, "user", "password", null);
         when(mockUserService.updateUser(user)).thenReturn(null);
 
+        // Act
         ResponseEntity<User> response = userBasketController.updateUser(user);
 
+        // Assert
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test for exception when updating a user
     @Test
-    public void testUpdateUserHandleException() throws IOException {
+    @DisplayName("Update User - Internal Server Error")
+    public void updateUser_exception() throws IOException {
+        // Arrange
         User user = new User(1, "user", "password", null);
-        doThrow(new IOException()).when(mockUserService).updateUser(user);
+        when(mockUserService.updateUser(user)).thenThrow(new IOException());
 
+        // Act
         ResponseEntity<User> response = userBasketController.updateUser(user);
 
+        // Assert
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
-    // Test for deleting a user
     @Test
-    public void testDeleteUser() throws IOException {
+    @DisplayName("Delete User - Success")
+    public void deleteUser_success() throws IOException {
+        // Arrange
         int userId = 1;
         when(mockUserService.deleteUser(userId)).thenReturn(true);
 
+        // Act
         ResponseEntity<User> response = userBasketController.deleteUser(userId);
 
+        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
-    // Test for user not found when deleting
     @Test
-    public void testDeleteUserNotFound() throws IOException {
+    @DisplayName("Delete User - Not Found")
+    public void deleteUser_notFound() throws IOException {
+        // Arrange
         int userId = 1;
         when(mockUserService.deleteUser(userId)).thenReturn(false);
 
+        // Act
         ResponseEntity<User> response = userBasketController.deleteUser(userId);
 
+        // Assert
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test for exception when deleting a user
     @Test
-    public void testDeleteUserHandleException() throws IOException {
+    @DisplayName("Delete User - Internal Server Error")
+    public void deleteUser_exception() throws IOException {
+        // Arrange
         int userId = 1;
-        doThrow(new IOException()).when(mockUserService).deleteUser(userId);
+        when(mockUserService.deleteUser(userId)).thenThrow(new IOException());
 
+        // Act
         ResponseEntity<User> response = userBasketController.deleteUser(userId);
 
+        // Assert
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
-    // Test for getting all users
     @Test
-    public void testFindUsers() throws IOException {
+    @DisplayName("Find Users - Success")
+    public void findUsers_success() throws IOException {
+        // Arrange
         User[] users = new User[] {
             new User(1, "user1", "password1", null),
             new User(2, "user2", "password2", null)
         };
-
         when(mockUserService.getUsers()).thenReturn(users);
 
+        // Act
         ResponseEntity<User[]> response = userBasketController.findUsers();
 
+        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertArrayEquals(users, response.getBody());
     }
 
-    // Test for exception when getting all users
     @Test
-    public void testFindUsersHandleException() throws IOException {
-        doThrow(new IOException()).when(mockUserService).getUsers();
+    @DisplayName("Find Users - Internal Server Error")
+    public void findUsers_exception() throws IOException {
+        // Arrange
+        when(mockUserService.getUsers()).thenThrow(new IOException());
 
+        // Act
         ResponseEntity<User[]> response = userBasketController.findUsers();
 
+        // Assert
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
-    // Test for searching users by name
     @Test
-    public void testSearchUsers() throws IOException {
+    @DisplayName("Search Users - Success")
+    public void searchUsers_success() throws IOException {
+        // Arrange
         String searchString = "test";
         User[] users = new User[] {
             new User(1, "testuser1", "password1", null),
             new User(2, "testuser2", "password2", null)
         };
-
         when(mockUserService.findUsers(searchString)).thenReturn(users);
 
+        // Act
         ResponseEntity<User[]> response = userBasketController.searchUsers(searchString);
 
+        // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertArrayEquals(users, response.getBody());
     }
 
-    // Test for users not found when searching
     @Test
-    public void testSearchUsersNotFound() throws IOException {
+    @DisplayName("Search Users - Not Found")
+    public void searchUsers_notFound() throws IOException {
+        // Arrange
         String searchString = "nonexistent";
         when(mockUserService.findUsers(searchString)).thenReturn(null);
 
+        // Act
         ResponseEntity<User[]> response = userBasketController.searchUsers(searchString);
 
+        // Assert
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    // Test for exception when searching users
     @Test
-    public void testSearchUsersHandleException() throws IOException {
+    @DisplayName("Search Users - Internal Server Error")
+    public void searchUsers_exception() throws IOException {
+        // Arrange
         String searchString = "test";
-        doThrow(new IOException()).when(mockUserService).findUsers(searchString);
+        when(mockUserService.findUsers(searchString)).thenThrow(new IOException());
 
+        // Act
         ResponseEntity<User[]> response = userBasketController.searchUsers(searchString);
 
+        // Assert
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 }
-

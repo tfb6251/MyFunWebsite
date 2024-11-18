@@ -1,22 +1,33 @@
-
-<h2 id="result">Computer Cupboard</h2>
-<div>
-  <span>
-    <input type="text" placeholder="Search Computers..." 
-    [(ngModel)]="searchTerm" (input)="filterComputers(searchTerm)"/>
-  </span>
-  <section>
-      <button *ngFor="let computer of computers"
-      routerLink="/info/{{computer.id}}">
+<app-banner></app-banner>
+<div class="head">
+  <h2 >Computer Cupboard</h2>
+    <div class="search">
+      <span>
+        <input type="text" placeholder="Search Computers..." 
+        [(ngModel)]="searchTerm" (input)="filterComputers(searchTerm)"/>
+      </span>
+      <section *ngIf="isAdmin" class="list">      
+        <p id="result"></p>
+        <button *ngFor="let computer of computers" routerLink="/info/{{computer.id}}">
+          <button class="x"(click)="delete(computer); $event.stopPropagation()" *ngIf="isAdmin">X</button>
+          {{computer.name}}
+        </button>
+    </section> 
+    <section *ngIf="!isAdmin" class="list">      
+      <p id="result"></p>
+      <button *ngFor="let computer of computers" routerLink="/info/{{computer.id}}">
         {{computer.name}}
       </button>
   </section> 
-</div>
-<div>
-  <section>
-    <button routerLink="/info/new">
-      New Computer
-    </button>
-    <button type="button" routerLink="/login">Logout</button>
+    <section *ngIf="isAdmin">
+        <button routerLink="/info/new">
+          New Computer
+        </button>
+    </section>
+    <section *ngIf="!isAdmin">
+      <button routerLink="/user/{{id}}/basket">
+        Basket
+      </button>
   </section>
+    </div>
 </div>
