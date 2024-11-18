@@ -2,7 +2,7 @@
 
   <app-banner></app-banner>
   <div *ngIf="!isAdmin">
-    <div *ngIf="computer" class = "computer">
+    <div *ngIf="computer" class="computer">
       <h2 *ngIf="isNew">New Need's Information </h2>
       
       <h2 *ngIf="!isNew">{{computer.name}}'s Information </h2>
@@ -38,7 +38,7 @@
     </div>  
   </div>
 
-  <div *ngif="isAdmin">
+  <div *ngIf="isAdmin">
     <div *ngIf="computer" class = "computer">
       <h2 *ngIf="isNew">New Need's Information </h2>
       

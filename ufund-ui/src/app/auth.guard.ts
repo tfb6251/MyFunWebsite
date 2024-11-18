@@ -11,8 +11,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const requiresAdmin = route.data['adminOnly'] as boolean;
-    // Replace this with your actual authentication logic
-    if (requiresAdmin) { // Define isLoggedIn in your UserService
+    if (requiresAdmin) {
       if(this.userService.isAdmined()) {
         return true;
       } else {

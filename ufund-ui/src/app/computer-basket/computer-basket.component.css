@@ -17,6 +17,7 @@ html, body {
 body {
   overflow-x: hidden; /* Prevents horizontal scroll overflow */
   margin: 0;
+  margin-top: 25px;
   padding: 0;
 }
 
@@ -54,8 +55,10 @@ form {
 /* Input and Label Wrapper Styling */
 div {
   display: flex;
-  flex-direction: row; /* Stack labels and inputs */
+  flex-direction: column; /* Stack labels and inputs */
   align-items: center; /* Center items within the div */
+  align-content: center;
+
   padding: 10px; /* Padding for spacing */
   margin: 10px 0; /* Margin to separate fields */
 }
@@ -70,7 +73,13 @@ div {
   border: 1px solid #ddd; /* Light border around campaign card */
   padding: 10px; /* Internal padding for spacing */
   margin: 10px 0; /* Margin to separate campaign cards */
+  flex-direction: row;
 }
+
+#noRow{
+  flex-direction: column;
+}
+
 
 input {
   border: 1px solid #2196F3; /* Blue border for inputs */
@@ -123,4 +132,8 @@ button:hover {
 button:focus {
   outline: none; /* Remove default focus outline */
   box-shadow: 0 0 0 2px rgba(108, 117, 125, 0.5), 0 0 6px rgba(33, 150, 243, 0.4); /* Enhanced focus shadow */
+}
+
+span {
+  flex-direction: column;
 }

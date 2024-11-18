@@ -16,7 +16,7 @@ const routes: Routes = [ // routes
   { path: 'info/new', component: ComputerInfoComponent, canActivate: [AuthGuard], data: { adminOnly: true } },
   { path: 'user/new', component: UserInfoComponent },
   { path: 'user/:id', component: UserInfoComponent, canActivate: [AuthGuard] },
-  { path: 'user/:id/basket', component: ComputerBasketComponent, canActivate: [AuthGuard] },
+  { path: 'user/:id:/basket', component: ComputerBasketComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] }
 ];
 

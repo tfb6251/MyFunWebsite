@@ -53,8 +53,7 @@ export class ComputerInfoComponent implements OnInit{
           brand: "",
           description: ""
         };
-        this.computerService.addComputer(newComputer)
-        .subscribe(computer => this.computer = computer);
+        this.computer = newComputer;
     } else {
       const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
       this.computerService.getComputer(id)
@@ -73,11 +72,7 @@ export class ComputerInfoComponent implements OnInit{
   }
 
   goBack(): void {
-    if(this.router.url.includes('/new')) {
-      this.delete();
-    } else {
-      this.location.back();      
-    }
+    this.location.back();      
   }
 
   save(): void {
@@ -87,7 +82,7 @@ export class ComputerInfoComponent implements OnInit{
           if (this.computer.quantity > 0) {
             if (this.computer.brand != "") {
               if (this.computer.description != "") {
-                this.computerService.updateComputer(this.computer)
+                this.computerService.addComputer(this.computer)
                 .subscribe(computer => this.computer = computer);
                 this.location.back(); 
               } else {
