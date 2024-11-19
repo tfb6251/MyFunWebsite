@@ -12,24 +12,30 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
-        let errorMessage = 'An unexpected error occurred.';
+        let errorMessage = 'Unkown error. Please try again later';
         let errorCode = 'Unknown Error';
 
         if (error.status === 404) {
           errorMessage = 'The page you are looking for does not exist.';
           errorCode = '404 Not Found';
-        } else if (error.status === 500) {
+        }
+        else if (error.status === 500) {
           errorMessage = 'Internal server error. Please try again later.';
           errorCode = '500 Internal Server Error';
-        } else if (error.status === 0) {
+        }
+        else if (error.status === 0) {
           errorMessage = 'Network error. Please check your internet connection.';
           errorCode = 'Network Error';
         }
+        else if (error.status === 409) {
+          errorMessage = 'Conflict error. Please try again later.';
+          errorCode = '409 Conflict Error';
+        }
 
-        // Redirect to error page with error message and code
+        //redirect to error page
         this.router.navigate(['/error'], { queryParams: { message: errorMessage, code: errorCode } });
 
-        return throwError(error); // rethrow the error after redirect
+        return throwError(error);
       })
     );
   }

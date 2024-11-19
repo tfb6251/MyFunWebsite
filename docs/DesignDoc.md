@@ -188,6 +188,8 @@ and keeping the scope of classes within the initial and intended purpose of the 
 
 Our project exemplifies dependency inversion and the law of demeter. In terms of dependency inversion, the functional code in the viewmodel uses a service class as the basis of its methods rather than directly using the model, reducing overreliance on lower-level classes. Another example is the computerDAO file, which only exists to reduce the burden on the computerFileDAO by being made use of in operations by higher-level classes. In terms of the law of demeter, the files only ever interact with their neighbors, or more specifically, there exists no code that skips steps according to the domain model of the project. For example, only the controller is allowed to impact the view, so any code that would have the same intent must do so via accessing the controller.
 
+Additionally, all layers of the product are styled with the information expert principle in mind. In terms of the api, the model limits the number of needed classes down to two for both the user and computer instead of having more classes for more specific roles. Both classes then contain all of the necessary components to function within a broader and more effecient context in the code. As for the controller and persistence, the same applies, with all parts of the code evenly sectioned off into one, concise file, with the only extra classes being service classes for the sake of dependency inversion. For the ui, every single component, or set of classes, is dedicated to one singular function, such as the error component, which only defines the error page, or the login component, which does the same for the login page.
+
 > _**[Sprint 3 & 4]** OO Design Principles should span across **all tiers.**_
 
 ## Static Code Analysis/Future Design Improvements
@@ -222,10 +224,10 @@ No concerns, just work to do.
 >_**[Sprint 2, 3 & 4]** **Include images of your code coverage report.** If there are any anomalies, discuss
 > those._
 
-![ufund total coverage](testaa.png) ignore the ufund folder, is not relevent to testable code
-![controller coverage](testbb.png) ignore the service file, just an intermediary for tested code
-![persistence coverage](testcc.png)
-![model coverage](testdd.png)
+![ufund total coverage](testaaa.png) ignore the ufund folder, is not relevent to testable code
+![controller coverage](testbbb.png) ignore the service file, just an intermediary for tested code
+![persistence coverage](testccc.png)
+![model coverage](testddd.png)
 
 ## Ongoing Rationale
 >_**[Sprint 1, 2, 3 & 4]** Throughout the project, provide a time stamp **(yyyy/mm/dd): Sprint # and description** of any _**mayor**_ team decisions or design milestones/changes and corresponding justification._

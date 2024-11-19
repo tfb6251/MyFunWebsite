@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ufund.api.ufundapi.model.Computer;
 import com.ufund.api.ufundapi.model.User;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -231,8 +232,8 @@ public class UserFileDAOTest {
     @Test
     public void testUpdateUserExisting() throws IOException {
         // Arrange
-        User updatedUserInput = new User(1, "Bob Smith", "newPasswordBob", null);
-        User updatedUser = new User(1, "Bob Smith", "newPasswordBob", null);
+        User updatedUserInput = new User(1, "Bob Smith", "newPasswordBob", new Computer[0]);
+        User updatedUser = new User(1, "Bob Smith", "newPasswordBob", new Computer[0]);
         
         // Mock the ObjectMapper.writeValue to do nothing (simulate successful save)
         doNothing().when(mockObjectMapper).writeValue(eq(new File(testFilename)), any(User[].class));
@@ -376,8 +377,8 @@ public class UserFileDAOTest {
     public void testCreateUserDuplicateId() throws IOException {
         // Arrange
         // User with id 1 already exists
-        User newUserInput = new User(1, "Diana", "passwordDiana", null);
-        User expectedUser = new User(3, "Diana", "passwordDiana", null);
+        User newUserInput = new User(1, "Diana", "passwordDiana", new Computer[0]);
+        User expectedUser = new User(3, "Diana", "passwordDiana", new Computer[0]);
         User[] expectedUsersAfterCreate = new User[] {
             testUsers[0],
             testUsers[1],

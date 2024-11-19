@@ -25,8 +25,8 @@ public class ComputerServiceTest {
     @Test
     public void testGetComputers() throws IOException {
         Computer[] computers = new Computer[]{
-                new Computer(1, "Computer1", 1000, 5, "BrandA"),
-                new Computer(2, "Computer2", 1500, 3, "BrandB")
+                new Computer(1, "Computer1", 1000, 5, "BrandA", ""),
+                new Computer(2, "Computer2", 1500, 3, "BrandB", "")
         };
         when(mockComputerDAO.getComputers()).thenReturn(computers);
 
@@ -57,7 +57,7 @@ public class ComputerServiceTest {
     // Test getComputer(int id)
     @Test
     public void testGetComputer() throws IOException {
-        Computer computer = new Computer(1, "Computer1", 1000, 5, "BrandA");
+        Computer computer = new Computer(1, "Computer1", 1000, 5, "BrandA", "");
         when(mockComputerDAO.getComputer(1)).thenReturn(computer);
 
         Computer result = computerService.getComputer(1);
@@ -88,8 +88,8 @@ public class ComputerServiceTest {
     public void testFindComputers() throws IOException {
         String searchString = "Gaming";
         Computer[] computers = new Computer[]{
-                new Computer(1, "Gaming PC", 2000, 2, "BrandC"),
-                new Computer(2, "Gaming Laptop", 2500, 1, "BrandD")
+                new Computer(1, "Gaming PC", 2000, 2, "BrandC", ""),
+                new Computer(2, "Gaming Laptop", 2500, 1, "BrandD", "")
         };
         when(mockComputerDAO.findComputers(searchString)).thenReturn(computers);
 
@@ -122,7 +122,7 @@ public class ComputerServiceTest {
     // Test createComputer(Computer computer)
     @Test
     public void testCreateComputer() throws IOException {
-        Computer computer = new Computer(3, "New PC", 1200, 4, "BrandE");
+        Computer computer = new Computer(3, "New PC", 1200, 4, "BrandE", "");
         when(mockComputerDAO.createComputer(computer)).thenReturn(computer);
 
         Computer result = computerService.createComputer(computer);
@@ -132,7 +132,7 @@ public class ComputerServiceTest {
 
     @Test
     public void testCreateComputerAlreadyExists() throws IOException {
-        Computer computer = new Computer(3, "Existing PC", 1200, 4, "BrandE");
+        Computer computer = new Computer(3, "Existing PC", 1200, 4, "BrandE", "");
         when(mockComputerDAO.createComputer(computer)).thenReturn(null);
 
         Computer result = computerService.createComputer(computer);
@@ -142,7 +142,7 @@ public class ComputerServiceTest {
 
     @Test
     public void testCreateComputerThrowsException() throws IOException {
-        Computer computer = new Computer(3, "Error PC", 1200, 4, "BrandE");
+        Computer computer = new Computer(3, "Error PC", 1200, 4, "BrandE", "");
         when(mockComputerDAO.createComputer(computer)).thenThrow(new IOException("Database error"));
 
         assertThrows(IOException.class, () -> {
@@ -153,7 +153,7 @@ public class ComputerServiceTest {
     // Test updateComputer(Computer computer)
     @Test
     public void testUpdateComputer() throws IOException {
-        Computer computer = new Computer(1, "Updated PC", 1300, 3, "BrandA");
+        Computer computer = new Computer(1, "Updated PC", 1300, 3, "BrandA", "");
         when(mockComputerDAO.updateComputer(computer)).thenReturn(computer);
 
         Computer result = computerService.updateComputer(computer);
@@ -163,7 +163,7 @@ public class ComputerServiceTest {
 
     @Test
     public void testUpdateComputerNotFound() throws IOException {
-        Computer computer = new Computer(1, "Nonexistent PC", 1300, 3, "BrandA");
+        Computer computer = new Computer(1, "Nonexistent PC", 1300, 3, "BrandA", "");
         when(mockComputerDAO.updateComputer(computer)).thenReturn(null);
 
         Computer result = computerService.updateComputer(computer);
@@ -173,7 +173,7 @@ public class ComputerServiceTest {
 
     @Test
     public void testUpdateComputerThrowsException() throws IOException {
-        Computer computer = new Computer(1, "Error PC", 1300, 3, "BrandA");
+        Computer computer = new Computer(1, "Error PC", 1300, 3, "BrandA", "");
         when(mockComputerDAO.updateComputer(computer)).thenThrow(new IOException("Database error"));
 
         assertThrows(IOException.class, () -> {

@@ -74,8 +74,8 @@ public class Computer {
         this.brand = brand;
     }
 
-    public void setDescription(String brand) {
-        this.brand = brand;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
