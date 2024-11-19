@@ -4,4 +4,5 @@ export interface Computer {
     cost : number | undefined;
     quantity : number | undefined;
     brand : string;
+    description : string;
 }

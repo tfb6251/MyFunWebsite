@@ -25,7 +25,7 @@ public class ComputerControllerTest {
     // Test for getting a computer by ID
     @Test
     public void testGetComputerById() throws IOException {
-        Computer computer = new Computer(1, "Laptop", 1000, 5, "BrandA");
+        Computer computer = new Computer(1, "Laptop", 1000, 5, "BrandA", "");
         when(mockComputerService.getComputer(computer.getId())).thenReturn(computer);
 
         ResponseEntity<Computer> response = computerController.getComputer(computer.getId());
@@ -59,7 +59,7 @@ public class ComputerControllerTest {
     // Test for creating a new computer
     @Test
     public void testCreateComputer() throws IOException {
-        Computer computer = new Computer(2, "Desktop", 1500, 3, "BrandB");
+        Computer computer = new Computer(2, "Desktop", 1500, 3, "BrandB", "");
         when(mockComputerService.createComputer(computer)).thenReturn(computer);
 
         ResponseEntity<Computer> response = computerController.createComputer(computer);
@@ -71,7 +71,7 @@ public class ComputerControllerTest {
     // Test for conflict when creating a computer that already exists
     @Test
     public void testCreateComputerConflict() throws IOException {
-        Computer computer = new Computer(2, "ExistingComputer", 1200, 4, "BrandC");
+        Computer computer = new Computer(2, "ExistingComputer", 1200, 4, "BrandC", "");
         when(mockComputerService.createComputer(computer)).thenReturn(null);
 
         ResponseEntity<Computer> response = computerController.createComputer(computer);
@@ -82,7 +82,7 @@ public class ComputerControllerTest {
     // Test for exception when creating a computer
     @Test
     public void testCreateComputerHandleException() throws IOException {
-        Computer computer = new Computer(2, "Computer", 1100, 2, "BrandD");
+        Computer computer = new Computer(2, "Computer", 1100, 2, "BrandD", "");
         doThrow(new IOException()).when(mockComputerService).createComputer(computer);
 
         ResponseEntity<Computer> response = computerController.createComputer(computer);
@@ -93,7 +93,7 @@ public class ComputerControllerTest {
     // Test for updating a computer
     @Test
     public void testUpdateComputer() throws IOException {
-        Computer computer = new Computer(1, "UpdatedComputer", 1300, 6, "BrandE");
+        Computer computer = new Computer(1, "UpdatedComputer", 1300, 6, "BrandE", "");
         when(mockComputerService.updateComputer(computer)).thenReturn(computer);
 
         ResponseEntity<Computer> response = computerController.updateComputer(computer);
@@ -105,7 +105,7 @@ public class ComputerControllerTest {
     // Test for computer not found when updating
     @Test
     public void testUpdateComputerNotFound() throws IOException {
-        Computer computer = new Computer(1, "Computer", 1000, 5, "BrandF");
+        Computer computer = new Computer(1, "Computer", 1000, 5, "BrandF", "");
         when(mockComputerService.updateComputer(computer)).thenReturn(null);
 
         ResponseEntity<Computer> response = computerController.updateComputer(computer);
@@ -116,7 +116,7 @@ public class ComputerControllerTest {
     // Test for exception when updating a computer
     @Test
     public void testUpdateComputerHandleException() throws IOException {
-        Computer computer = new Computer(1, "Computer", 1000, 5, "BrandG");
+        Computer computer = new Computer(1, "Computer", 1000, 5, "BrandG", "");
         doThrow(new IOException()).when(mockComputerService).updateComputer(computer);
 
         ResponseEntity<Computer> response = computerController.updateComputer(computer);
@@ -161,8 +161,8 @@ public class ComputerControllerTest {
     @Test
     public void testFindComputers() throws IOException {
         Computer[] computers = new Computer[] {
-            new Computer(1, "Laptop", 1000, 5, "BrandA"),
-            new Computer(2, "Desktop", 1500, 3, "BrandB")
+            new Computer(1, "Laptop", 1000, 5, "BrandA", ""),
+            new Computer(2, "Desktop", 1500, 3, "BrandB", "")
         };
 
         when(mockComputerService.getComputers()).thenReturn(computers);
@@ -188,8 +188,8 @@ public class ComputerControllerTest {
     public void testSearchComputers() throws IOException {
         String searchString = "Laptop";
         Computer[] computers = new Computer[] {
-            new Computer(1, "Gaming Laptop", 2000, 2, "BrandX"),
-            new Computer(2, "Ultrabook Laptop", 1800, 4, "BrandY")
+            new Computer(1, "Gaming Laptop", 2000, 2, "BrandX", ""),
+            new Computer(2, "Ultrabook Laptop", 1800, 4, "BrandY", "")
         };
 
         when(mockComputerService.findComputers(searchString)).thenReturn(computers);

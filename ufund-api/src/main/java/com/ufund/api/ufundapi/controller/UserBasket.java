@@ -60,6 +60,7 @@ public class UserBasket{
      *         Example: Find all needs that contain the text "ma"
      *         GET http://localhost:8080/user/?name=
      */
+    
     @GetMapping("/")
     public ResponseEntity<User[]> searchUsers(@RequestParam String name) {
         LOG.info("GET /user/?name=" + name);

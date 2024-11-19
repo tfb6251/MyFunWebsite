@@ -8,12 +8,11 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Io;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ufund.api.ufundapi.model.Computer;
-import com.ufund.api.ufundapi.model.User;
+
 
 @Component
 public class ComputerFileDAO implements ComputerDAO {
@@ -106,7 +105,7 @@ public class ComputerFileDAO implements ComputerDAO {
         synchronized (computerMap) {
             int newId = nextId();
             Computer newComputer = new Computer(newId, computer.getName(), computer.getCost(),
-            computer.getQuantity(), computer.getBrand());
+            computer.getQuantity(), computer.getBrand(), computer.getDescription());
 
             computerMap.put(newId,newComputer);
             try {

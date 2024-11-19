@@ -1,27 +1,82 @@
-<div *ngIf="computer">
-    <h2>{{computer.name}} Information </h2>
-    <span>
+<body>
+
+  <app-banner></app-banner>
+  <div *ngIf="!isAdmin">
+    <div *ngIf="computer" class="computer">
+      <h2 *ngIf="isNew">New Need's Information </h2>
+      
+      <h2 *ngIf="!isNew">{{computer.name}}'s Information </h2>
+      
       <label id="commputer-id">ID: {{ computer.id }}</label>
-    </span>
-    <span>
-      <label for="computer-name">Computer Name: </label>
-      <input id="computer-name" [(ngModel)]="computer.name" placeholder="Computer Name"/>
-    </span>
-    <span>
-      <label for="computer-cost">Computer Cost: </label>
-      <input id="computer-cost" [(ngModel)]="computer.cost" placeholder="Computer Cost"/>
-    </span>
-    <span>
-      <label for="computer-quan">Computer Quantity: </label>
-      <input id="computer-quan" [(ngModel)]="computer.quantity" placeholder="Computer Quantity"/>
-    </span>
-    <span>      
-      <label for="computer-brand">Computer Brand: </label>
-      <input id="computer-brand" [(ngModel)]="computer.brand" placeholder="Computer Brand"/>
-    </span>
-    <span>
-      <button type="button" (click)="goBack()">go back</button>
-      <button type="button" (click)="save()">save</button>
-      <button type="button" (click)="delete()">delete</button>
-    </span>
+      
+      <span>
+        <label for="computer-name">Computer Name: {{computer.name}}</label>        
+      </span>
+      
+      <span>
+        <label for="computer-cost">Computer Cost: {{computer.cost}}</label>
+        <input id="computer-cost" [(ngModel)]="computer.cost" placeholder="Computer Cost"/>
+      </span>
+      
+      <span>
+        <label for="computer-quan">Computer Quantity: {{computer.quantity}}</label>
+        <input id="computer-quan" [(ngModel)]="computer.quantity" placeholder="Computer Quantity"/>
+      </span>
+      
+      <span>
+        <label for="computer-brand">Computer Brand: {{computer.brand}}</label>        
+      </span>
+      
+      <span>
+        <label for="computer-description">Computer Description: {{computer.description.slice(0, computer.description.length - (computer.description.length - computer.description.length))}}...</label>    
+      </span>
+      <p id="result"></p>
+      <span>
+        <button type="button" (click)="goBack()">Go Back</button>
+        <button type="button" (click)="addBasket()">Add To Basket</button>
+      </span>
+    </div>  
   </div>
+
+  <div *ngIf="isAdmin">
+    <div *ngIf="computer" class = "computer">
+      <h2 *ngIf="isNew">New Need's Information </h2>
+      
+      <h2 *ngIf="!isNew">{{computer.name}}'s Information </h2>
+      
+      <label id="commputer-id">ID: {{ computer.id }}</label>
+      
+      <span>
+        <label for="computer-name">Computer Name: </label>
+        <input id="computer-name" [(ngModel)]="computer.name" placeholder="Computer Name"/>
+      </span>
+      
+      <span>
+        <label for="computer-cost">Computer Cost: </label>
+        <input id="computer-cost" [(ngModel)]="computer.cost" placeholder="Computer Cost"/>
+      </span>
+      
+      
+      <span>
+        <label for="computer-quan">Computer Quantity: </label>
+        <input id="computer-quan" [(ngModel)]="computer.quantity" placeholder="Computer Quantity"/>
+      </span>
+      
+      <span>
+        <label for="computer-brand">Computer Brand: </label>
+        <input id="computer-brand" [(ngModel)]="computer.brand" placeholder="Computer Brand"/>
+      </span>
+      
+      <span>
+        <label for="computer-description">Computer Description: </label>
+        <input id="computer-description" [(ngModel)]="computer.description" placeholder="Computer Description"/>
+      </span>
+      <p id="result"></p>
+      <span>
+        <button type="button" (click)="goBack()">Go Back</button>
+        <button type="button" (click)="save()">Save</button>
+        <button type="button" *ngIf="!isNew" (click)="delete()">Delete</button>
+      </span>
+    </div>  
+  </div>
+</body>

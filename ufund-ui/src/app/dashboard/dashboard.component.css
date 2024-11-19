@@ -1,60 +1,181 @@
-/* Center align text for headings and spans */
-h2, h6, div {
-    text-align: center; /* Centers text within these elements */
-  }
-  
+/* General Reset - Remove default margin, padding, and border */
+* {
+  font-family: 'Times New Roman', Times, serif; /* Set a classic font */
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box; /* Ensure consistent sizing for all elements */
+}
 
+/* Full Height Setup for Body and HTML */
+html, body {
+  width: 100%;
+  height: 100%;
+}
 
-  span{
-    
-    margin-bottom: 10px;
-  }
+/* Body Styles */
+body {
+  overflow-x: hidden; /* Prevents horizontal scroll overflow */
+  margin: 0;
+  padding: 0;
+}
 
+/* Header Styling */
+.header {
+  margin-top: 10px;
+  background-color: #2196F3; /* Blue background */
+  border: 1px solid #ddd; /* Light border for subtle definition */
+  color: white; /* White text for contrast */
+  padding: 10px;
+  width: 50%; /* Centered half-width header */
+  align-items: center;
+  text-align: center; /* Centered text */
+}
 
-  /* Style for the div */
-  div {
-    display: flex; /* Use flexbox for layout */
-    flex-direction: column; /* Stack labels and inputs vertically */
-    align-items: center; /* Center labels and inputs horizontally */
-    justify-content: center; /* Center items horizontally */
-    border: 1px solid gray; /* Use a gray border around the form */
-    padding: 20px; /* Add padding for space inside the border */
-    max-width: 288px; /* Set a maximum width for the form */
-    margin: 20px auto; /* Center the form with auto margins */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
-    flex-wrap: wrap; /* Allows items to wrap to the next row */
-  }
-  
+/* Center Text for Headings and Span Elements */
+h2, h6, span {
+  text-align: center;
+}
 
-  
-  /* Style for labels */
-  input {
-    font-weight: bold; /* Make labels bold for emphasis */
-    margin-bottom: 5px; /* Space between the label and input */
-    display: block; /* Ensure labels take up full width */
-    text-align: left; /* Align text to the left */
-    color: #333; /* Dark gray color for readability */
-  }
-  
-  /* Style for buttons */
-  button {
-    background-color: #6c757d; /* Gray background color */
-    color: white; /* Text color */
-    border: none; /* No border for the button */
-    border-radius: 4px; /* Slightly rounded corners for the button */
-    padding: 10px 15px; /* Padding for better click area */
-    margin: 5px; /* Space above the button */
-    cursor: pointer; /* Change cursor to pointer on hover */
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
-  }
-  
-  /* Style for button hover state */
-  button:hover {
-    background-color: #5a6268; /* Darker gray on hover for feedback */
-  }
-  
-  /* Style for button focus state */
-  button:focus {
-    outline: none; /* Remove default focus outline */
-    box-shadow: 0 0 0 2px rgba(108, 117, 125, 0.5); /* Add custom focus outline */
-  }
+/* Form Styling */
+form {
+  display: flex; /* Flexbox layout for easy centering */
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center all form items horizontally */
+  border: 1px solid #2196F3; /* Blue border */
+  padding: 20px; /* Padding for internal spacing */
+  max-width: 288px; /* Set max-width for consistent form size */
+  margin: 20px auto; /* Center form on the page */  
+  background-color: #ddd; /* Light border */
+  border-radius: 8px; /* Rounded corners for a modern look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19); /* Stylish shadow */
+}
+
+/* Input and Label Wrapper Styling */
+div {
+  display: flex;
+  flex-direction: column; /* Stack labels and inputs */
+  border: 1px solid #ddd; /* Light border */
+  align-items: center; /* Center items within the div */
+  padding: 10px; /* Padding for spacing */
+}
+
+/* Header Section with Border Styling */
+.head {
+  border: 10px;
+  margin-top: 27px; 
+  border: 0px;
+  background-color: none;
+}
+
+/* Campaign Section Styling */
+.computer {
+  border: 1px solid #ddd; /* Light border around campaign card */
+  padding: 10px; /* Internal padding for spacing */
+  margin: 10px 0; /* Margin to separate campaign cards */
+
+}
+
+input {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  border: 1px solid #2196F3; /* Blue border for inputs */
+  padding: 8px; /* Padding for clickable area */
+  width: 100%; /* Full width within form field */
+  border-radius: 4px; /* Smooth rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Subtle shadow to stand out from background */
+  background-color: #fff; /* White background for inputs */
+  transition: box-shadow 0.3s ease; /* Smooth transition for shadow */
+}
+
+/* Input Focus Effect with Shadow */
+input:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 8px rgba(33, 150, 243, 0.7); /* Blue shadow on focus */
+  background-color: #fff; /* Maintain white background on focus */
+}
+
+/* Label Styling */
+label {
+  margin-bottom: 5px; /* Space below label */
+  font-weight: bold; /* Emphasize labels */
+  display: block; /* Take full width */
+  text-align: left; /* Align text to the left */
+  color: #333; /* Dark gray for readability */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Light shadow for labels */
+}
+
+/* Button Styling */
+button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #2196F3; /* Blue background color */
+  color: white; /* White text */
+  border: none; /* No button border */
+  border-radius: 4px; /* Smooth rounded corners */
+  padding: 10px 15px; /* Padding for better click area */
+  margin: 5px; /* Margin for spacing */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for color and shadow */
+  box-shadow: 0 4px 6px rgba(33, 150, 243, 0.2); /* Button shadow */
+  background-color: #2196F3; /* Primary button color */
+}
+
+/* Button Hover Effect */
+button:hover {
+  background-color: #1976D2; /* Darker blue on hover */
+  box-shadow: 0 6px 10px rgba(33, 150, 243, 0.3); /* Stronger shadow on hover */
+}
+
+/* Button Focus Effect */
+button:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 0 2px rgba(108, 117, 125, 0.5), 0 0 6px rgba(33, 150, 243, 0.4); /* Enhanced focus shadow */
+}
+
+section {
+  display: flex;
+  flex-direction: column; /* Stack labels and inputs */
+  align-content: center;
+  align-items: center;
+  margin: 15px;
+}
+
+/* Smaller button ("X") styling */
+button.x {
+  background-color: #B0BEC5; /* Grey background for the small button */
+  color: white; /* White text */
+  border: none; /* No border */
+  border-radius: 50%; /* Circular button */
+  padding: 2px; /* Remove extra padding */
+  font-size: 10px; /* Smaller font */
+  align-items: center;
+}
+
+/* Smaller button ("X") Hover Effect */
+button.x:hover {
+  background-color: #90A4AE; /* Darker grey on hover */
+}
+
+/* Smaller button ("X") Focus Effect */
+button.x:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 0 2px rgba(108, 117, 125, 0.5); /* Focus shadow */
+}
+
+.search {
+  margin: 10px 0; /* Margin to separate campaign cards */
+  border: 1px solid #888888; /* Light border around campaign card */
+  background-color: #ddd; /* Light border */
+  background-color: #ddd; /* Light border */
+  border: 1px solid #2196F3; /* Blue border */
+  border-radius: 8px; /* Rounded corners for a modern look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19); /* Stylish shadow */
+}
+
+.list {
+  height: 275px; 
+  width: 250px;
+  overflow-y: auto;
+}
