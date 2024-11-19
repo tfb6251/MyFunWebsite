@@ -1,6 +1,5 @@
 package com.ufund.api.ufundapi.model;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -71,6 +71,10 @@ div {
   margin: 10px 0; /* Margin to separate campaign cards */
   border: 1px solid #888888; /* Light border around campaign card */
   background-color: #ddd; /* Light border */  
+  background-color: #ddd; /* Light border */
+  border: 1px solid #2196F3; /* Blue border */
+  border-radius: 8px; /* Rounded corners for a modern look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19); /* Stylish shadow */
 }
 
 input {
@@ -126,8 +130,4 @@ button:focus {
   box-shadow: 0 0 0 2px rgba(108, 117, 125, 0.5), 0 0 6px rgba(33, 150, 243, 0.4); /* Enhanced focus shadow */
 }
 
-span {
-  display: flex;
-  flex-direction: row; /* Stack labels and inputs */
-  margin: 10px;
-}
+

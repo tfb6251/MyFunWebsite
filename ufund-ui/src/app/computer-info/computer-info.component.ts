@@ -62,8 +62,8 @@ export class ComputerInfoComponent implements OnInit{
   }
 
   delete(): void {
-    if(this.computer?.id) {
-      this.computerService.deleteComputer(this.computer.id)
+    if(this.computer) {
+      this.computerService.deleteComputer(this.computer.id!)
       .subscribe(computer => {
         this.computer = computer;
         this.location.back();  

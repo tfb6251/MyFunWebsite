@@ -73,6 +73,7 @@ div {
   border: 1px solid #ddd; /* Light border around campaign card */
   padding: 10px; /* Internal padding for spacing */
   margin: 10px 0; /* Margin to separate campaign cards */
+
 }
 
 input {
@@ -167,6 +168,10 @@ button.x:focus {
   margin: 10px 0; /* Margin to separate campaign cards */
   border: 1px solid #888888; /* Light border around campaign card */
   background-color: #ddd; /* Light border */
+  background-color: #ddd; /* Light border */
+  border: 1px solid #2196F3; /* Blue border */
+  border-radius: 8px; /* Rounded corners for a modern look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19); /* Stylish shadow */
 }
 
 .list {

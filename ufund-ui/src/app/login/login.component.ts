@@ -33,8 +33,8 @@ export class LoginComponent {
         } else if (this.users.length >= 1) {
           for(let i = 0; this.users.length > i ; i++) {
             if(this.users[i].name == this.username &&
-              this.users[i].password == this.password) {
-              this.userService.login(false, this.users[i].id);
+              this.users[i].password == this.password && this.users[i].id) {
+              this.userService.login(false, this.users[i].id!);
               this.router.navigate(['/home']);
             }
           }

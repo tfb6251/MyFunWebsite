@@ -41,16 +41,10 @@ export class ComputerBasketComponent {
       });
 
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
-    if(this.userService.id() == id) {
       this.userService.getUser(id).subscribe(user => {
         this.user = user;
         this.computers = user.basket.slice(0, 7);  // Limit to first 7 computers in basket      
       });
-    } else {    
-      const text = id;
-      const div = this.el.nativeElement.querySelector('#result');
-      this.renderer.setProperty(div, 'textContent', text);
-    }
   }
 
   // Add a computer to the basket

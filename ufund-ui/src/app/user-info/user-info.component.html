@@ -1,22 +1,28 @@
-<app-banner></app-banner>
-<div *ngIf="user">
-    <h2  *ngIf="user.name">{{user.name}}'s Information </h2>
-    <h2  *ngIf="!user.name">NewUser's Information </h2>
-    <span>
-      <label id="user-id">ID: {{ user.id }}</label>
-    </span>
-    <span>
-      <label for="user-name">User Name: </label>
-      <input id="user-name" [(ngModel)]="user.name" placeholder="User Name"/>
-    </span>
-    <span>
+<body>
+
+  <app-banner></app-banner>
+  <div>
+    <div *ngIf="user" class="computer">
+      <h2  *ngIf="user.name">{{user.name}}'s Information </h2>
+      <h2  *ngIf="!user.name">NewUser's Information </h2>
+    
+      <span>
+        <label id="user-id">ID: {{ user.id }}</label>
+      </span>
+      <span>
+        <label for="user-name">User Name: </label>
+        <input id="user-name" [(ngModel)]="user.name" placeholder="User Name"/>
+      </span>
+      <span>
         <label for="user-password">User Password: </label>
         <input id="user-password" [(ngModel)]="user.password" placeholder="User Password"/>
-    </span>
-    <span>
-    <button type="button" (click)="goBack()">go back</button>
-    <button type="button" (click)="save()">save</button>
-    <button type="button" (click)="delete()">delete</button>
-    </span>
+      </span>
+      <span>
+        <button type="button" (click)="goBack()">go back</button>
+        <button type="button" (click)="save()">save</button>
+      </span>
+    </div>
   </div>
+</body>
+  
   

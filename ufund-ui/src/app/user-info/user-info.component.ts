@@ -29,13 +29,12 @@ export class UserInfoComponent {
   getUser(): void {
     if(this.router.url.includes('/new')) {
         const newUser: User = {      
-          id: 0,
+          id: undefined,
           name: "",
           password: "",
           basket: []
         };
-        this.userService.addUser(newUser)
-        .subscribe(user => this.user = user);
+        this.user = newUser;
     } else {
       const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
       if(this.userService.id() == id) {
@@ -48,7 +47,7 @@ export class UserInfoComponent {
 
   delete(): void {
     if(this.user) {
-      this.userService.deleteUser(this.user.id)
+      this.userService.deleteUser(this.user.id!)
       .subscribe(user => {
         this.user = user;
         this.location.back(); 
@@ -57,16 +56,12 @@ export class UserInfoComponent {
   }
 
   goBack(): void {
-    if(this.router.url.includes('/new')) {
-      this.delete();
-    } else {
-      this.location.back();      
-    }
+    this.location.back(); 
   }
 
   save(): void {
     if (this.user && this.user?.name != "" && this.user?.password != "") {      
-      this.userService.updateUser(this.user)
+      this.userService.addUser(this.user)
       .subscribe(user => this.user = user);
       this.location.back();      
     } else {
