@@ -1,7 +1,6 @@
 package com.ufund.api.ufundapi.controller;
 
 import com.ufund.api.ufundapi.model.User;
-import com.ufund.api.ufundapi.controller.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
