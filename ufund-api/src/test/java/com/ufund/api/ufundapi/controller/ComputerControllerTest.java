@@ -1,7 +1,6 @@
 package com.ufund.api.ufundapi.controller;
 
 import com.ufund.api.ufundapi.model.Computer;
-import com.ufund.api.ufundapi.controller.ComputerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;

@@ -299,10 +299,10 @@ public class ComputerFileDAOTest {
     public void testDeleteComputerExisting() throws IOException {
         // Arrange
         int idToDelete = 1;
-        Computer[] expectedComputersAfterDelete = new Computer[] {
-            testComputers[0],
-            testComputers[2]
-        };
+        // Computer[] expectedComputersAfterDelete = new Computer[] {
+        //     testComputers[0],
+        //     testComputers[2]
+        // };
         
         // Mock ObjectMapper.writeValue to do nothing (simulate successful save)
         doNothing().when(mockObjectMapper).writeValue(eq(new File(testFilename)), any(Computer[].class));
@@ -352,10 +352,10 @@ public class ComputerFileDAOTest {
     public void testDeleteComputerIOException() throws IOException {
         // Arrange
         int idToDelete = 1;
-        Computer[] expectedComputersAfterDelete = new Computer[] {
-            testComputers[0],
-            testComputers[2]
-        };
+        // Computer[] expectedComputersAfterDelete = new Computer[] {
+        //     testComputers[0],
+        //     testComputers[2]
+        // };
         
         // Mock ObjectMapper.writeValue to throw IOException
         doThrow(new IOException("Failed to write to file")).when(mockObjectMapper).writeValue(eq(new File(testFilename)), any(Computer[].class));

@@ -303,10 +303,10 @@ public class UserFileDAOTest {
     public void testDeleteUserExisting() throws IOException {
         // Arrange
         int idToDelete = 1;
-        User[] expectedUsersAfterDelete = new User[] {
-            testUsers[0],
-            testUsers[2]
-        };
+        // User[] expectedUsersAfterDelete = new User[] {
+        //     testUsers[0],
+        //     testUsers[2]
+        // };
         
         // Mock ObjectMapper.writeValue to do nothing (simulate successful save)
         doNothing().when(mockObjectMapper).writeValue(eq(new File(testFilename)), any(User[].class));
