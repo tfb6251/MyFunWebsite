@@ -29,7 +29,7 @@ export class AuthGuard implements CanActivate {
       return true;
     } else if (requiresId) {
       const id = parseInt(route.paramMap.get('id')!, 10); //no snapshot snapshot is active route without is future
-      alert(`/user/${this.userService.id()}/basket`);
+      // alert(`/user/${this.userService.id()}/basket`);
       if(this.userService.id() == id) {
         return true;
       } else {
