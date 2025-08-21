@@ -53,4 +53,14 @@ export class LoginComponent {
       this.renderer.setProperty(div, 'textContent', text);
     }
   }
+
+  ngOnInit() {
+    console.log('ngOnInit called'); // verify component initialization
+  }
+
+  ngAfterViewInit() {
+    console.log('ngAfterViewInit called'); // verify view initialization
+    window.scrollTo(8, 40); // attempt to scroll
+    this.renderer.setStyle(document.body, 'overflow', 'hidden');
+  }
 }
