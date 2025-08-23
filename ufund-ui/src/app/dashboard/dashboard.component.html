@@ -9,7 +9,7 @@
       <section *ngIf="isAdmin" class="list">      
         <p id="result"></p>
         <button *ngFor="let computer of computers" routerLink="/info/{{computer.id}}">
-          <button class="x"(click)="delete(computer); $event.stopPropagation()" *ngIf="isAdmin">X</button>
+          <button class="x"(click)="delete(computer); $event.stopPropagation()">X</button>
           {{computer.name}}
         </button>
     </section> 
@@ -20,6 +20,9 @@
       </button>
   </section> 
     <section *ngIf="isAdmin">
+        <button routerLink="/colony">
+          Colony
+        </button>
         <button routerLink="/info/new">
           New Computer
         </button>

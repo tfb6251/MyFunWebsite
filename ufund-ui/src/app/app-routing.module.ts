@@ -8,6 +8,7 @@ import { ComputerBasketComponent } from './computer-basket/computer-basket.compo
 import { ErrorComponent } from './error/error.component';
 import { AuthGuard } from './auth.guard';
 import { HomeComponent } from './home/home.component';
+import { MyColonyComponent } from './my-colony/my-colony.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'user/:id', component: UserInfoComponent, canActivate: [AuthGuard], data: { idOnly: true }  },
   { path: 'user/:id/basket', component: ComputerBasketComponent, canActivate: [AuthGuard], data: { idOnly: true }},
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'colony', component: MyColonyComponent, canActivate: [AuthGuard] },
   { path: 'error', component: ErrorComponent },
   { path: '**', redirectTo: '/error' }
 ];
