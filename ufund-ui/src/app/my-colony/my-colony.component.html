@@ -1,1 +1,10 @@
 <p>my-colony works!</p>
+<div class="search">
+    
+    <input type="text" placeholder="Search Computers..." 
+    [(ngModel)]="res" (input)="prev(res)" (keyup.enter)="search(res)"/>
+    <ul>
+  <li *ngFor="let suggestion of suggestions">{{ suggestion }}</li>
+</ul>
+    <p id="result"></p>
+</div>
