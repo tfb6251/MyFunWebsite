@@ -6,6 +6,7 @@
   padding: 0;
   border: 0;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 html, body {
@@ -28,7 +29,8 @@ body {
     background-color: #333;
     color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-
+    border: 1px solid #888888; /* Light border around campaign card */
+    border-radius: 3px;
     top: 0;
     left: 0;
     position: fixed;

@@ -1,4 +1,4 @@
-import { Computer } from "./computer";
+import { Computer } from "../computer/computer";
 
 export interface User {   
     id : number | undefined; 

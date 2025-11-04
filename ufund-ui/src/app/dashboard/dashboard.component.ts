@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
-import { Computer } from '../computer';
-import { ComputerService } from '../computer.service';
-import { UserService } from '../user.service';
+import { Computer } from '../computer/computer';
+import { ComputerService } from '../computer/computer.service';
+import { UserService } from '../user/user.service';
 import { Router } from '@angular/router';
 
 @Component({

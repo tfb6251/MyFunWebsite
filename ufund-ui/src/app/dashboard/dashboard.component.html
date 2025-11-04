@@ -1,5 +1,78 @@
-<app-banner></app-banner>
-<div class="head">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate for Computer Needs</title>
+</head>
+
+
+<body>
+    <app-banner></app-banner>
+
+    <div class = "head">
+        <header class = "header">
+            <h1>Help Others Get Access to Technology</h1>
+            <p>Make a Difference by Donating for Computer Needs</p>
+        </header>
+    </div>
+
+    <div class="content">
+        <section class="intro">
+
+            <h2>Welcome!</h2>
+            <p>Our mission is to help people in need gain access to essential technology, like computers, for education, work, and personal development. Join us in making a difference by contributing to donation campaigns that support this cause.</p>
+
+        </section>
+        <section *ngIf="isAdmin" class="list">
+
+            <h2>Computer Cupboard</h2>
+            <input type="text" placeholder="Search Computers..." 
+        [(ngModel)]="searchTerm" (input)="filterComputers(searchTerm)"/>
+            <div class="computer" *ngFor="let computer of computers" >
+                <h3>{{computer.name}}</h3>
+                <p>{{computer.description}}</p>
+                <button routerLink="/info/{{computer.id}}">
+                  Donate Now<button class="x"(click)="delete(computer); $event.stopPropagation()">
+                 X</button>
+                </button>
+            </div>  
+
+            <div class="rowbutton">
+              <button routerLink="/colony">
+                Colony
+              </button>
+              <button routerLink="/info/new">
+                New Computer
+              </button>          
+            </div>
+
+        </section>
+
+        <section *ngIf="!isAdmin" class="list">
+
+            <h2>Computer Cupboard</h2>
+            <div class="computer" *ngFor="let computer of computers" >
+                <h3>{{computer.name}}</h3>
+                <p>{{computer.description}}</p>
+                <button routerLink="/info/{{computer.id}}">
+                  Donate Now
+                </button>
+            </div> 
+
+            <section class="rowbutton">
+              <button routerLink="/user/{{id}}/basket">
+                Basket
+              </button>     
+
+            </section>
+        </section>
+    </div>
+    <footer class="content" style="background-color: #f1f1f1; text-align: center; padding: 10px; margin-top: 20px;">
+        <p>&copy; 2024 Donate for Computer Needs. All rights reserved.</p>
+    </footer>
+
+<div class="content">
   <h2 >Computer Cupboard</h2>
     <div class="search">
       <span>
@@ -34,3 +107,5 @@
   </section>
     </div>
 </div>
+</body>
+</html>

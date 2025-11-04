@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { ComputerService } from '../computer.service';
-import { UserService } from '../user.service';
+import { ComputerService } from '../computer/computer.service';
+import { UserService } from '../user/user.service';
 import { Router } from '@angular/router';
-import { Computer } from '../computer';
+import { Computer } from '../computer/computer';
 
 @Component({
   selector: 'app-home',

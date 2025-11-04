@@ -1,8 +1,8 @@
 import { Component, ElementRef, Renderer2 } from '@angular/core';
-import { Computer } from '../computer';
-import { ComputerService } from '../computer.service';
-import { User } from '../user';
-import { UserService } from '../user.service';
+import { Computer } from '../computer/computer';
+import { ComputerService } from '../computer/computer.service';
+import { User } from '../user/user';
+import { UserService } from '../user/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 

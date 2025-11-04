@@ -21,11 +21,11 @@ import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("user")
-public class UserBasket{
-    private static final Logger LOG = Logger.getLogger(UserBasket.class.getName());
+public class UserController{
+    private static final Logger LOG = Logger.getLogger(UserController.class.getName());
     private UserService Service;
 
-    public UserBasket(UserService Service) {
+    public UserController(UserService Service) {
         this.Service = Service;
     }
 

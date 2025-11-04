@@ -2,8 +2,8 @@ import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { UserService } from '../user.service';
-import { User } from '../user';
+import { UserService } from '../user/user.service';
+import { User } from '../user/user';
 
 @Component({
   selector: 'app-user-info',

@@ -2,9 +2,9 @@ import { Component, ElementRef, HostListener, OnInit, Renderer2 } from '@angular
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { UserService } from '../user.service';
-import { ComputerService } from '../computer.service';
-import { Computer } from '../computer';
+import { UserService } from '../user/user.service';
+import { ComputerService } from '../computer/computer.service';
+import { Computer } from '../computer/computer';
 
 @Component({
   selector: 'app-computer-info',

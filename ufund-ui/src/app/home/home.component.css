@@ -1,11 +1,13 @@
 /* General Reset - Remove default margin, padding, and border */
 * {
-    font-family: 'Times New Roman', Times, serif; /* Set a classic font */
-    margin: 0;
-    padding: 0;
-    border: 0;
-    box-sizing: border-box; /* Ensure consistent sizing for all elements */
-  }
+  font-family: 'Times New Roman', Times, serif; /* Set a classic font */
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box; /* Ensure consistent sizing for all elements */
+  overflow: hidden;
+}
+
   
   /* Full Height Setup for Body and HTML */
   html, body {
@@ -13,11 +15,30 @@
     height: 100%;
   }
   
+  html {
+  height: 100vh;
+  width: 100vw;
+  
+  
+  background-image: url(/assets/tree.jpg); /* your image path */
+  background-size: 50%; /* scale the image to cover the screen */
+  background-position: left; /* center the image */
+  background-repeat: repeat; /* prevent tiling */
+
+  display: flex;            /* enable flexbox */
+  flex-direction: column;
+  justify-content: center   ;
+  align-items: center;      /* vertical centering */
+  
+
+}
+  
   /* Body Styles */
   body {
     overflow-x: hidden; /* Prevents horizontal scroll overflow */
     margin: 0;
     padding: 0;
+    width: 62.5%;
   }
   
   /* Header Styling */
@@ -30,6 +51,7 @@
     width: 50%; /* Centered half-width header */
     align-items: center;
     text-align: center; /* Centered text */
+    border-radius: 3px;
   }
   
   /* Center Text for Headings and Span Elements */
@@ -50,6 +72,8 @@
     border-radius: 8px; /* Rounded corners for a modern look */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19); /* Stylish shadow */
   }
+
+  
   
   /* Input and Label Wrapper Styling */
   div {
@@ -64,14 +88,21 @@
   /* Header Section with Border Styling */
   .head {
     border: 0px;
+    margin-top: 6%;
+    border-radius: 3px;
   }
   
   /* Campaign Section Styling */
   .computer {
-      padding: 10px; /* Internal padding for spacing */
-      margin: 10px 0; /* Margin to separate campaign cards */
-      border: 1px solid #888888; /* Light border around campaign card */
       background-color: #ddd; /* Light border */
+  }
+
+  .content {
+    border: 1px solid #888888; /* Light border around campaign card */
+    background-color: #ddd; /* Light border */
+    padding: 10px; /* Internal padding for spacing */
+    margin: 10px 0; /* Margin to separate campaign cards */
+    border-radius: 3px;
   }
   
   input {
