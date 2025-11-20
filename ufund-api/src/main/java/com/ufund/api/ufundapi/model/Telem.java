@@ -8,7 +8,7 @@ public class Telem {
     @JsonProperty("d1")
     private int d1;
     @JsonProperty("d2")
-    private int d;
+    private int d2;
     @JsonProperty("d3")
     private int d3;
     @JsonProperty("d4")
