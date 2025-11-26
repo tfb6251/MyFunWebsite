@@ -5,23 +5,34 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Telem {
-    @JsonProperty("d1")
-    private int d1;
-    @JsonProperty("d2")
-    private int d2;
-    @JsonProperty("d3")
-    private int d3;
-    @JsonProperty("d4")
-    private int d4;
+    @JsonProperty("Temp")
+    private float Temp;
+    @JsonProperty("Pres")
+    private float Pres;
+    @JsonProperty("Humi")
+    private float Humi;
+    @JsonProperty("Alti")
+    private float Alti;
+    @JsonProperty("Dcm")
+    private float Dcm;
+    @JsonProperty("Din")
+    private float Din;
+    @JsonProperty("Time")
+    private float Time;
 
-    public User(@JsonProperty("id") int id, @JsonProperty("name") String name,
-     @JsonProperty("password") String password,  @JsonProperty("basket") Computer[] basket)
-    {
-        this.id = id;
-        this.name = name;
-        this.password = password;
-        this.basket = basket;
+    public Telem(@JsonProperty("Temp") float Temp, @JsonProperty("Pres") float Pres,
+    @JsonProperty("Humi") float Humi, @JsonProperty("Alti") float Alti,
+    @JsonProperty("Dcm") float Dcm, @JsonProperty("Din") float Din,
+     @JsonProperty("Din") float Time) {
+        this.Temp = Temp;
+        this.Pres = Pres;
+        this.Humi = Humi;
+        this.Alti = Alti;
+        this.Dcm = Dcm;
+        this.Din = Din;
+        this.Time = Time;
     }
+
 
     public int getId() {
         return this.id;
