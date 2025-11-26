@@ -17,20 +17,20 @@ public class Telem {
     private float Dcm;
     @JsonProperty("Din")
     private float Din;
-    @JsonProperty("Time")
-    private float Time;
+    @JsonProperty("Dt")
+    private float Dt;
 
     public Telem(@JsonProperty("Temp") float Temp, @JsonProperty("Pres") float Pres,
     @JsonProperty("Humi") float Humi, @JsonProperty("Alti") float Alti,
     @JsonProperty("Dcm") float Dcm, @JsonProperty("Din") float Din,
-     @JsonProperty("Din") float Time) {
+     @JsonProperty("Dt") float Dt) {
         this.Temp = Temp;
         this.Pres = Pres;
         this.Humi = Humi;
         this.Alti = Alti;
         this.Dcm = Dcm;
         this.Din = Din;
-        this.Time = Time;
+        this.Dt = Dt;
     }
 
 
@@ -38,15 +38,15 @@ public class Telem {
         return this.id;
     }
 
-    public String getName() {
+    public float getName() {
         return this.name;
     }
 
-    public String getPassword() {
+    public float getPassword() {
         return this.password;
     }
 
-    public Computer[] getBasket() {
+    public float[] getPer) {
         return this.basket;
     }
 
