@@ -9,6 +9,7 @@ import { ErrorComponent } from './error/error.component';
 import { AuthGuard } from './auth.guard';
 import { HomeComponent } from './home/home.component';
 import { MyColonyComponent } from './my-colony/my-colony.component';
+import { DispTelemComponent } from './disp-telem/disp-telem.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'colony', component: MyColonyComponent, canActivate: [AuthGuard] },
   { path: 'error', component: ErrorComponent },
+  { path: 'disptelem', component: DispTelemComponent, canActivate: [AuthGuard]},
   { path: '**', redirectTo: '/error' }
 ];
 

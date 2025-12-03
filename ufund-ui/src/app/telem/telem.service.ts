@@ -6,6 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Telem } from './telem';
 import { MessageService } from '../message.service';
+import { interval, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,13 @@ export class TelemService {
       private http: HttpClient,
       private messageService: MessageService     
     ) { }
+
+    getDistance(): Observable<any> {
+      // Poll every 500ms
+      return interval(500).pipe(
+        switchMap(() => this.http.get('http://localhost:3000/distance'))
+      );
+    }
   
     getTelems(): Observable<Telem[]> {
       return this.http.get<Telem[]>(this.telemsUrl)

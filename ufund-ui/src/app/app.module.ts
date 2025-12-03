@@ -16,6 +16,7 @@ import { HttpErrorInterceptor } from './http-error.interceptor';
 import { HomeComponent } from './home/home.component';
 import { BannerComponent } from './banner/banner.component';
 import { MyColonyComponent } from './my-colony/my-colony.component';
+import { DispTelemComponent } from './disp-telem/disp-telem.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MyColonyComponent } from './my-colony/my-colony.component';
     ErrorComponent,
     HomeComponent,
     BannerComponent,
-    MyColonyComponent
+    MyColonyComponent,
+    DispTelemComponent
   ],
   imports: [
     BrowserModule,

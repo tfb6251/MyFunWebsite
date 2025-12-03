@@ -1,0 +1,192 @@
+
+
+
+/* General Reset - Remove default margin, padding, and border */
+* {
+  font-family: 'Times New Roman', Times, serif; /* Set a classic font */
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box; /* Ensure consistent sizing for all elements */
+  overflow: hidden;
+}
+
+  
+  /* Full Height Setup for Body and HTML */
+  html, body {
+    width: 100%;
+    height: 100%;
+  }
+  
+  html {
+  height: 100vh;
+  width: 100vw;
+  
+  
+  background-image: url(/assets/tree.jpg); /* your image path */
+  background-size: 50%; /* scale the image to cover the screen */
+  background-position: left; /* center the image */
+  background-repeat: repeat; /* prevent tiling */
+
+  display: flex;            /* enable flexbox */
+  flex-direction: column;
+  justify-content: center   ;
+  align-items: center;      /* vertical centering */
+  
+
+}
+  
+  /* Body Styles */
+  body {
+    overflow-x: hidden; /* Prevents horizontal scroll overflow */
+    margin: 0;
+    padding: 0;
+    width: 62.5%;
+  }
+  
+  
+  /* Center Text for Headings and Span Elements */
+  h2, h6, span {
+    text-align: center;
+  }
+  
+  /* Form Styling */
+  form {
+    display: flex; /* Flexbox layout for easy centering */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center all form items horizontally */
+    border: 1px solid #2196F3; /* Blue border */
+    padding: 20px; /* Padding for internal spacing */
+    max-width: 288px; /* Set max-width for consistent form size */
+    margin: 20px auto; /* Center form on the page */  
+    background-color: #ddd; /* Light background */
+    border-radius: 8px; /* Rounded corners for a modern look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19); /* Stylish shadow */
+  }
+  
+  /* Input and Label Wrapper Styling */
+  div {
+    display: flex;
+    flex-direction: column; /* Stack labels and inputs */
+    border: 1px solid #ddd; /* Light border */
+    align-items: center; /* Center items within the div */
+    padding: 10px; /* Padding for spacing */
+    margin: 10px 0; /* Margin to separate fields */
+  }
+  
+  
+  input {
+    border: 1px solid #2196F3; /* Blue border for inputs */
+    padding: 8px; /* Padding for clickable area */
+    width: 100%; /* Full width within form field */
+    border-radius: 4px; /* Smooth rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Subtle shadow to stand out from background */
+    background-color: #fff; /* White background for inputs */
+    transition: box-shadow 0.3s ease; /* Smooth transition for shadow */
+  }
+  
+  /* Input Focus Effect with Shadow */
+  input:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 8px rgba(33, 150, 243, 0.7); /* Blue shadow on focus */
+    background-color: #fff; /* Maintain white background on focus */
+  }
+  
+  /* Label Styling */
+  label {
+    font-weight: bold; /* Emphasize labels */
+    margin-bottom: 5px; /* Space below label */
+    display: block; /* Take full width */
+    text-align: left; /* Align text to the left */
+    color: #333; /* Dark gray for readability */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Light shadow for labels */
+  }
+  
+  /* Button Styling */
+  button {
+    background-color: #2196F3; /* Blue background color */
+    color: white; /* White text */
+    border: none; /* No button border */
+    border-radius: 4px; /* Smooth rounded corners */
+    padding: 10px 15px; /* Padding for better click area */
+    margin: 5px; /* Margin for spacing */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for color and shadow */
+    box-shadow: 0 4px 6px rgba(33, 150, 243, 0.2); /* Button shadow */
+    background-color: #2196F3; /* Primary button color */
+  }
+  
+  /* Button Hover Effect */
+  button:hover {
+    background-color: #1976D2; /* Darker blue on hover */
+    box-shadow: 0 6px 10px rgba(33, 150, 243, 0.3); /* Stronger shadow on hover */
+  }
+  
+  /* Button Focus Effect */
+  button:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 2px rgba(108, 117, 125, 0.5), 0 0 6px rgba(33, 150, 243, 0.4); /* Enhanced focus shadow */
+  }
+  
+  /* Header Section with Border Styling */
+  .head {
+    border: 0px;
+    margin-top: 6%;
+    border-radius: 3px;
+  }
+
+  .x {
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    margin-left: 6px;
+    font-weight:    bolder;
+  }
+  
+  /* Campaign Section Styling */
+  .computer {
+    
+      background-color: #ddd; /* Light border */
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #888888; /* Light border around campaign card */
+    background-color: #ddd; /* Light border */
+    padding: 10px; /* Internal padding for spacing */
+    margin: 10px 0; /* Margin to separate campaign cards */
+    border-radius: 3px;
+  }
+
+  .rowbutton {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;  
+    justify-content: center; /* centers horizontally */
+    align-items: center; 
+  }
+  
+    /* Header Styling */
+  .header {
+    margin-top: 10px;
+    background-color: #2196F3; /* Blue background */
+    border: 1px solid #ddd; /* Light border for subtle definition */
+    color: white; /* White text for contrast */
+    padding: 10px;
+    width: 50%; /* Centered half-width header */
+    align-items: center;
+    text-align: center; /* Centered text */
+    border-radius: 3px;
+  }
+  
+
+  .sensor-card {
+  background: #f0f8ff;
+  padding: 20px;
+  border-radius: 8px;
+  font-size: 1.4rem;
+  width: 250px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
