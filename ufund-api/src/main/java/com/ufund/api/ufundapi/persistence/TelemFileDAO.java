@@ -10,6 +10,7 @@ import java.util.TreeMap;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ufund.api.ufundapi.model.Telem;
 
@@ -79,9 +80,53 @@ public class TelemFileDAO implements TelemDAO {
     public Telem[] findTelems(String type, float term) {
         synchronized (telemMap) {
             ArrayList<Telem> telemList = new ArrayList<>();
-            for (Telem telemMap : telemMap.values()) {
-                if (term == null || telemMap.getName().contains(term)) {
-                    telemList.add(telemMap);
+            for (Telem telem : telemMap.values()) {
+                boolean match = false;
+                if (type == null) {
+                    telemList.add(telem);
+                    continue;
+                }
+
+                switch (type.toLowerCase()) {
+                    case "id":
+                        match = telem.getId() == (int) term;
+                        break;
+                
+                    case "temperature":
+                        match = telem.getTemp() == term;
+                        break;
+                
+                    case "pressure":
+                        match = telem.getPres() == term;
+                        break;
+                
+                    case "humidity":
+                        match = telem.getHumi() == term;
+                        break;
+                
+                    case "altitude":
+                        match = telem.getAlti() == term;
+                        break;                    
+                
+                
+                    case "dcm":    
+                        match = telem.getDcm() == term;
+                        break;
+                
+                    case "din":    
+                        match = telem.getDin() == term;
+                        break;
+                
+                    case "dt":    
+                        match = telem.getDt() == term;
+                        break;
+                
+                    default:
+                        // unknown type → skip or handle error
+                        break;
+                }
+                if (match) {
+                    telemList.add(telem);
                 }
             }
     
@@ -94,8 +139,9 @@ public class TelemFileDAO implements TelemDAO {
     public Telem createTelem(Telem telem) throws IOException {
         synchronized (telemMap) {
             int newId = nextId();
-            Telem newTelem = new Telem(newId, computer.getName(), computer.getCost(),
-            telem.getQuantity(), telem.getBrand(), telem.getDescription());
+            Telem newTelem = new Telem(newId, telem.getTemp(),telem.getPres(), 
+            telem.getHumi(), telem.getAlti(), telem.getDcm(), telem.getDin(),
+            telem.getDt());
 
             telemMap.put(newId,newTelem);
             try {
