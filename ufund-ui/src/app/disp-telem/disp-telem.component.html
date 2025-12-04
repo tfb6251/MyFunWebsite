@@ -1,5 +1,31 @@
-<p>disp-telem works!</p>
-<div class="sensor-card">
-  <h2>Ultrasonic Distance</h2>
-  <p>{{ distance }} cm</p>
-</div>
+<!DOCTYPE html>
+<html lang="en" onload="window.scrollTo(0, 0)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate for Computer Needs</title>
+</head>
+
+
+<body>
+    <app-banner></app-banner>
+
+    <div class = "head">
+        <header class = "header">
+            <h1>Learn to make a Hardware to Software Pipline</h1>
+            <p>With HC-SR04 and MSP432 and an Angular Tour of Heroes Implementation</p>
+        </header>
+    </div>
+            <div class="sensor-card">
+              <h2>Ultrasonic Distance</h2>
+              <p>{{ data.ft }} feet </p>
+              <p>{{ data.m }} meters </p>
+              <p>{{ data.in }} inches </p>
+              <p>{{ data.cm }} centimeters </p>
+              <p>{{ data.us }} microseconds </p>
+            </div>
+</body>
+<footer class="content" style="background-color: #f1f1f1; text-align: center; padding: 10px; margin-top: 20px;">
+    <p>&copy; 2025 Personal Development Webpage. All rights reserved.</p>
+</footer>
+</html>

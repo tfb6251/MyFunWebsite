@@ -12,9 +12,9 @@ import { Computer } from '../computer/computer';
   styleUrl: './computer-info.component.css'
 })
 export class ComputerInfoComponent implements OnInit{
-  @HostListener('window:keyup.enter', ['$event'])
-  handleEnterKey(event: KeyboardEvent): void {
-    if(this.isAdmin) {
+  @HostListener('window:keyup.enter')
+  handleEnterKey(): void {
+    if (this.isAdmin) {
       this.save();
     } else {
       this.addBasket();

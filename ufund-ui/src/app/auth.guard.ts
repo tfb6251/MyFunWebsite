@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRouteSnapshot, CanActivate, ActivatedRoute, RouterStateSnapshot} from '@angular/router';
-import { UserService } from './user.service';  // Your existing service to track user
+import { UserService } from './user/user.service';  
 
 @Injectable({
   providedIn: 'root'

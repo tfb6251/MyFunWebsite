@@ -5,7 +5,8 @@ import { UserService } from '../user/user.service';
 import { Router } from '@angular/router';
 
 import { HttpClient } from '@angular/common/http';
-import { Observable, interval, switchMap } from 'rxjs'; 
+import { Observable, interval, of, switchMap } from 'rxjs'; 
+import { DistanceData } from '../telem/distanceData';
 
 
 @Component({
@@ -14,33 +15,26 @@ import { Observable, interval, switchMap } from 'rxjs';
   styleUrl: './disp-telem.component.css'
 })
 export class DispTelemComponent implements OnInit {
+  isAdmin: Boolean = false;
+  id: number | undefined;
+  data: DistanceData = {
+    ft: 0,
+    m: 0,
+    in: 0,
+    cm: 0,
+    us: 0
+  };
+  errorMessage: string = '';
 
-  distance: string = '';
-
-  constructor(private telemService: TelemService) {}
+  constructor(
+    private telemService: TelemService,
+    private userService: UserService) {}
 
   ngOnInit() {
-    this.telemService.getDistance().subscribe(data => {
-      this.distance = data.distance;
-    });
+    this.isAdmin = this.userService.isAdmined();
+    this.id = this.userService.id();
+    this.telemService.getDistance().subscribe(d => {
+    this.data = d;
+  });
   }
-
-    // getUser(): void {
-    //   if(this.router.url.includes('/new')) {
-    //       const newUser: User = {      
-    //         id: undefined,
-    //         name: "",
-    //         password: "",
-    //         basket: []
-    //       };
-    //       this.user = newUser;
-    //   } else {
-    //     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
-    //     if(this.userService.id() == id) {
-    //       this.userService.getUser(id).subscribe(user => this.user = user);
-    //     } else {    
-    //       this.router.navigate(['/home']);
-    //     }
-    //   }
-    // }
 }

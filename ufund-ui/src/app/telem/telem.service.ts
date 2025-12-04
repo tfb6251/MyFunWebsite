@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Telem } from './telem';
+import { DistanceData } from './distanceData';
 import { MessageService } from '../message.service';
 import { interval, switchMap } from 'rxjs';
 
@@ -16,19 +17,31 @@ export class TelemService {
   
   httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+  };
   
-    constructor(
-      private http: HttpClient,
-      private messageService: MessageService     
-    ) { }
+  constructor(
+    private http: HttpClient,
+    private messageService: MessageService     
+  ) { }
 
-    getDistance(): Observable<any> {
-      // Poll every 500ms
-      return interval(500).pipe(
-        switchMap(() => this.http.get('http://localhost:3000/distance'))
-      );
-    }
+  getDistance(): Observable<DistanceData> {
+    // Poll every 500ms
+    return interval(500).pipe(
+      switchMap(() =>
+        this.http.get<DistanceData>('http://localhost:3000/distance').pipe(
+          catchError(
+            this.handleError<DistanceData>('getDistance', {
+              ft: 0,
+              m: 0,
+              in: 0,
+              cm: 0,
+              us: 0
+            })
+          )
+        )
+      )
+    )
+  }
   
     getTelems(): Observable<Telem[]> {
       return this.http.get<Telem[]>(this.telemsUrl)

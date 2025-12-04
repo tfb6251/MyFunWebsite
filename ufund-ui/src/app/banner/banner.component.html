@@ -3,6 +3,7 @@
       <h1>Computers for Community Progress</h1>
     </div>
     <nav class="nav">
+      <button routerLink="/disptelem" *ngIf="isAdmin">Telem</button>
       <button routerLink="/home">Home</button>
       <button routerLink="/dashboard">Dashboard</button>
       <button (click)="logout()">Logout</button>
